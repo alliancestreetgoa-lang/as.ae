@@ -1,0 +1,137 @@
+import type { Metadata } from "next";
+import { Navbar } from "@/components/Navbar";
+import { GradientHero } from "@/components/GradientHero";
+import { Collaborate } from "@/components/Collaborate";
+import { AsSeenIn } from "@/components/AsSeenIn";
+import { Footer } from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: "Contact UAE Business Setup Experts | Dubai | Alliance Street",
+  description:
+    "Get in touch with Alliance Street. Offices across the UAE (Dubai, Ras Al Khaimah) and Europe (UK, Germany, Austria, Slovakia).",
+};
+
+interface Office {
+  country: string;
+  city: string;
+  address: string;
+  phone: string;
+  email: string;
+}
+
+const REGIONS: { region: string; offices: Office[] }[] = [
+  {
+    region: "United Arab Emirates",
+    offices: [
+      {
+        country: "Dubai",
+        city: "Dubai",
+        address: "Oxford Tower 104, Business Bay",
+        phone: "+971 4 262 7928",
+        email: "info@alliancestreet.ae",
+      },
+      {
+        country: "Ras Al Khaimah",
+        city: "Ras Al Khaimah",
+        address: "T1-SF-6B RAKEZ, Amenity Center, Al Hamra FZ",
+        phone: "+971 7 207 7052",
+        email: "info@alliancestreet.ae",
+      },
+    ],
+  },
+  {
+    region: "Europe",
+    offices: [
+      {
+        country: "United Kingdom",
+        city: "United Kingdom",
+        address: "Pine Tree House Gardiners Close, Basildon",
+        phone: "+44 07427 431400",
+        email: "info@alliancestreet.ae",
+      },
+      {
+        country: "Germany",
+        city: "Germany",
+        address: "Garmischer Str. 4, 80339 Munich",
+        phone: "+49 89 250066266",
+        email: "info@alliancestreet.ae",
+      },
+      {
+        country: "Austria",
+        city: "Austria",
+        address: "Schloßbergstraße 1, 6370 Kitzbühel",
+        phone: "+43 1 742501006",
+        email: "info@alliancestreet.ae",
+      },
+      {
+        country: "Slovakia",
+        city: "Slovakia",
+        address: "Zizkova 4D, Kosice",
+        phone: "+421 908 996 667",
+        email: "info@alliancestreet.ae",
+      },
+    ],
+  },
+];
+
+export default function ContactUsPage() {
+  return (
+    <>
+      <Navbar />
+      <main>
+        <GradientHero
+          title="Get in Touch"
+          subtitle="We stay at the forefront of international tax regulations, ensuring that your business has access to the latest benefits and opportunities."
+          cta="How can we help?"
+        />
+
+        {/* Offices */}
+        <section className="bg-white py-24">
+          <div className="as-container">
+            <p className="as-eyebrow mb-12">
+              OUR <span className="accent">PRESENCE</span>
+            </p>
+
+            <div className="space-y-16">
+              {REGIONS.map((r) => (
+                <div key={r.region}>
+                  <h2 className="mb-8 text-[28px] font-semibold tracking-[-0.02em] text-black">
+                    {r.region}
+                  </h2>
+                  <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+                    {r.offices.map((o) => (
+                      <div key={o.country} className="border-t border-black/10 pt-6">
+                        <h3 className="mb-3 text-xl font-semibold text-black">
+                          {o.country}
+                        </h3>
+                        <p className="text-[15px] leading-relaxed text-as-muted">
+                          {o.address}
+                        </p>
+                        <a
+                          href={`tel:${o.phone.replace(/\s/g, "")}`}
+                          className="mt-2 block text-[15px] text-black hover:text-as-red"
+                        >
+                          {o.phone}
+                        </a>
+                        <a
+                          href={`mailto:${o.email}`}
+                          className="block text-[15px] text-as-red"
+                        >
+                          {o.email}
+                        </a>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <Collaborate />
+        <AsSeenIn />
+      </main>
+      <Footer />
+    </>
+  );
+}
