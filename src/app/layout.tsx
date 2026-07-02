@@ -16,13 +16,16 @@ const poppins = Poppins({
   display: "swap",
 });
 
+// Metadata icons are not auto-prefixed with basePath, so add it explicitly.
+const basePath = process.env.NODE_ENV === "production" ? "/as.ae" : "";
+
 export const metadata: Metadata = {
   title: "Business Setup in Dubai & UAE | Alliance Street",
   description:
     "Alliance Street helps entrepreneurs with UAE company formation, free zone & mainland setup, banking, tax, visas, and compliance end-to-end support.",
   icons: {
-    icon: "/images/favicon-32.png",
-    apple: "/images/favicon-32.png",
+    icon: `${basePath}/images/favicon-32.png`,
+    apple: `${basePath}/images/favicon-32.png`,
   },
 };
 

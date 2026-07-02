@@ -11,7 +11,10 @@ const nextConfig: NextConfig = {
   assetPrefix: isProd ? `/${repo}/` : "",
   trailingSlash: true, // so /banking resolves to /banking/index.html on Pages
   images: {
-    unoptimized: true, // GitHub Pages has no Next image optimizer
+    // Custom loader prepends basePath to image src (unoptimized images don't
+    // get basePath automatically, which 404s them under /as.ae on Pages).
+    loader: "custom",
+    loaderFile: "./image-loader.ts",
   },
 };
 
