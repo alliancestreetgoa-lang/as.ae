@@ -247,4 +247,20 @@
       transform: rotate(-360deg);
     }
   }
+
+  /* AsSeenIn press marquee: N adjacent duplicate track `<div>`s all run this
+     identical translateX loop in lockstep, so as one track slides fully
+     off-screen the next (already positioned right after it) takes its
+     place with no visible seam. `--as-marquee-gap` must be the same value
+     used for the flex `gap` between/within tracks (set inline via the
+     `[gap:var(--as-marquee-gap)]` utility in AsSeenIn.tsx) so the loop
+     distance exactly matches one track's width plus its trailing gap. */
+  @keyframes as-marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-100% - var(--as-marquee-gap, 4rem)));
+    }
+  }
 }
