@@ -225,4 +225,26 @@
     font-size: 1.05rem;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
+
+  /* Collaborate orbit: continuous rotation for the ring containers
+     (as-orbit) and its mirror (as-orbit-reverse), used together so an
+     avatar's own counter-rotation exactly cancels its parent ring's spin
+     and stays upright. Referenced via Tailwind arbitrary `animate-[...]`
+     utilities in Collaborate.tsx, paired with `motion-reduce:[animation:none]`. */
+  @keyframes as-orbit {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes as-orbit-reverse {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(-360deg);
+    }
+  }
 }
