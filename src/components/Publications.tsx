@@ -62,10 +62,12 @@ export function Publications() {
           </p>
         </Reveal>
 
-        {/* Horizontally scrolling press cards */}
+        {/* Press cards — a clean vertical stack on mobile/tablet (every card
+            fully visible, nothing clipped), becoming the signature horizontal
+            snap-scroll rail beside the sticky intro at lg. */}
         <div className="min-w-0">
           <div
-            className="-mx-6 flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-6 sm:-mx-8 sm:px-8 lg:mx-0 lg:px-0 lg:pr-2 [scrollbar-color:var(--color-as-red)_transparent] [scrollbar-width:thin] [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-as-red/40 [&::-webkit-scrollbar-track]:bg-transparent"
+            className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:flex lg:snap-x lg:snap-mandatory lg:-mr-2 lg:gap-6 lg:overflow-x-auto lg:pb-6 lg:pr-2 lg:[scrollbar-color:var(--color-as-red)_transparent] lg:[scrollbar-width:thin] lg:[&::-webkit-scrollbar]:h-1.5 lg:[&::-webkit-scrollbar-thumb]:rounded-full lg:[&::-webkit-scrollbar-thumb]:bg-as-red/40 lg:[&::-webkit-scrollbar-track]:bg-transparent"
           >
             {PUBLICATIONS.map((pub, i) => (
               <Reveal
@@ -73,7 +75,7 @@ export function Publications() {
                 key={pub.title}
                 y={24}
                 delay={i * 0.06}
-                className="group w-[85vw] shrink-0 snap-start sm:w-[400px] lg:w-[420px]"
+                className="group w-full shrink-0 lg:w-[420px] lg:snap-start"
               >
                 <div className="h-full overflow-hidden rounded-[20px] border border-white/10 bg-white/[0.03] transition-colors group-hover:border-as-red/50">
                   <div className="relative aspect-[16/10] w-full overflow-hidden bg-white/5">
