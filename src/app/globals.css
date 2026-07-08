@@ -11,15 +11,15 @@
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
   --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
   --font-heading: var(--font-fraunces), Georgia, serif;
-  /* Alliance Street brand palette */
+  /* Alliance Street brand palette — Modern Institutional Red */
+  --color-as-ink: #101014;
   --color-as-red: #e22e34;
   --color-as-red-bright: #f13232;
-  --color-as-ink: #171719;
-  --color-as-black: #000000;
-  --color-as-muted: #9b9ba6;
-  --color-as-gray: #afafaf;
-  --color-as-light: #fafafa;
-  --color-as-line: #eff0f0;
+  --color-as-canvas: #FAFAF8;
+  --color-as-line: #ecebe7;
+  --color-as-muted: #6f6f78;
+  /* Legacy alias: un-migrated sections still reference bg-as-light; map to new canvas */
+  --color-as-light: var(--color-as-canvas);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
