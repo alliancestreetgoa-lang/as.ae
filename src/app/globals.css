@@ -7,10 +7,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-poppins: var(--font-poppins), "Poppins", ui-sans-serif, sans-serif;
-  --font-mono: ui-monospace, monospace;
-  --font-heading: var(--font-inter), "Inter", sans-serif;
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-heading: var(--font-fraunces), Georgia, serif;
   /* Alliance Street brand palette */
   --color-as-red: #e22e34;
   --color-as-red-bright: #f13232;
