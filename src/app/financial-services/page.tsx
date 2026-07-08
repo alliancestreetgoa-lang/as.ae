@@ -74,7 +74,7 @@ export default function FinancialServicesPage() {
           subtitle="Getting a mortgage doesn't have to be complicated. At Alliance Street, we cut the noise and deliver solutions banks can't."
         />
         <FeatureGrid
-          eyebrow="HERE'S WHY WE'RE YOUR GO-TO FOR FUNDING:"
+          eyebrow="HERE'S WHY WE'RE YOUR GO-TO FOR FUNDING"
           title="First-time buyer? Refinancing? Doesn't matter—we've got you."
           features={FEATURES}
         />

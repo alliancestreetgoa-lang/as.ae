@@ -73,7 +73,7 @@ export default function BankingPage() {
           blocks={BLOCKS}
         />
         <StepsSection
-          eyebrow="OUR BANKING APPROACH:"
+          eyebrow="OUR BANKING APPROACH"
           title="Done in 4 Strategic Steps"
           steps={STEPS}
         />

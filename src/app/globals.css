@@ -10,7 +10,6 @@
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
   --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
-  --font-heading: var(--font-fraunces), Georgia, serif;
   /* Alliance Street brand palette — Modern Institutional Red */
   --color-as-ink: #101014;
   --color-as-red: #e22e34;
@@ -142,7 +141,7 @@
   h1,
   h2,
   h3 {
-    font-family: var(--font-heading);
+    font-family: var(--font-display);
     font-weight: 600;
     letter-spacing: -0.04em;
     line-height: 1.1;
@@ -158,19 +157,6 @@
     padding-inline: 1.5rem;
   }
 
-  /* Small tracked uppercase eyebrow label (OUR SOLUTIONS / OUR VALUES ...) */
-  .as-eyebrow {
-    font-family: var(--font-poppins);
-    font-size: 0.8125rem;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--color-as-ink);
-  }
-  .as-eyebrow .accent {
-    color: var(--color-as-red);
-  }
-
   /* Vertical hero gradient: black -> Alliance red -> white */
   .as-hero-gradient {
     background-image: linear-gradient(
@@ -179,51 +165,6 @@
       var(--color-as-red) 30%,
       #ffffff 77%
     );
-  }
-
-  /* Red "floating shadow" bar that peeks below the white cards */
-  .as-red-shadow {
-    position: absolute;
-    left: 8%;
-    right: 8%;
-    bottom: -10px;
-    height: 40px;
-    border-radius: 9999px;
-    background: var(--color-as-red);
-    filter: blur(2px);
-    z-index: 0;
-  }
-
-  /* Dark pill button (Get in Touch / Let's talk) */
-  .as-btn-dark {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: #000000;
-    color: #ffffff;
-    border-radius: 9999px;
-    padding: 0.85rem 1.75rem;
-    font-weight: 600;
-    font-size: 1.05rem;
-    transition: background 0.2s ease, transform 0.2s ease;
-  }
-  .as-btn-dark:hover {
-    background: var(--color-as-red);
-    transform: translateY(-1px);
-  }
-
-  /* Light pill button (footer Get in Touch) */
-  .as-btn-light {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: #ffffff;
-    color: #000000;
-    border-radius: 9999px;
-    padding: 0.85rem 1.75rem;
-    font-weight: 600;
-    font-size: 1.05rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
   /* Collaborate orbit: continuous rotation for the ring containers

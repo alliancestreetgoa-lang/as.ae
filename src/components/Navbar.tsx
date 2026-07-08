@@ -98,7 +98,11 @@ export function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean }) {
         </div>
       </nav>
 
-      {/* Mobile panel: CSS grid-template-rows accordion, no JS height math. */}
+      {/* Mobile panel: CSS grid-template-rows accordion, no JS height math.
+          When closed, the panel is clipped to 0px but its links remain in
+          the DOM — `inert` (+ aria-hidden as a screen-reader mirror) keeps
+          those clipped controls out of the tab order and AT tree so
+          keyboard users can't tab into invisible content. */}
       <div
         id="mobile-nav-panel"
         className={cn(
@@ -107,6 +111,7 @@ export function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean }) {
             ? "grid-rows-[1fr] border-white/10 bg-as-ink/98 backdrop-blur-md"
             : "grid-rows-[0fr] border-transparent"
         )}
+        {...(!mobileOpen ? { inert: true, "aria-hidden": true } : {})}
       >
         <div className="min-h-0">
           <ul className="as-container flex flex-col gap-1 py-4">
