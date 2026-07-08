@@ -1,9 +1,19 @@
+import { Eyebrow } from "@/components/primitives/Eyebrow";
+import { Section } from "@/components/primitives/Section";
+import { Reveal } from "@/components/motion/Reveal";
+
 export interface InfoBlock {
   heading: string;
   body: string;
 }
 
-/** Eyebrow + lead heading + stacked info blocks (banking "Good Ol' Times" section). */
+/**
+ * InfoBlocks — eyebrow + lead heading + stacked info blocks (banking "Good
+ * Ol' Times" section). Re-themed onto `Section`/`Eyebrow`/`Reveal`; each
+ * block gets a hairline `border-as-line` divider and a small red numbered
+ * tick (the same numbered-list motif established in `Values.tsx`) instead of
+ * the plain `border-black/10` rule.
+ */
 export function InfoBlocks({
   eyebrow,
   title,
@@ -14,22 +24,31 @@ export function InfoBlocks({
   blocks: InfoBlock[];
 }) {
   return (
-    <section className="bg-white py-24">
-      <div className="as-container">
-        <p className="as-eyebrow mb-6">{eyebrow}</p>
-        <h2 className="mb-16 max-w-4xl text-[32px] leading-[1.15] tracking-[-0.03em] sm:text-[44px]">
+    <Section bg="canvas">
+      <Reveal as="div" y={28} className="col-span-12">
+        <Eyebrow>{eyebrow}</Eyebrow>
+        <h2 className="font-display mt-6 max-w-4xl text-[32px] leading-[1.15] tracking-[-0.03em] text-as-ink sm:text-[44px]">
           {title}
         </h2>
+      </Reveal>
 
-        <div className="grid gap-12 md:grid-cols-3">
-          {blocks.map((b) => (
-            <div key={b.heading} className="border-t border-black/10 pt-6">
-              <h3 className="mb-4 text-2xl font-semibold text-black">{b.heading}</h3>
-              <p className="text-[15px] leading-relaxed text-as-muted">{b.body}</p>
-            </div>
-          ))}
-        </div>
+      <div className="col-span-12 mt-14 grid gap-12 md:grid-cols-3">
+        {blocks.map((b, i) => (
+          <Reveal
+            as="div"
+            y={24}
+            delay={0.08 * i}
+            key={b.heading}
+            className="border-t border-as-line pt-6"
+          >
+            <span aria-hidden="true" className="font-mono text-xs tabular-nums text-as-red">
+              0{i + 1}
+            </span>
+            <h3 className="font-display mt-3 text-2xl text-as-ink">{b.heading}</h3>
+            <p className="mt-4 text-[15px] leading-relaxed text-as-muted">{b.body}</p>
+          </Reveal>
+        ))}
       </div>
-    </section>
+    </Section>
   );
 }
