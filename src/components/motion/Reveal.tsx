@@ -1,5 +1,10 @@
 "use client";
-import { createElement, type ElementType, type ReactNode } from "react";
+import {
+  createElement,
+  type ComponentPropsWithoutRef,
+  type ElementType,
+  type ReactNode,
+} from "react";
 import { useReveal } from "./useReveal";
 
 type RevealProps = {
@@ -9,7 +14,10 @@ type RevealProps = {
   duration?: number;
   className?: string;
   children?: ReactNode;
-};
+} & Omit<
+  ComponentPropsWithoutRef<"div">,
+  "as" | "y" | "delay" | "duration" | "className" | "children"
+>;
 
 export function Reveal({
   as = "div",
@@ -18,11 +26,12 @@ export function Reveal({
   duration,
   className,
   children,
+  ...rest
 }: RevealProps) {
   const ref = useReveal({ y, delay, duration });
   return createElement(
     as,
-    { ref, className },
+    { ref, className, ...rest },
     children
   );
 }
