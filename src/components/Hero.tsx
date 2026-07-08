@@ -43,20 +43,30 @@ export function Hero() {
         (el): el is HTMLSpanElement => Boolean(el)
       );
 
-      // Each stage's hidden "from" state is declared inline with its own
-      // "to" state via fromTo(), instead of a separate gsap.set() list kept
-      // in sync with a separate .to() chain. That two-list pattern is how a
-      // target (e.g. the subcopy) can end up with a from-state but no
-      // matching tween — a decoupled list and chain can silently drift out
-      // of sync. fromTo() makes that class of bug impossible: there is
-      // exactly one call site per stage, and it always pairs the hidden
-      // state with its reveal.
-      const tl = gsap.timeline({ defaults: { ease: "power3.out", duration: 0.8 } });
-      tl.fromTo(eyebrowRef.current, { opacity: 0, y: 24 }, { opacity: 1, y: 0 })
-        .fromTo(badgeRef.current, { opacity: 0, y: 24 }, { opacity: 1, y: 0 }, "-=0.5")
-        .fromTo(lines, { opacity: 0, y: 24 }, { opacity: 1, y: 0, stagger: 0.12 }, "-=0.45")
-        .fromTo(subRef.current, { opacity: 0, y: 24 }, { opacity: 1, y: 0 }, "-=0.4")
-        .fromTo(ctaRef.current, { opacity: 0, y: 24 }, { opacity: 1, y: 0 }, "-=0.45");
+      // On-load reveal. A single gsap.from() with stagger — NOT a chain of
+      // .fromTo() tweens. Chained fromTo()s (each immediateRender:true by
+      // default) at overlapping negative offsets were leaving the middle
+      // stages (headline lines + subcopy) stranded at their opacity:0
+      // from-state in both dev and the production export, while earlier and
+      // later stages revealed — a classic immediateRender interaction bug.
+      // One from() tween sidesteps that entirely, and clearProps strips the
+      // inline opacity/transform on completion so nothing can be left hidden.
+      const targets = [
+        eyebrowRef.current,
+        badgeRef.current,
+        ...lines,
+        subRef.current,
+        ctaRef.current,
+      ].filter((el): el is HTMLElement => Boolean(el));
+
+      gsap.from(targets, {
+        opacity: 0,
+        y: 24,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.1,
+        clearProps: "opacity,transform",
+      });
 
       // Subtle parallax: the red glow drifts down as the hero scrolls past.
       if (glowRef.current) {
