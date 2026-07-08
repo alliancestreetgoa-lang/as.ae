@@ -1,67 +1,111 @@
-import Image from "next/image";
-import { LogoMark } from "@/components/icons";
+import Link from "next/link";
+import { Logo, LogoMark } from "@/components/icons";
+import { Reveal } from "@/components/motion/Reveal";
 import { FOOTER_COLUMNS } from "@/lib/content";
 
+const LINK_CLASS =
+  "inline-block py-1 text-[15px] text-white/65 transition-colors hover:text-as-red";
+
+/**
+ * Footer — the site's closing editorial beat: an oversized Fraunces
+ * headline beside the wordmark, three link columns pulled straight from
+ * `FOOTER_COLUMNS`, and a hairline-divided legal row. Runs on `bg-as-ink`
+ * (matching `Hero`/`Collaborate`, the other ink sections) with red kept to
+ * accents only — link-hover color, the column labels, the bottom-bar mark.
+ *
+ * 21st.dev sourcing: searched "large editorial footer with link columns and
+ * headline" (--type c --limit 6) -> Detailed Footer (ui-layouts, id 18186),
+ * Footer Privilege (ui-layouts, id 18183), Footer with Newsletter (hfroget,
+ * id 14466). Used **id 18186** as the structural basis — a dark footer with
+ * a brand block, N link columns, and a bottom legal/copyright bar, which is
+ * exactly this section's shape. Hand-adapted rather than installed
+ * verbatim: dropped its email-newsletter form entirely (no newsletter copy
+ * or endpoint exists in `content.ts`, and "content fixed" rules out
+ * inventing a new CTA); swapped its plain text-badge brand block for the
+ * real wordmark (`Logo`) plus the brief's mandatory oversized Fraunces
+ * "Clean. Legal. Compliant." headline wrapped in `Reveal`; replaced its
+ * zinc-950/zinc-400 palette with this project's `as-ink` background,
+ * white-opacity text scale, and `as-red` hover/label accents; and swapped
+ * its raw `<a>` internal links for `next/link` where `FOOTER_COLUMNS`
+ * hrefs are internal routes (matching the convention already used in
+ * `Navbar.tsx`), keeping plain `<a>` only for the `#`-anchor placeholders.
+ * No framer-motion in the source, so nothing needed converting there.
+ *
+ * The "Get in Touch" CTA and its `#collaborate` target are unchanged from
+ * the pre-redesign footer (that anchor is `Collaborate.tsx`'s `Section
+ * id="collaborate"`), preserved as existing content per the task's
+ * content-fixed constraint.
+ */
 export function Footer() {
   return (
-    <footer>
-      {/* Main footer over red -> dark gradient */}
-      <div className="bg-gradient-to-b from-[#8a1417] via-[#3a0a0c] to-black pb-16 pt-20">
-        <div className="as-container grid gap-12 lg:grid-cols-2">
-          {/* Left: logo + CTA */}
-          <div>
-            <Image
-              src="/images/footer-logo.png"
-              alt="Alliance Street"
-              width={280}
-              height={76}
-              className="h-9 w-auto"
-            />
-            <h2 className="mt-8 text-[44px] leading-[1.05] tracking-[-0.03em] text-white sm:text-[56px]">
-              Clean. Legal.
-              <br />
-              Compliant.
-            </h2>
-            <a
-              href="#collaborate"
-              className="mt-10 inline-flex rounded-full bg-white px-7 py-3.5 font-semibold text-black transition-transform hover:scale-[1.02]"
-            >
-              Get in Touch
-            </a>
-          </div>
+    <footer className="bg-as-ink">
+      <div className="as-container grid gap-14 py-20 sm:py-24 lg:grid-cols-12 lg:gap-8 lg:py-28">
+        {/* Brand block: wordmark, headline, CTA */}
+        <div className="lg:col-span-5">
+          <Link href="/" className="inline-flex">
+            <Logo variant="white" className="h-8" />
+          </Link>
 
-          {/* Right: link columns */}
-          <div className="grid gap-10 sm:grid-cols-3">
-            {FOOTER_COLUMNS.map((col) => (
-              <div key={col.heading}>
-                <h3 className="mb-5 font-semibold text-white">{col.heading}</h3>
-                <ul className="space-y-3">
-                  {col.links.map((link) => (
+          <Reveal
+            as="h2"
+            y={24}
+            className="font-display mt-8 text-[40px] leading-[1.05] tracking-[-0.03em] text-white sm:text-[52px] lg:text-[60px]"
+          >
+            Clean. Legal.
+            <br />
+            Compliant.
+          </Reveal>
+
+          <a
+            href="#collaborate"
+            className="mt-10 inline-flex rounded-full bg-as-red px-7 py-3.5 font-sans font-semibold text-white transition-colors hover:bg-as-red-bright"
+          >
+            Get in Touch
+          </a>
+        </div>
+
+        {/* Link columns, pulled from FOOTER_COLUMNS */}
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:col-span-7 lg:gap-8">
+          {FOOTER_COLUMNS.map((col) => (
+            <div key={col.heading}>
+              <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-as-red">
+                {col.heading}
+              </h3>
+              <ul className="mt-6 space-y-1">
+                {col.links.map((link) => {
+                  const isInternal = link.href.startsWith("/");
+                  const content = (
+                    <>
+                      {link.strong && (
+                        <span className="font-semibold text-white">{link.strong} </span>
+                      )}
+                      {link.label}
+                    </>
+                  );
+                  return (
                     <li key={link.label}>
-                      <a
-                        href={link.href}
-                        className="text-[15px] text-white/70 transition-colors hover:text-white"
-                      >
-                        {link.strong && (
-                          <span className="font-semibold text-white">
-                            {link.strong}{" "}
-                          </span>
-                        )}
-                        {link.label}
-                      </a>
+                      {isInternal ? (
+                        <Link href={link.href} className={LINK_CLASS}>
+                          {content}
+                        </Link>
+                      ) : (
+                        <a href={link.href} className={LINK_CLASS}>
+                          {content}
+                        </a>
+                      )}
                     </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+                  );
+                })}
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Bottom bar */}
-      <div className="bg-black py-8">
-        <div className="as-container flex items-center justify-between">
-          <p className="text-sm text-white/60">
+      {/* Legal / copyright row */}
+      <div className="border-t border-white/10">
+        <div className="as-container flex flex-col-reverse items-center gap-4 py-8 sm:flex-row sm:justify-between">
+          <p className="text-sm text-white/50">
             © Alliance Street Consultancy 2025 All Rights Reserved.
           </p>
           <LogoMark className="h-6 w-auto" />
