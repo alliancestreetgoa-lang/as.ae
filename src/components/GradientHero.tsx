@@ -28,7 +28,7 @@ export function GradientHero({
         <Reveal
           as="h1"
           y={28}
-          className="font-display max-w-4xl text-[40px] leading-[1.08] tracking-[-0.04em] text-black sm:text-[56px] lg:text-[64px]"
+          className="font-display max-w-4xl text-[40px] leading-[1.08] tracking-[-0.04em] text-as-ink sm:text-[56px] lg:text-[64px]"
         >
           {title}
         </Reveal>
@@ -36,7 +36,7 @@ export function GradientHero({
           as="p"
           y={22}
           delay={0.1}
-          className="mt-8 max-w-xl text-lg leading-relaxed text-black/70"
+          className="mt-8 max-w-xl text-lg leading-relaxed text-as-ink/70"
         >
           {subtitle}
         </Reveal>
