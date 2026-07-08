@@ -8,6 +8,8 @@ import { Values } from "@/components/Values";
 import { Collaborate } from "@/components/Collaborate";
 import { AsSeenIn } from "@/components/AsSeenIn";
 import { Footer } from "@/components/Footer";
+import { Counter } from "@/components/motion/Counter";
+import { Reveal } from "@/components/motion/Reveal";
 
 export const metadata: Metadata = {
   title: "Commercial Real Estate & Office Space in Dubai | Alliance Street",
@@ -43,50 +45,70 @@ export default function RealEstatePage() {
     <>
       <Navbar />
       <main>
-        {/* Split gradient hero */}
+        {/* Split gradient hero — the page's one large red hero moment (brand
+            exception to the red-accent-only rule), same `.as-hero-gradient`
+            background used by `GradientHero`, but kept as a bespoke
+            two-column split (headline left / subcopy + CTA right) since
+            `GradientHero` only supports a single centered column. */}
         <section className="as-hero-gradient pt-[82px]">
           <div className="as-container grid min-h-[70vh] items-center gap-10 py-24 lg:grid-cols-2">
-            <div>
-              <h1 className="text-[44px] leading-[1.05] tracking-[-0.04em] text-black sm:text-[60px] lg:text-[68px]">
+            <Reveal as="div" y={28}>
+              <h1 className="font-display text-[44px] leading-[1.05] tracking-[-0.04em] text-as-ink sm:text-[60px] lg:text-[68px]">
                 Invest, Buy or Rent Property in Dubai
               </h1>
-              <p className="mt-8 text-lg text-black/60">
+              <p className="mt-8 text-lg text-as-muted">
                 *The Way It Benefits You (Not Some Agent&apos;s Bank Account).
               </p>
-            </div>
-            <div className="lg:pl-10">
-              <p className="max-w-md text-lg text-black/70">
+            </Reveal>
+            <Reveal as="div" y={28} delay={0.1} className="lg:pl-10">
+              <p className="max-w-md text-lg text-as-muted">
                 Our Developer Connections can and will help you access deals no Agent in
                 Dubai can afford to offer:
               </p>
-              <Link href="/contact-us" className="as-btn-dark mt-8">
+              <Link
+                href="/contact-us"
+                className="mt-8 inline-flex items-center gap-2 rounded-full bg-as-ink px-7 py-3.5 font-sans text-[15px] font-semibold text-white transition-colors hover:bg-as-red"
+              >
                 Let&apos;s talk
               </Link>
-            </div>
+            </Reveal>
           </div>
         </section>
 
-        {/* Trusted by developers */}
-        <section className="bg-black py-14">
+        {/* Trusted by developers — a clean, muted ink trust strip (not the
+            red `AsSeenIn` marquee treatment): grayscale logos separated by
+            hairline dividers, mirroring `AsSeenIn`'s hand-rolled label
+            pattern rather than the red `Eyebrow` primitive, so the row
+            stays a quiet ink moment. */}
+        <section className="bg-as-ink py-14">
           <div className="as-container">
-            <p
-              className="mb-10 text-center text-[13px] font-medium uppercase tracking-[0.22em] text-white/70"
-              style={{ fontFamily: "var(--font-poppins)" }}
+            <Reveal
+              as="p"
+              y={16}
+              className="mb-10 flex items-center justify-center gap-3 text-center font-mono text-xs uppercase tracking-[0.3em] text-white/60"
             >
+              <span aria-hidden="true" className="inline-block h-px w-6 bg-white/20" />
               Trusted by the best in the market:
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-x-16 gap-y-8">
+              <span aria-hidden="true" className="inline-block h-px w-6 bg-white/20" />
+            </Reveal>
+            <Reveal
+              as="div"
+              y={20}
+              delay={0.08}
+              className="flex flex-wrap items-center justify-center divide-x divide-white/10"
+            >
               {DEVELOPERS.map((d) => (
-                <Image
-                  key={d.name}
-                  src={d.src}
-                  alt={d.name}
-                  width={150}
-                  height={44}
-                  className="h-7 w-auto object-contain opacity-90 sm:h-9"
-                />
+                <div key={d.name} className="px-8 py-1 first:pl-0 last:pr-0 sm:px-10">
+                  <Image
+                    src={d.src}
+                    alt={d.name}
+                    width={150}
+                    height={44}
+                    className="h-7 w-auto object-contain grayscale opacity-80 sm:h-9"
+                  />
+                </div>
               ))}
-            </div>
+            </Reveal>
           </div>
         </section>
 
@@ -98,23 +120,31 @@ export default function RealEstatePage() {
 
         <Testimonials />
 
-        {/* Transactions stat */}
-        <section className="bg-as-light py-24">
+        {/* Transactions stat — same oversized proof-point pattern as
+            `StatsBanner`, on canvas instead of ink, with the animated
+            `Counter` driving the big number. */}
+        <section className="bg-as-canvas py-24">
           <div className="as-container max-w-3xl">
-            <p className="text-[110px] font-semibold leading-none tracking-[-0.05em] text-black sm:text-[150px]">
-              200<span className="text-as-red">+</span>
-            </p>
-            <p className="mt-2 text-2xl font-medium text-black">
-              Successful transactions completed.
-            </p>
-            <p className="mt-6 max-w-2xl text-lg text-as-muted">
-              With over 200 successful transactions, Alliance Street has built a solid
-              reputation for providing trusted, reliable advice that clients can count
-              on.
-            </p>
-            <Link href="/contact-us" className="as-btn-dark mt-8">
-              Tell us how we can help you
-            </Link>
+            <Reveal as="div" y={28}>
+              <p className="font-display text-[110px] leading-none tracking-[-0.05em] text-as-ink sm:text-[150px]">
+                <Counter to={200} />
+                <span className="text-as-red">+</span>
+              </p>
+              <p className="mt-2 text-2xl font-medium text-as-ink">
+                Successful transactions completed.
+              </p>
+              <p className="mt-6 max-w-2xl text-lg text-as-muted">
+                With over 200 successful transactions, Alliance Street has built a solid
+                reputation for providing trusted, reliable advice that clients can count
+                on.
+              </p>
+              <Link
+                href="/contact-us"
+                className="mt-8 inline-flex items-center gap-2 rounded-full bg-as-ink px-7 py-3.5 font-sans text-[15px] font-semibold text-white transition-colors hover:bg-as-red"
+              >
+                Tell us how we can help you
+              </Link>
+            </Reveal>
           </div>
         </section>
 
