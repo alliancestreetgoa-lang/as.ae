@@ -76,6 +76,7 @@ export default function BankingPage() {
           eyebrow="OUR BANKING APPROACH"
           title="Done in 4 Strategic Steps"
           steps={STEPS}
+          pinned
         />
         <StatsBanner
           quote="“Alliance Street stands as a true benchmark in the UAE's business services landscape, a testament to the competence and excellent application of industry standards and methods, combined with a relentless strive towards brilliance. For entrepreneurs and corporations looking for the best business setup consultants in Dubai, Alliance Street is quite simply the name the industry trusts, respects and continues to recommend.”"

@@ -1,17 +1,16 @@
 "use client";
 
-import { useRef, useState, useSyncExternalStore } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Check } from "@/components/icons";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Frame } from "@/components/primitives/Frame";
 import { Section } from "@/components/primitives/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { Counter } from "@/components/motion/Counter";
-import { prefersReduced } from "@/components/motion/gsap-setup";
+import { usePinnedStepper } from "@/components/motion/usePinnedStepper";
 import { PROCESS_TABS, PROCESS_STATS } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
@@ -50,29 +49,6 @@ const PANELS: Panel[] = [
 ];
 
 const STEPS = PANELS.length;
-
-const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
-
-/** Subscribes a callback to changes in the OS-level reduced-motion preference. */
-function subscribeToReducedMotion(callback: () => void) {
-  const mq = window.matchMedia(REDUCED_MOTION_QUERY);
-  mq.addEventListener("change", callback);
-  return () => mq.removeEventListener("change", callback);
-}
-
-function getReducedMotionSnapshot() {
-  return window.matchMedia(REDUCED_MOTION_QUERY).matches;
-}
-
-// Server/first-paint snapshot: always "reduced". This makes the SSR output
-// and the very first client render both use the accessible fallback
-// markup (no hydration mismatch), and guarantees a prefers-reduced-motion
-// user never sees a flash of the pinned stage. `useSyncExternalStore`
-// corrects to the real value right after mount (and on live OS-setting
-// changes) without any manual setState-in-effect.
-function getReducedMotionServerSnapshot() {
-  return true;
-}
 
 /**
  * Process ("The Battleplan") — the site's most motion-complex section: a
@@ -126,53 +102,9 @@ function getReducedMotionServerSnapshot() {
  * only ever runs inside the `motionEnabled` branch.
  */
 export function Process() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const stageRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
-  const progressRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(0);
-
-  // See getReducedMotionServerSnapshot above: this starts "reduced" on the
-  // server and first client paint, then syncs to the real OS preference.
-  const reduced = useSyncExternalStore(
-    subscribeToReducedMotion,
-    getReducedMotionSnapshot,
-    getReducedMotionServerSnapshot
-  );
-
-  const motionEnabled = !reduced;
-
-  // Pin + scrub: builds/tears down the ScrollTrigger only in the
-  // motion-enabled branch. useGSAP's scope reverts/kills anything gsap
-  // created here (including this ScrollTrigger) on unmount or re-run.
-  useGSAP(
-    () => {
-      if (!motionEnabled || prefersReduced() || !stageRef.current) return;
-
-      let lastIndex = -1;
-      const trigger = ScrollTrigger.create({
-        trigger: stageRef.current,
-        start: "top top",
-        end: () => `+=${window.innerHeight * STEPS}`,
-        pin: true,
-        scrub: 0.6,
-        anticipatePin: 1,
-        onUpdate: (self) => {
-          const idx = Math.min(STEPS - 1, Math.floor(self.progress * STEPS));
-          if (idx !== lastIndex) {
-            lastIndex = idx;
-            setActive(idx);
-          }
-          if (progressRef.current) {
-            progressRef.current.style.width = `${self.progress * 100}%`;
-          }
-        },
-      });
-
-      return () => trigger.kill();
-    },
-    { scope: sectionRef, dependencies: [motionEnabled] }
-  );
+  const { sectionRef, stageRef, progressRef, active, setActive, motionEnabled } =
+    usePinnedStepper(STEPS);
 
   // Cross-fade the panel card on every step change (pinned mode only).
   useGSAP(

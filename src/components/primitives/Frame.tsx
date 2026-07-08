@@ -43,7 +43,7 @@ export function Frame({ tone = "red", className, children }: FrameProps) {
         aria-hidden="true"
         className={cn(CORNER_BASE, "bottom-0 right-0 border-b-2 border-r-2", borderColor)}
       />
-      <div className="relative p-6 sm:p-8">{children}</div>
+      <div className="relative h-full p-6 sm:p-8">{children}</div>
     </div>
   );
 }
