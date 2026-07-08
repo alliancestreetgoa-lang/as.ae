@@ -42,18 +42,21 @@ export function Hero() {
       const lines = [line1Ref.current, line2Ref.current, line3Ref.current].filter(
         (el): el is HTMLSpanElement => Boolean(el)
       );
-      const staggered = [eyebrowRef.current, badgeRef.current, ...lines, subRef.current, ctaRef.current].filter(
-        (el): el is HTMLElement => Boolean(el)
-      );
 
-      gsap.set(staggered, { opacity: 0, y: 24 });
-
+      // Each stage's hidden "from" state is declared inline with its own
+      // "to" state via fromTo(), instead of a separate gsap.set() list kept
+      // in sync with a separate .to() chain. That two-list pattern is how a
+      // target (e.g. the subcopy) can end up with a from-state but no
+      // matching tween — a decoupled list and chain can silently drift out
+      // of sync. fromTo() makes that class of bug impossible: there is
+      // exactly one call site per stage, and it always pairs the hidden
+      // state with its reveal.
       const tl = gsap.timeline({ defaults: { ease: "power3.out", duration: 0.8 } });
-      tl.to(eyebrowRef.current, { opacity: 1, y: 0 })
-        .to(badgeRef.current, { opacity: 1, y: 0 }, "-=0.5")
-        .to(lines, { opacity: 1, y: 0, stagger: 0.12 }, "-=0.45")
-        .to(subRef.current, { opacity: 1, y: 0 }, "-=0.4")
-        .to(ctaRef.current, { opacity: 1, y: 0 }, "-=0.45");
+      tl.fromTo(eyebrowRef.current, { opacity: 0, y: 24 }, { opacity: 1, y: 0 })
+        .fromTo(badgeRef.current, { opacity: 0, y: 24 }, { opacity: 1, y: 0 }, "-=0.5")
+        .fromTo(lines, { opacity: 0, y: 24 }, { opacity: 1, y: 0, stagger: 0.12 }, "-=0.45")
+        .fromTo(subRef.current, { opacity: 0, y: 24 }, { opacity: 1, y: 0 }, "-=0.4")
+        .fromTo(ctaRef.current, { opacity: 0, y: 24 }, { opacity: 1, y: 0 }, "-=0.45");
 
       // Subtle parallax: the red glow drifts down as the hero scrolls past.
       if (glowRef.current) {
