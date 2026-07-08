@@ -92,22 +92,39 @@ export function Solutions() {
           <div
             className={cn(
               HOVER_LIFT,
-              "group flex flex-col justify-between overflow-hidden rounded-[20px] border border-as-ink bg-as-ink p-8"
+              "group relative flex min-h-[320px] flex-col overflow-hidden rounded-[20px] border border-as-ink bg-as-ink p-8 lg:p-10"
             )}
           >
-            <a
-              href="#collaborate"
-              className="inline-flex w-fit items-center gap-2 font-sans text-[15px] font-semibold text-white transition-colors hover:text-as-red"
-            >
-              Get in Touch <ArrowRight className="h-4 w-4 text-as-red" />
-            </a>
-            <Image
-              src="/images/graph-card.png"
-              alt="Growth graph"
-              width={520}
-              height={360}
-              className="mt-8 h-auto w-full object-contain opacity-90 transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-            />
+            {/* Copy pinned to the top of the card. */}
+            <div className="relative z-10">
+              <Eyebrow>Let&apos;s talk</Eyebrow>
+              <h3 className="font-display mt-5 max-w-[16ch] text-2xl leading-[1.15] text-white sm:text-[28px]">
+                Let&apos;s map your structure.
+              </h3>
+              <p className="mt-4 max-w-[26ch] text-[15px] leading-relaxed text-white/60">
+                Tell us where you want to go — we&apos;ll design the UAE setup around it.
+              </p>
+              <a
+                href="#collaborate"
+                className="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-white px-6 py-3 font-sans text-[15px] font-semibold text-as-ink transition-colors hover:bg-white/90"
+              >
+                Get in Touch <ArrowRight className="h-4 w-4 text-as-red" />
+              </a>
+            </div>
+
+            {/* Growth-graph motif fills all remaining height (flex-1) so the
+                tall row-spanning card never leaves an empty void. */}
+            <div className="relative -mx-8 -mb-8 mt-8 min-h-[150px] flex-1 lg:-mx-10 lg:-mb-10">
+              <Image
+                src="/images/graph-card.png"
+                alt=""
+                aria-hidden
+                fill
+                sizes="(min-width: 1024px) 40vw, 100vw"
+                className="select-none object-cover object-bottom opacity-70 transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-as-ink via-transparent to-transparent" />
+            </div>
           </div>
         </Reveal>
 
