@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Globe } from "@/components/Globe";
 import { Reveal } from "@/components/motion/Reveal";
 
 /**
@@ -15,18 +16,32 @@ export function PageHero({
   subtitle,
   cta = "Get in Touch",
   ctaHref = "/contact-us",
+  globe = false,
 }: {
   title: string;
   subtitle: string;
   cta?: string;
   ctaHref?: string;
+  globe?: boolean;
 }) {
   return (
     <section className="relative isolate overflow-hidden bg-as-ink pt-[82px]">
-      {/* dark globe glow rising from the bottom */}
+      {/* Decorative WebGL globe rising from the bottom-centre (behind the copy). */}
+      {globe && (
+        <div className="pointer-events-none absolute bottom-0 left-1/2 z-0 aspect-square w-[min(1180px,155vw)] -translate-x-1/2 translate-y-[46%]">
+          <Globe />
+        </div>
+      )}
+
+      {/* Warm red atmospheric glow rising from the bottom. */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0 flex justify-center">
         <div className="h-[600px] w-[1100px] translate-y-1/2 rounded-full bg-[radial-gradient(circle_at_50%_0%,rgba(226,46,52,0.35),rgba(226,46,52,0.05)_40%,transparent_70%)]" />
       </div>
+
+      {/* Scrim keeps the hero copy legible over the globe. */}
+      {globe && (
+        <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-as-ink via-as-ink/50 to-transparent" />
+      )}
 
       <div className="as-container relative z-10 flex min-h-[70vh] flex-col items-center justify-center py-24 text-center">
         <Reveal

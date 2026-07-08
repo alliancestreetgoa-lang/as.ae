@@ -76,6 +76,7 @@ export default function DubaiBusinessSetupPage() {
         <PageHero
           title="Are you next?"
           subtitle="Are you ready to start business in Dubai and expand your global opportunities? At Alliance Street, we help entrepreneurs and companies establish a strong presence in the UAE through strategic Dubai business setup solutions."
+          globe
         />
         <Mission />
         <Stats3 />
