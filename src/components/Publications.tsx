@@ -1,47 +1,94 @@
+"use client";
+
+import { useRef } from "react";
 import Image from "next/image";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight } from "@/components/icons";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
-import { Section } from "@/components/primitives/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { PUBLICATIONS } from "@/lib/content";
 
+gsap.registerPlugin(ScrollTrigger, useGSAP);
+
 /**
- * Publications — press coverage (content unchanged: Daily Mail, Forbes,
- * Gulf News, Business Insider, CEO Weekly, Digital Journal, Khaleej Times).
- * Runs on `bg="ink"` for rhythm — it sits between two canvas sections
- * (Process before it, Testimonials after) and the outlet covers read best
- * against dark, matching Hero/StatsBanner's ink treatment.
+ * Publications — press coverage (content from `PUBLICATIONS`).
  *
- * 21st.dev was checked first for the requested "sticky-left intro,
- * horizontally scrolling cards" shape: search "sticky left intro
- * horizontal scrolling cards" -> Horizontal Scroll Carousel (uniquesonu,
- * id 4136, framer-motion `useScroll`/`useTransform` pinning the whole
- * section and scrubbing cards across — scroll-jacked, no sticky *intro*
- * column, and framer-motion is off-limits in this codebase), Sticky
- * scroll cards section (thanh, id 5187, IntersectionObserver fades but
- * the "sticky" element is each vertically-stacked card, not a side intro
- * — different shape entirely), Smooth Scroll (ui-layouts, id 2836,
- * Lenis-driven smooth scroll, same non-native-scroll dependency issue).
- * Search "press articles cards" -> Stacked Article Cards (Mazyar kawa,
- * id 10393), Article Cards (kavikatiyar, id 8222), Card (ravikatiyar,
- * id 7456) — all plain vertical article grids, none pair a sticky intro
- * with a horizontal card rail. Nothing fit, so this is hand-built: a
- * `lg:sticky` intro column (the same sticky-on-scroll idea as the
- * original component, restyled) beside a native `overflow-x-auto`
- * snap-scroll row of cards. No GSAP pin/scrub is used for the scroll
- * itself, so there is no scroll-jacking and no separate reduced-motion
- * layout branch is needed — the rail is always plain, native horizontal
- * scroll (trackpad, wheel+shift, touch swipe, or the visible scrollbar).
- * `Reveal` staggers each card's fade/rise in as the section enters the
- * viewport (and, per `Reveal`/`useReveal`, is skipped entirely under
- * `prefers-reduced-motion`, leaving the fully visible static markup).
+ * On lg + motion, the section PINS and the press cards scroll HORIZONTALLY
+ * through every outlet as you scroll down; once the last card is reached the
+ * page continues to the next section. The intro stays fixed on the left; a
+ * thin red bar tracks progress through the cards.
+ *
+ * The pinned element is a plain flex block (NOT a grid child) so ScrollTrigger
+ * can fix it cleanly. The whole effect is set up inside
+ * `gsap.matchMedia("(min-width:1024px) and (prefers-reduced-motion:
+ * no-preference)")`: on mobile/tablet the cards are a vertical stack / 2-col
+ * grid, and on lg under reduced motion they fall back to a native
+ * `overflow-x-auto` rail — no pin, no scroll-jacking. matchMedia reverts the
+ * pin + the inline styles it sets when the query stops matching.
  */
 export function Publications() {
+  const pinRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add(
+        "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
+        () => {
+          const pin = pinRef.current;
+          const viewport = viewportRef.current;
+          const track = trackRef.current;
+          if (!pin || !viewport || !track) return;
+
+          // Switch the viewport from native scroll to a GSAP-driven track.
+          viewport.style.overflow = "hidden";
+          pin.style.height = "100vh";
+          const distance = () => Math.max(0, track.scrollWidth - viewport.clientWidth);
+
+          const tween = gsap.to(track, {
+            x: () => -distance(),
+            ease: "none",
+            scrollTrigger: {
+              trigger: pin,
+              start: "top top",
+              end: () => "+=" + distance(),
+              pin: true,
+              scrub: 1,
+              anticipatePin: 1,
+              invalidateOnRefresh: true,
+              onUpdate: (self) => {
+                if (progressRef.current) {
+                  progressRef.current.style.transform = `scaleX(${self.progress})`;
+                }
+              },
+            },
+          });
+
+          return () => {
+            tween.kill();
+            viewport.style.overflow = "";
+            pin.style.height = "";
+            gsap.set(track, { x: 0 });
+          };
+        }
+      );
+    },
+    { scope: pinRef }
+  );
+
   return (
-    <Section id="publications" bg="ink">
-      <div className="col-span-12 grid gap-12 lg:grid-cols-[minmax(0,360px)_1fr] lg:gap-16">
-        {/* Sticky intro */}
-        <Reveal as="div" y={24} className="lg:sticky lg:top-28 lg:h-fit">
+    <section id="publications" className="bg-as-ink">
+      <div
+        ref={pinRef}
+        className="as-container flex flex-col gap-12 py-24 lg:flex-row lg:items-center lg:gap-16"
+      >
+        {/* Intro (fixed on the left while the cards scroll) */}
+        <Reveal as="div" y={24} className="lg:w-[340px] lg:shrink-0">
           <Eyebrow>Press coverage</Eyebrow>
           <h2 className="font-display mt-6 text-[40px] leading-[1.05] tracking-[-0.04em] text-white sm:text-[56px]">
             Publications
@@ -56,38 +103,49 @@ export function Publications() {
           >
             Let&apos;s talk
           </a>
-          <p className="mt-10 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-white/40">
+          {/* Progress rail (lg motion only) */}
+          <div className="mt-10 hidden h-px w-40 overflow-hidden bg-white/15 lg:block">
+            <div
+              ref={progressRef}
+              className="h-full w-full origin-left scale-x-0 bg-as-red"
+            />
+          </div>
+          <p className="mt-4 hidden items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-white/40 lg:flex">
             Scroll to explore
             <ArrowRight className="h-3.5 w-3.5" />
           </p>
         </Reveal>
 
-        {/* Press cards — a clean vertical stack on mobile/tablet (every card
-            fully visible, nothing clipped), becoming the signature horizontal
-            snap-scroll rail beside the sticky intro at lg. */}
-        <div className="min-w-0">
+        {/* Cards viewport: vertical stack (mobile) / 2-col grid (sm) /
+            horizontal track (lg — GSAP-scrolled with motion, native rail
+            under reduced motion). */}
+        <div
+          ref={viewportRef}
+          className="min-w-0 lg:flex-1 lg:overflow-x-auto lg:[scrollbar-width:none] lg:[&::-webkit-scrollbar]:hidden"
+        >
           <div
-            className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:flex lg:snap-x lg:snap-mandatory lg:-mr-2 lg:gap-6 lg:overflow-x-auto lg:pb-6 lg:pr-2 lg:[scrollbar-color:var(--color-as-red)_transparent] lg:[scrollbar-width:thin] lg:[&::-webkit-scrollbar]:h-1.5 lg:[&::-webkit-scrollbar-thumb]:rounded-full lg:[&::-webkit-scrollbar-thumb]:bg-as-red/40 lg:[&::-webkit-scrollbar-track]:bg-transparent"
+            ref={trackRef}
+            className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:flex lg:w-max lg:gap-6"
           >
             {PUBLICATIONS.map((pub, i) => (
               <Reveal
                 as="article"
                 key={pub.title}
                 y={24}
-                delay={i * 0.06}
-                className="group w-full shrink-0 lg:w-[420px] lg:snap-start"
+                delay={i * 0.05}
+                className="group w-full shrink-0 lg:w-[400px]"
               >
-                <div className="h-full overflow-hidden rounded-[20px] border border-white/10 bg-white/[0.03] transition-colors group-hover:border-as-red/50">
+                <div className="flex h-full flex-col overflow-hidden rounded-[20px] border border-white/10 bg-white/[0.03] transition-colors group-hover:border-as-red/50">
                   <div className="relative aspect-[16/10] w-full overflow-hidden bg-white/5">
                     <Image
                       src={pub.image}
                       alt={pub.outlet}
                       fill
-                      sizes="(min-width: 1024px) 420px, 85vw"
+                      sizes="(min-width: 1024px) 400px, 85vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                     />
                   </div>
-                  <div className="p-7">
+                  <div className="flex flex-1 flex-col p-7">
                     <p className="font-mono text-xs uppercase tracking-[0.2em] text-as-red">
                       {pub.outlet}
                     </p>
@@ -113,6 +171,6 @@ export function Publications() {
           </div>
         </div>
       </div>
-    </Section>
+    </section>
   );
 }
