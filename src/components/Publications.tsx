@@ -87,7 +87,7 @@ export function Publications() {
   );
 
   return (
-    <section id="publications" className="bg-as-ink">
+    <section id="publications" className="bg-as-canvas">
       <div
         ref={pinRef}
         className="as-container flex flex-col gap-12 py-24 lg:flex-row lg:items-stretch lg:gap-16 lg:py-16"
@@ -95,10 +95,10 @@ export function Publications() {
         {/* Intro (centered on the left while the cards scroll) */}
         <Reveal as="div" y={24} className="lg:w-[340px] lg:shrink-0 lg:self-center">
           <Eyebrow>Press coverage</Eyebrow>
-          <h2 className="font-display mt-6 text-[40px] leading-[1.05] tracking-[-0.04em] text-white sm:text-[56px]">
+          <h2 className="font-display mt-6 text-[40px] leading-[1.05] tracking-[-0.04em] text-as-ink sm:text-[56px]">
             Publications
           </h2>
-          <p className="mt-6 max-w-md font-sans text-lg text-white/60">
+          <p className="mt-6 max-w-md font-sans text-lg text-as-muted">
             Read about us in renowned publications, each underlining our
             dedication to excellence and innovation.
           </p>
@@ -106,13 +106,13 @@ export function Publications() {
             Let&apos;s talk
           </Button>
           {/* Progress rail (lg motion only) */}
-          <div className="mt-10 hidden h-px w-40 overflow-hidden bg-white/15 lg:block">
+          <div className="mt-10 hidden h-px w-40 overflow-hidden bg-as-line lg:block">
             <div
               ref={progressRef}
               className="h-full w-full origin-left scale-x-0 bg-as-red"
             />
           </div>
-          <p className="mt-4 hidden items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-white/40 lg:flex">
+          <p className="mt-4 hidden items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-as-muted lg:flex">
             Scroll to explore
             <ArrowRight className="h-3.5 w-3.5" />
           </p>
@@ -138,10 +138,10 @@ export function Publications() {
                 className="group w-full shrink-0 lg:w-[400px]"
               >
                 <SpotlightCard
-                  tone="dark"
-                  className="flex h-full flex-col rounded-[20px] border border-white/10 bg-white/[0.03] group-hover:border-as-red/50"
+                  tone="light"
+                  className="flex h-full flex-col rounded-[20px] border border-as-line bg-white shadow-sm hover:shadow-[0_20px_44px_-24px_rgba(16,16,20,0.25)] group-hover:border-as-red/50"
                 >
-                  <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden rounded-t-[20px] bg-white/5">
+                  <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden rounded-t-[20px] bg-as-line/50">
                     <Image
                       src={pub.image}
                       alt={pub.outlet}
@@ -154,17 +154,17 @@ export function Publications() {
                     <p className="font-mono text-xs uppercase tracking-[0.2em] text-as-red">
                       {pub.outlet}
                     </p>
-                    <h3 className="font-display mt-3 text-xl leading-snug text-white sm:text-2xl lg:line-clamp-3">
+                    <h3 className="font-display mt-3 text-xl leading-snug text-as-ink sm:text-2xl lg:line-clamp-3">
                       {pub.title}
                     </h3>
-                    <p className="mt-4 text-[15px] leading-relaxed text-white/60 lg:line-clamp-3">
+                    <p className="mt-4 text-[15px] leading-relaxed text-as-muted lg:line-clamp-3">
                       {pub.excerpt}
                     </p>
                     <a
                       href={pub.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-6 inline-flex items-center gap-2 font-sans font-semibold text-white transition-colors group-hover:text-as-red lg:mt-auto lg:pt-6"
+                      className="mt-6 inline-flex items-center gap-2 font-sans font-semibold text-as-ink transition-colors group-hover:text-as-red lg:mt-auto lg:pt-6"
                     >
                       Read the Full Article
                       <ArrowRight className="h-5 w-5 text-as-red" />

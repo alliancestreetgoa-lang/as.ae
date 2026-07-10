@@ -67,7 +67,7 @@ const STEPS: Step[] = [
 export default function FinancialServicesPage() {
   return (
     <>
-      <Navbar />
+      <Navbar overLight />
       <main>
         <PageHero
           title="UAE Corporate Tax, Compliance & Financial Advisory Services"

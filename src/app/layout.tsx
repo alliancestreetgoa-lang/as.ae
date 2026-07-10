@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { SmoothScroll } from "@/components/motion/SmoothScroll";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -34,7 +35,10 @@ export default function RootLayout({
       lang="en"
       className={`${fraunces.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
     >
-      <body className="min-h-full bg-as-canvas text-as-ink font-sans">{children}</body>
+      <body className="min-h-full bg-as-canvas text-as-ink font-sans">
+        <SmoothScroll />
+        {children}
+      </body>
     </html>
   );
 }

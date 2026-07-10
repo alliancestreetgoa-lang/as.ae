@@ -67,13 +67,13 @@ export function Navbar({
       className={cn(
         "fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300",
         solid
-          ? "border-white/10 bg-as-ink/95 backdrop-blur-md"
+          ? "border-as-line bg-white/85 backdrop-blur-md"
           : "border-transparent bg-transparent"
       )}
     >
       <nav className="as-container flex h-[82px] items-center justify-between">
         <Link href="/" className="shrink-0" onClick={closeMobile}>
-          <Logo variant={overLightTransparent ? "black" : "white"} className="h-9" />
+          <Logo variant={solid || overLightTransparent ? "black" : "white"} className="h-9" />
         </Link>
 
         <ul className="hidden items-center gap-1 lg:flex">
@@ -83,8 +83,8 @@ export function Navbar({
                 href={item.href}
                 className={cn(
                   "rounded-full border px-4 py-2 font-sans text-[15px] font-medium transition-colors hover:border-as-red/60",
-                  overLightTransparent
-                    ? "border-as-ink/15 text-as-ink hover:text-as-red"
+                  solid || overLightTransparent
+                    ? "border-as-line text-as-ink hover:text-as-red"
                     : "border-white/15 text-white/90 hover:text-white"
                 )}
               >
@@ -112,8 +112,8 @@ export function Navbar({
             onClick={() => setMobileOpen((open) => !open)}
             className={cn(
               "flex h-11 w-11 items-center justify-center rounded-full border transition-colors hover:border-as-red/60 lg:hidden",
-              overLightTransparent
-                ? "border-as-ink/15 text-as-ink"
+              solid || overLightTransparent
+                ? "border-as-line text-as-ink"
                 : "border-white/15 text-white"
             )}
           >
@@ -132,7 +132,7 @@ export function Navbar({
         className={cn(
           "grid overflow-hidden border-t transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none lg:hidden",
           mobileOpen
-            ? "grid-rows-[1fr] border-white/10 bg-as-ink/98 backdrop-blur-md"
+            ? "grid-rows-[1fr] border-as-line bg-white/98 backdrop-blur-md"
             : "grid-rows-[0fr] border-transparent"
         )}
         {...(!mobileOpen ? { inert: true, "aria-hidden": true } : {})}
@@ -144,7 +144,7 @@ export function Navbar({
                 <Link
                   href={item.href}
                   onClick={closeMobile}
-                  className="block rounded-lg px-3 py-3 font-sans text-base font-medium text-white/90 transition-colors hover:bg-white/5 hover:text-as-red"
+                  className="block rounded-lg px-3 py-3 font-sans text-base font-medium text-as-ink transition-colors hover:bg-as-red/5 hover:text-as-red"
                 >
                   {item.label}
                 </Link>

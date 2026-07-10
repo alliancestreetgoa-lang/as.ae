@@ -23,7 +23,7 @@ export function GradientHero({
   ctaHref?: string;
 }) {
   return (
-    <section className="as-hero-gradient pt-[82px]">
+    <section className="bg-as-canvas pt-[82px]">
       <div className="as-container flex min-h-[78vh] flex-col items-center justify-center py-24 text-center">
         <Reveal
           as="h1"

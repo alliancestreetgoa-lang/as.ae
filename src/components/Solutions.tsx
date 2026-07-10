@@ -90,19 +90,19 @@ export function Solutions() {
           className="sm:col-span-2 lg:col-span-5 lg:row-span-2"
         >
           <SpotlightCard
-            tone="dark"
-            className="group flex h-full min-h-[320px] flex-col rounded-[20px] border border-as-ink bg-as-ink p-8 hover:border-as-red/40 lg:p-10"
+            tone="light"
+            className="group flex h-full min-h-[320px] flex-col rounded-[20px] border border-as-red/20 bg-as-red/[0.03] p-8 hover:border-as-red/40 lg:p-10"
           >
             {/* Copy pinned to the top of the card. */}
             <div className="relative z-10">
               <Eyebrow>Let&apos;s talk</Eyebrow>
-              <h3 className="font-display mt-5 max-w-[16ch] text-2xl leading-[1.15] text-white sm:text-[28px]">
+              <h3 className="font-display mt-5 max-w-[16ch] text-2xl leading-[1.15] text-as-ink sm:text-[28px]">
                 Let&apos;s map your structure.
               </h3>
-              <p className="mt-4 max-w-[26ch] text-[15px] leading-relaxed text-white/60">
+              <p className="mt-4 max-w-[26ch] text-[15px] leading-relaxed text-as-muted">
                 Tell us where you want to go — we&apos;ll design the UAE setup around it.
               </p>
-              <Button href="#collaborate" variant="white" arrow className="mt-8 w-fit">
+              <Button href="#collaborate" variant="primary" arrow className="mt-8 w-fit">
                 Get in Touch
               </Button>
             </div>
@@ -116,9 +116,9 @@ export function Solutions() {
                 aria-hidden
                 fill
                 sizes="(min-width: 1024px) 40vw, 100vw"
-                className="select-none object-cover object-bottom opacity-70 transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                className="select-none object-cover object-bottom opacity-90 transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
               />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-as-ink via-transparent to-transparent" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-as-canvas via-transparent to-transparent" />
             </div>
           </SpotlightCard>
         </Reveal>

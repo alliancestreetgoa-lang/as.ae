@@ -44,14 +44,14 @@ const BLOCKS: InfoBlock[] = [
 export default function RealEstatePage() {
   return (
     <>
-      <Navbar />
+      <Navbar overLight />
       <main>
         {/* Split gradient hero — the page's one large red hero moment (brand
             exception to the red-accent-only rule), same `.as-hero-gradient`
             background used by `GradientHero`, but kept as a bespoke
             two-column split (headline left / subcopy + CTA right) since
             `GradientHero` only supports a single centered column. */}
-        <section className="as-hero-gradient pt-[82px]">
+        <section className="bg-as-canvas pt-[82px]">
           <div className="as-container grid min-h-[70vh] items-center gap-10 py-24 lg:grid-cols-2">
             <Reveal as="div" y={28}>
               <h1 className="font-display text-[44px] leading-[1.05] tracking-[-0.04em] text-as-ink sm:text-[60px] lg:text-[68px]">
@@ -78,22 +78,22 @@ export default function RealEstatePage() {
             hairline dividers, mirroring `AsSeenIn`'s hand-rolled label
             pattern rather than the red `Eyebrow` primitive, so the row
             stays a quiet ink moment. */}
-        <section className="bg-as-ink py-14">
+        <section className="border-y border-as-line bg-as-canvas py-14">
           <div className="as-container">
             <Reveal
               as="p"
               y={16}
-              className="mb-10 flex items-center justify-center gap-3 text-center font-mono text-xs uppercase tracking-[0.3em] text-white/60"
+              className="mb-10 flex items-center justify-center gap-3 text-center font-mono text-xs uppercase tracking-[0.3em] text-as-muted"
             >
-              <span aria-hidden="true" className="inline-block h-px w-6 bg-white/20" />
+              <span aria-hidden="true" className="inline-block h-px w-6 bg-as-line" />
               Trusted by the best in the market:
-              <span aria-hidden="true" className="inline-block h-px w-6 bg-white/20" />
+              <span aria-hidden="true" className="inline-block h-px w-6 bg-as-line" />
             </Reveal>
             <Reveal
               as="div"
               y={20}
               delay={0.08}
-              className="flex flex-wrap items-center justify-center divide-x divide-white/10"
+              className="flex flex-wrap items-center justify-center divide-x divide-as-line"
             >
               {DEVELOPERS.map((d) => (
                 <div key={d.name} className="px-8 py-1 first:pl-0 last:pr-0 sm:px-10">

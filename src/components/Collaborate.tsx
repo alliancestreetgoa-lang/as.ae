@@ -66,11 +66,11 @@ const BADGES = [
  */
 export function Collaborate() {
   return (
-    <Section id="collaborate" bg="ink" className="overflow-hidden">
-      {/* Ambient red glow, consistent with Hero's ink-section treatment */}
+    <Section id="collaborate" bg="canvas" className="overflow-hidden">
+      {/* Soft ambient red halo behind the CTA on the white field. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/3 z-0 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(226,46,52,0.35)_0%,rgba(226,46,52,0.1)_45%,transparent_72%)] blur-2xl"
+        className="pointer-events-none absolute left-1/2 top-1/3 z-0 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(226,46,52,0.14)_0%,rgba(226,46,52,0.05)_45%,transparent_72%)] blur-2xl"
       />
 
       <Reveal
@@ -79,7 +79,7 @@ export function Collaborate() {
         className="relative z-10 col-span-12 flex flex-col items-center text-center"
       >
         <Eyebrow>Let&apos;s collaborate</Eyebrow>
-        <h2 className="font-display mt-6 max-w-2xl text-[40px] leading-[1.05] tracking-[-0.03em] text-white sm:text-[56px] lg:text-[64px]">
+        <h2 className="font-display mt-6 max-w-2xl text-[40px] leading-[1.05] tracking-[-0.03em] text-as-ink sm:text-[56px] lg:text-[64px]">
           Go where you&apos;re treated best.
         </h2>
         <Button href="/contact-us" variant="primary" className="mt-10">
@@ -106,7 +106,7 @@ export function Collaborate() {
               className="absolute h-16 w-16 -translate-x-1/2 -translate-y-1/2 sm:h-20 sm:w-20"
               style={{ top: avatar.top, left: avatar.left }}
             >
-              <div className="h-full w-full animate-[as-orbit-reverse_70s_linear_infinite] overflow-hidden rounded-full shadow-lg ring-1 ring-white/10 motion-reduce:[animation:none]">
+              <div className="h-full w-full animate-[as-orbit-reverse_70s_linear_infinite] overflow-hidden rounded-full shadow-lg ring-1 ring-black/5 motion-reduce:[animation:none]">
                 <Image
                   src={avatar.src}
                   alt={`Collaborator ${idx * 2 + 1}`}
@@ -127,7 +127,7 @@ export function Collaborate() {
               className="absolute h-14 w-14 -translate-x-1/2 -translate-y-1/2 sm:h-16 sm:w-16"
               style={{ top: avatar.top, left: avatar.left }}
             >
-              <div className="h-full w-full animate-[as-orbit_55s_linear_infinite] overflow-hidden rounded-full shadow-lg ring-1 ring-white/10 motion-reduce:[animation:none]">
+              <div className="h-full w-full animate-[as-orbit_55s_linear_infinite] overflow-hidden rounded-full shadow-lg ring-1 ring-black/5 motion-reduce:[animation:none]">
                 <Image
                   src={avatar.src}
                   alt={`Collaborator ${idx * 2 + 2}`}
@@ -144,7 +144,7 @@ export function Collaborate() {
         {BADGES.map((badge) => (
           <div
             key={badge.src}
-            className="absolute flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-lg sm:h-12 sm:w-12"
+            className="absolute flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-as-line bg-white shadow-lg sm:h-12 sm:w-12"
             style={{ top: badge.top, left: badge.left }}
           >
             <Image src={badge.src} alt="" width={20} height={20} className="h-5 w-5" />

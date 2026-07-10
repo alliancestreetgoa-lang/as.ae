@@ -80,7 +80,7 @@ const REGIONS: { region: string; offices: Office[] }[] = [
 export default function ContactUsPage() {
   return (
     <>
-      <Navbar />
+      <Navbar overLight />
       <main>
         <GradientHero
           title="Get in Touch"

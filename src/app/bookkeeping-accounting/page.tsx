@@ -40,7 +40,7 @@ const STATS = [
 export default function BookkeepingAccountingPage() {
   return (
     <>
-      <Navbar />
+      <Navbar overLight />
       <main>
         <GradientHero
           title="Bookkeeping, Accounting & VAT Services in Dubai"

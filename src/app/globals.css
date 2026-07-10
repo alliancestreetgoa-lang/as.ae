@@ -14,8 +14,8 @@
   --color-as-ink: #101014;
   --color-as-red: #e22e34;
   --color-as-red-bright: #f13232;
-  --color-as-canvas: #FAFAF8;
-  --color-as-line: #ecebe7;
+  --color-as-canvas: #ffffff;
+  --color-as-line: #e9e8e4;
   --color-as-muted: #6f6f78;
   /* Legacy alias: un-migrated sections still reference bg-as-light; map to new canvas */
   --color-as-light: var(--color-as-canvas);
@@ -143,7 +143,8 @@
   }
   html {
     @apply font-sans;
-    scroll-behavior: smooth;
+    /* Smooth scrolling is owned by Lenis (SmoothScroll.tsx); native
+       scroll-behavior would fight its programmatic scrollTo. */
   }
   h1,
   h2,

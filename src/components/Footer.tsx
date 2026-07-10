@@ -5,7 +5,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { FOOTER_COLUMNS } from "@/lib/content";
 
 const LINK_CLASS =
-  "inline-block py-1 text-[15px] text-white/65 transition-colors hover:text-as-red";
+  "inline-block py-1 text-[15px] text-as-muted transition-colors hover:text-as-red";
 
 /**
  * Footer — the site's closing editorial beat: an oversized Fraunces
@@ -39,18 +39,18 @@ const LINK_CLASS =
  */
 export function Footer() {
   return (
-    <footer className="bg-as-ink">
+    <footer className="border-t border-as-line bg-as-canvas">
       <div className="as-container grid gap-14 py-20 sm:py-24 lg:grid-cols-12 lg:gap-8 lg:py-28">
         {/* Brand block: wordmark, headline, CTA */}
         <div className="lg:col-span-5">
           <Link href="/" className="inline-flex">
-            <Logo variant="white" className="h-8" />
+            <Logo variant="black" className="h-8" />
           </Link>
 
           <Reveal
             as="h2"
             y={24}
-            className="font-display mt-8 text-[40px] leading-[1.05] tracking-[-0.03em] text-white sm:text-[52px] lg:text-[60px]"
+            className="font-display mt-8 text-[40px] leading-[1.05] tracking-[-0.03em] text-as-ink sm:text-[52px] lg:text-[60px]"
           >
             Clean. Legal.
             <br />
@@ -75,7 +75,7 @@ export function Footer() {
                   const content = (
                     <>
                       {link.strong && (
-                        <span className="font-semibold text-white">{link.strong} </span>
+                        <span className="font-semibold text-as-ink">{link.strong} </span>
                       )}
                       {link.label}
                     </>
@@ -101,9 +101,9 @@ export function Footer() {
       </div>
 
       {/* Legal / copyright row */}
-      <div className="border-t border-white/10">
+      <div className="border-t border-as-line">
         <div className="as-container flex flex-col-reverse items-center gap-4 py-8 sm:flex-row sm:justify-between">
-          <p className="text-sm text-white/50">
+          <p className="text-sm text-as-muted">
             © Alliance Street Consultancy 2025 All Rights Reserved.
           </p>
           <LogoMark className="h-6 w-auto" />
