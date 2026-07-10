@@ -97,7 +97,7 @@ export function Hero() {
         <div className="absolute -right-1/4 -top-1/3 h-[560px] w-[560px] rounded-full bg-[radial-gradient(circle,rgba(226,46,52,0.16)_0%,rgba(226,46,52,0.05)_45%,transparent_72%)] blur-2xl sm:h-[760px] sm:w-[760px] lg:h-[920px] lg:w-[920px]" />
       </div>
 
-      <div className="as-container relative py-24 sm:py-32 lg:py-36">
+      <div className="as-container relative flex min-h-[calc(100svh-82px)] flex-col justify-center py-14 sm:py-16 lg:py-20">
         <Frame tone="red" className="max-w-4xl">
           <div ref={eyebrowRef}>
             <Eyebrow>Alliance Street &middot; Dubai, UAE</Eyebrow>
@@ -106,7 +106,7 @@ export function Hero() {
           {/* nomination badge */}
           <div
             ref={badgeRef}
-            className="mt-8 inline-flex items-center gap-3 rounded-full border border-as-line bg-white py-1.5 pl-5 pr-1.5 text-sm text-as-muted shadow-sm"
+            className="mt-6 inline-flex items-center gap-3 rounded-full border border-as-line bg-white py-1.5 pl-5 pr-1.5 text-sm text-as-muted shadow-sm"
           >
             <span>
               Alliance Street is nominated as best business consulting firm in Asia
@@ -121,7 +121,7 @@ export function Hero() {
             </a>
           </div>
 
-          <h1 className="font-display mt-8 text-[44px] leading-[1.05] tracking-[-0.04em] text-as-ink sm:text-[64px] lg:text-[80px]">
+          <h1 className="font-display mt-6 text-[40px] leading-[1.05] tracking-[-0.04em] text-as-ink sm:text-[58px] lg:text-[72px]">
             <span ref={line1Ref} className="block">
               Business Setup &amp;
             </span>
@@ -133,13 +133,13 @@ export function Hero() {
             </span>
           </h1>
 
-          <p ref={subRef} className="mt-8 max-w-xl font-sans text-lg text-as-muted">
+          <p ref={subRef} className="mt-6 max-w-xl font-sans text-lg text-as-muted">
             At Alliance Street, we built business structures that help you protect
             your assets and eliminate taxation (often fully) - corporate &amp;
             private.
           </p>
 
-          <div ref={ctaRef} className="mt-10 flex flex-wrap items-center gap-6">
+          <div ref={ctaRef} className="mt-8 flex flex-wrap items-center gap-6">
             <a
               href="#collaborate"
               className="inline-flex items-center gap-2 rounded-full bg-as-red px-7 py-3.5 font-sans text-[15px] font-semibold text-white transition-colors hover:bg-as-red-bright"
