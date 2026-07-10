@@ -120,27 +120,40 @@ export default function RealEstatePage() {
 
         <Testimonials />
 
-        {/* Transactions stat — same oversized proof-point pattern as
-            `StatsBanner`, on canvas instead of ink, with the animated
-            `Counter` driving the big number. */}
-        <section className="bg-as-canvas py-24">
+        {/* Transactions stat — oversized proof-point over a full-bleed
+            background image with a dark ink scrim (matches the `StatsBanner`
+            treatment), the `Counter` driving the big number. */}
+        <section className="relative isolate overflow-hidden bg-as-ink py-24 sm:py-32">
+          <div className="absolute inset-0 -z-10">
+            <Image
+              src="/images/businessman-hero.jpg"
+              alt=""
+              aria-hidden
+              fill
+              sizes="100vw"
+              className="object-cover object-center opacity-60"
+            />
+            {/* Left-weighted scrim keeps the (left-aligned) copy legible. */}
+            <div className="absolute inset-0 bg-gradient-to-r from-as-ink via-as-ink/85 to-as-ink/40" />
+            <div className="absolute inset-0 bg-gradient-to-t from-as-ink/80 to-transparent" />
+          </div>
           <div className="as-container max-w-3xl">
             <Reveal as="div" y={28}>
-              <p className="font-display text-[110px] leading-none tracking-[-0.05em] text-as-ink sm:text-[150px]">
+              <p className="font-display text-[110px] leading-none tracking-[-0.05em] text-white sm:text-[150px]">
                 <Counter to={200} />
                 <span className="text-as-red">+</span>
               </p>
-              <p className="mt-2 text-2xl font-medium text-as-ink">
+              <p className="mt-2 text-2xl font-medium text-white">
                 Successful transactions completed.
               </p>
-              <p className="mt-6 max-w-2xl text-lg text-as-muted">
+              <p className="mt-6 max-w-2xl text-lg text-white/70">
                 With over 200 successful transactions, Alliance Street has built a solid
                 reputation for providing trusted, reliable advice that clients can count
                 on.
               </p>
               <Link
                 href="/contact-us"
-                className="mt-8 inline-flex items-center gap-2 rounded-full bg-as-ink px-7 py-3.5 font-sans text-[15px] font-semibold text-white transition-colors hover:bg-as-red"
+                className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 font-sans text-[15px] font-semibold text-as-ink transition-colors hover:bg-white/90"
               >
                 Tell us how we can help you
               </Link>
