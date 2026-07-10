@@ -91,7 +91,7 @@ export function Solutions() {
         >
           <SpotlightCard
             tone="light"
-            className="group flex h-full min-h-[320px] flex-col rounded-[20px] border border-as-red/20 bg-as-red/[0.03] p-8 hover:border-as-red/40 lg:p-10"
+            className="group flex h-full min-h-[320px] flex-col overflow-hidden rounded-[20px] border border-as-red/20 bg-as-red/[0.03] p-8 hover:border-as-red/40 lg:p-10"
           >
             {/* Copy pinned to the top of the card. */}
             <div className="relative z-10">

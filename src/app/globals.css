@@ -203,6 +203,66 @@
     }
   }
 
+  /* Spotlight Card — adapted from 21st.dev "Spotlight Card" (easemize). A red
+     spotlight tracks the pointer and lights up the card: a soft fill glow on
+     the surface (background-image) and a bright glowing BORDER via two
+     mask-composited pseudo-elements (border-box minus padding-box = the ring).
+     `SpotlightCard.tsx` sets --x/--y (card-relative px) on pointer move and
+     resets them off-card on leave. Hue defaults to brand red. */
+  [data-glow] {
+    --border-size: 2px;
+    --spotlight-size: 320px;
+    --hue: 358;
+    --sat: 76;
+    --light: 54;
+    background-image: radial-gradient(
+      var(--spotlight-size) var(--spotlight-size) at
+      calc(var(--x, -999) * 1px) calc(var(--y, -999) * 1px),
+      hsl(var(--hue) calc(var(--sat) * 1%) calc(var(--light) * 1%) / var(--fill-opacity, 0.1)),
+      transparent 70%
+    );
+  }
+  [data-glow]::before,
+  [data-glow]::after {
+    pointer-events: none;
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: var(--border-size) solid transparent;
+    border-radius: inherit;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    /* Reliable "border ring" mask: border-box minus padding-box via exclude. */
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+  [data-glow]::before {
+    background-image: radial-gradient(
+      calc(var(--spotlight-size) * 0.75) calc(var(--spotlight-size) * 0.75) at
+      calc(var(--x, -999) * 1px) calc(var(--y, -999) * 1px),
+      hsl(var(--hue) calc(var(--sat) * 1%) calc(var(--light) * 1%) / 1),
+      transparent 100%
+    );
+    filter: brightness(1.35);
+  }
+  [data-glow]::after {
+    background-image: radial-gradient(
+      calc(var(--spotlight-size) * 0.5) calc(var(--spotlight-size) * 0.5) at
+      calc(var(--x, -999) * 1px) calc(var(--y, -999) * 1px),
+      hsl(0 0% 100% / 0.55),
+      transparent 100%
+    );
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-glow]::before,
+    [data-glow]::after {
+      display: none;
+    }
+  }
+
   /* Vertical hero gradient: black -> Alliance red -> white */
   .as-hero-gradient {
     background-image: linear-gradient(

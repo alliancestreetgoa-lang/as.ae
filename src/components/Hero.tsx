@@ -126,10 +126,10 @@ export function Hero() {
               Business Setup &amp;
             </span>
             <span ref={line2Ref} className="block">
-              Company Formation Services
+              Company Formation
             </span>
-            <span ref={line3Ref} className="block">
-              in Dubai, UAE
+            <span ref={line3Ref} className="block lg:whitespace-nowrap">
+              Services in Dubai, UAE
             </span>
           </h1>
 

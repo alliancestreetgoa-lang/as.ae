@@ -1,11 +1,7 @@
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-/**
- * Alliance Street logo — the brand's red "A" mark paired with the stacked
- * "ALLIANCE STREET" wordmark, drawn as SVG + text so it stays razor-sharp
- * at any size and adapts to light/dark surfaces (`variant` only colours the
- * wordmark; the mark is always brand red). Self-contained — no image asset.
- */
+/** Alliance Street wordmark (red triangle + "ALLIANCE STREET"). */
 export function Logo({
   variant = "white",
   className,
@@ -13,32 +9,24 @@ export function Logo({
   variant?: "white" | "black";
   className?: string;
 }) {
+  const src = variant === "white" ? "/images/logo-white.png" : "/images/logo-black.png";
   return (
-    <span
-      aria-label="Alliance Street"
-      role="img"
-      className={cn("inline-flex items-center gap-2.5", className)}
-    >
-      <LogoMark className="h-full w-auto" />
-      <span
-        className={cn(
-          "font-sans text-[13px] font-semibold uppercase leading-[1.08] tracking-[0.16em]",
-          variant === "white" ? "text-white" : "text-as-ink"
-        )}
-      >
-        <span className="block">Alliance</span>
-        <span className="block">Street</span>
-      </span>
-    </span>
+    <Image
+      src={src}
+      alt="Alliance Street"
+      width={1470}
+      height={399}
+      priority
+      className={cn("h-8 w-auto", className)}
+    />
   );
 }
 
-/** The red "A" mark — a bold hollow chevron. Used standalone (footer bar,
- *  favicon-scale) and inside `Logo`. */
+/** The small red triangle logo mark used in the footer bottom bar. */
 export function LogoMark({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 40 35" fill="none" className={cn("h-7 w-auto", className)} aria-hidden="true">
-      <path d="M20 1L39 34H29L20 17L11 34H1L20 1Z" fill="#e22e34" />
+    <svg viewBox="0 0 40 34" fill="none" className={cn("h-7 w-auto", className)}>
+      <path d="M20 0L40 34H26.5L20 22.5L13.5 34H0L20 0Z" fill="#e22e34" />
     </svg>
   );
 }
