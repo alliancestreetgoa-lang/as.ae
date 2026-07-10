@@ -14,7 +14,7 @@ import { Footer } from "@/components/Footer";
 export default function Home() {
   return (
     <>
-      <Navbar />
+      <Navbar overLight />
       <main>
         <Hero />
         <Mission />

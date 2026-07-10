@@ -89,12 +89,12 @@ export function Hero() {
     <section
       id="top"
       ref={sectionRef}
-      className="relative isolate overflow-hidden bg-as-ink pt-[82px]"
+      className="relative isolate overflow-hidden bg-as-canvas pt-[82px]"
     >
-      {/* Red gradient glow — the hero's one large red moment; also the parallax target. */}
+      {/* Soft red glow, top-right — a warm brand accent on the white canvas;
+          also the parallax target. */}
       <div ref={glowRef} aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div className="absolute -right-1/4 -top-1/3 h-[560px] w-[560px] rounded-full bg-[radial-gradient(circle,rgba(226,46,52,0.55)_0%,rgba(226,46,52,0.16)_45%,transparent_72%)] blur-2xl sm:h-[760px] sm:w-[760px] lg:h-[920px] lg:w-[920px]" />
-        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/70 to-transparent" />
+        <div className="absolute -right-1/4 -top-1/3 h-[560px] w-[560px] rounded-full bg-[radial-gradient(circle,rgba(226,46,52,0.16)_0%,rgba(226,46,52,0.05)_45%,transparent_72%)] blur-2xl sm:h-[760px] sm:w-[760px] lg:h-[920px] lg:w-[920px]" />
       </div>
 
       <div className="as-container relative py-24 sm:py-32 lg:py-36">
@@ -106,7 +106,7 @@ export function Hero() {
           {/* nomination badge */}
           <div
             ref={badgeRef}
-            className="mt-8 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.04] py-1.5 pl-5 pr-1.5 text-sm text-white/70"
+            className="mt-8 inline-flex items-center gap-3 rounded-full border border-as-line bg-white py-1.5 pl-5 pr-1.5 text-sm text-as-muted shadow-sm"
           >
             <span>
               Alliance Street is nominated as best business consulting firm in Asia
@@ -115,13 +115,13 @@ export function Hero() {
               href="https://www.asiabusinessoutlook.com/services-and-consulting/cover-story/alliance-street-consultancy-steering-businesses-to-growth-with-bespoke-consulting-solutions-cid-1423.html"
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full bg-white px-4 py-1.5 text-sm font-medium text-black shadow-sm transition-colors hover:bg-white/90"
+              className="rounded-full bg-as-ink px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-as-red"
             >
               Read more
             </a>
           </div>
 
-          <h1 className="font-display mt-8 text-[44px] leading-[1.05] tracking-[-0.04em] text-white sm:text-[64px] lg:text-[80px]">
+          <h1 className="font-display mt-8 text-[44px] leading-[1.05] tracking-[-0.04em] text-as-ink sm:text-[64px] lg:text-[80px]">
             <span ref={line1Ref} className="block">
               Business Setup &amp;
             </span>
@@ -133,7 +133,7 @@ export function Hero() {
             </span>
           </h1>
 
-          <p ref={subRef} className="mt-8 max-w-xl font-sans text-lg text-white/60">
+          <p ref={subRef} className="mt-8 max-w-xl font-sans text-lg text-as-muted">
             At Alliance Street, we built business structures that help you protect
             your assets and eliminate taxation (often fully) - corporate &amp;
             private.
@@ -148,7 +148,7 @@ export function Hero() {
             </a>
             <a
               href="#solutions"
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 px-7 py-3.5 font-sans text-[15px] font-semibold text-white transition-colors hover:border-as-red/60 hover:text-as-red"
+              className="inline-flex items-center gap-2 rounded-full border border-as-line px-7 py-3.5 font-sans text-[15px] font-semibold text-as-ink transition-colors hover:border-as-red/60 hover:text-as-red"
             >
               Our solutions
               <ArrowRight className="h-4 w-4" />

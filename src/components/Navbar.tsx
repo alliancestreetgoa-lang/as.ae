@@ -15,7 +15,16 @@ import { cn } from "@/lib/utils";
  * and re-built with a CSS grid-rows accordion (no framer-motion) for the
  * mobile panel.
  */
-export function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean }) {
+export function Navbar({
+  alwaysSolid = false,
+  overLight = false,
+}: {
+  alwaysSolid?: boolean;
+  /** Set when the navbar sits transparent over a LIGHT hero — its
+   *  transparent state then uses a dark logo + ink text so it stays visible
+   *  (it still flips to the solid ink bar on scroll). */
+  overLight?: boolean;
+}) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -49,6 +58,8 @@ export function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean }) {
 
   const closeMobile = useCallback(() => setMobileOpen(false), []);
   const solid = alwaysSolid || scrolled || mobileOpen;
+  // Transparent over a light hero → dark logo + ink text/borders.
+  const overLightTransparent = overLight && !solid;
 
   return (
     <header
@@ -61,7 +72,7 @@ export function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean }) {
     >
       <nav className="as-container flex h-[82px] items-center justify-between">
         <Link href="/" className="shrink-0" onClick={closeMobile}>
-          <Logo variant="white" className="h-9" />
+          <Logo variant={overLightTransparent ? "black" : "white"} className="h-9" />
         </Link>
 
         <ul className="hidden items-center gap-1 lg:flex">
@@ -69,7 +80,12 @@ export function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean }) {
             <li key={item.label}>
               <Link
                 href={item.href}
-                className="rounded-full border border-white/15 px-4 py-2 font-sans text-[15px] font-medium text-white/90 transition-colors hover:border-as-red/60 hover:text-white"
+                className={cn(
+                  "rounded-full border px-4 py-2 font-sans text-[15px] font-medium transition-colors hover:border-as-red/60",
+                  overLightTransparent
+                    ? "border-as-ink/15 text-as-ink hover:text-as-red"
+                    : "border-white/15 text-white/90 hover:text-white"
+                )}
               >
                 {item.label}
               </Link>
@@ -91,7 +107,12 @@ export function Navbar({ alwaysSolid = false }: { alwaysSolid?: boolean }) {
             aria-expanded={mobileOpen}
             aria-controls="mobile-nav-panel"
             onClick={() => setMobileOpen((open) => !open)}
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white transition-colors hover:border-as-red/60 lg:hidden"
+            className={cn(
+              "flex h-11 w-11 items-center justify-center rounded-full border transition-colors hover:border-as-red/60 lg:hidden",
+              overLightTransparent
+                ? "border-as-ink/15 text-as-ink"
+                : "border-white/15 text-white"
+            )}
           >
             {mobileOpen ? <X className="h-5 w-5" aria-hidden="true" /> : <Menu className="h-5 w-5" aria-hidden="true" />}
           </button>
