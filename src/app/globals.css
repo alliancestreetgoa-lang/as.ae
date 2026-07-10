@@ -149,12 +149,24 @@
 }
 
 @layer components {
-  /* Centered page container matching the site's ~1240px content width */
+  /* Centered page container — matches the `Section` primitive exactly
+     (max-w-7xl = 80rem, px-6 sm:px-8 lg:px-12) so every section, the navbar
+     and the footer share one set of left/right edges. */
   .as-container {
     width: 100%;
-    max-width: 1240px;
+    max-width: 80rem;
     margin-inline: auto;
     padding-inline: 1.5rem;
+  }
+  @media (min-width: 640px) {
+    .as-container {
+      padding-inline: 2rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .as-container {
+      padding-inline: 3rem;
+    }
   }
 
   /* Vertical hero gradient: black -> Alliance red -> white */

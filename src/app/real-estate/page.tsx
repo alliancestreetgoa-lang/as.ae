@@ -140,8 +140,8 @@ export default function RealEstatePage() {
             <div className="absolute inset-0 bg-gradient-to-r from-as-ink via-as-ink/85 to-as-ink/40" />
             <div className="absolute inset-0 bg-gradient-to-t from-as-ink/80 to-transparent" />
           </div>
-          <div className="as-container max-w-3xl">
-            <Reveal as="div" y={28}>
+          <div className="as-container">
+            <Reveal as="div" y={28} className="max-w-3xl">
               <p className="font-display text-[110px] leading-none tracking-[-0.05em] text-white sm:text-[150px]">
                 <Counter to={200} />
                 <span className="text-as-red">+</span>
