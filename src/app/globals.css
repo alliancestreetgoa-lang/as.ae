@@ -372,6 +372,25 @@
       transform: scale(1);
     }
   }
+
+  /* Navbar slides down + fades in on load. */
+  @keyframes as-nav-in {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  /* Slow sheen drifting across gradient-clipped text (background-position). */
+  @keyframes as-text-sheen {
+    to {
+      background-position: 200% center;
+    }
+  }
   @keyframes as-orbit-reverse {
     from {
       transform: rotate(0deg);

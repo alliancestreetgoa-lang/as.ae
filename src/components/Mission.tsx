@@ -24,7 +24,7 @@ export function Mission() {
         <Eyebrow>Our Mission</Eyebrow>
         <h2 className="font-display mt-6 max-w-xl text-[34px] leading-[1.15] tracking-[-0.03em] text-as-ink sm:text-[46px] lg:text-[54px]">
           <span>Our mission is to </span>
-          <span className="bg-gradient-to-r from-as-ink to-as-red bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-as-ink via-as-red to-as-ink bg-[length:200%_auto] bg-clip-text text-transparent animate-[as-text-sheen_6s_linear_infinite] motion-reduce:animate-none">
             help businesses
           </span>
           <span className="text-as-muted">

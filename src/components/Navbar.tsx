@@ -65,7 +65,7 @@ export function Navbar({
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300",
+        "fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 animate-[as-nav-in_0.6s_ease-out_both] motion-reduce:animate-none",
         solid
           ? "border-as-line bg-white/85 backdrop-blur-md"
           : "border-transparent bg-transparent"

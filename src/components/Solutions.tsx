@@ -42,10 +42,10 @@ function SolutionTile({
       <div
         className={cn(
           HOVER_LIFT,
-          "rounded-[20px] border border-as-line bg-as-canvas p-8 hover:border-as-red/40"
+          "group rounded-[20px] border border-as-line bg-as-canvas p-8 hover:border-as-red/40"
         )}
       >
-        <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-as-red/50 text-as-red">
+        <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-as-red/50 text-as-red transition-transform duration-300 ease-out group-hover:-rotate-6 group-hover:scale-110 motion-reduce:transition-none motion-reduce:group-hover:rotate-0 motion-reduce:group-hover:scale-100">
           <Icon className="h-5 w-5" strokeWidth={1.75} />
         </div>
         <h3 className="font-display mb-3 text-xl text-as-ink sm:text-2xl">
