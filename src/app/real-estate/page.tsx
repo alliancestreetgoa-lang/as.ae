@@ -10,6 +10,7 @@ import { AsSeenIn } from "@/components/AsSeenIn";
 import { Footer } from "@/components/Footer";
 import { Counter } from "@/components/motion/Counter";
 import { Reveal } from "@/components/motion/Reveal";
+import { Parallax } from "@/components/motion/Parallax";
 
 export const metadata: Metadata = {
   title: "Commercial Real Estate & Office Space in Dubai | Alliance Street",
@@ -125,14 +126,16 @@ export default function RealEstatePage() {
             treatment), the `Counter` driving the big number. */}
         <section className="relative isolate overflow-hidden bg-as-ink py-24 sm:py-32">
           <div className="absolute inset-0 -z-10">
-            <Image
-              src="/images/businessman-hero.jpg"
-              alt=""
-              aria-hidden
-              fill
-              sizes="100vw"
-              className="object-cover object-center opacity-60"
-            />
+            <Parallax className="absolute inset-0" amount={100}>
+              <Image
+                src="/images/businessman-hero.jpg"
+                alt=""
+                aria-hidden
+                fill
+                sizes="100vw"
+                className="object-cover object-center opacity-60"
+              />
+            </Parallax>
             {/* Left-weighted scrim keeps the (left-aligned) copy legible. */}
             <div className="absolute inset-0 bg-gradient-to-r from-as-ink via-as-ink/85 to-as-ink/40" />
             <div className="absolute inset-0 bg-gradient-to-t from-as-ink/80 to-transparent" />

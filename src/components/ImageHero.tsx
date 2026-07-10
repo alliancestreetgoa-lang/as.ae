@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Frame } from "@/components/primitives/Frame";
 import { Reveal } from "@/components/motion/Reveal";
+import { Parallax } from "@/components/motion/Parallax";
 
 /**
  * ImageHero — full-bleed image hero with dark overlay and left-aligned title
@@ -25,7 +26,9 @@ export function ImageHero({
 }) {
   return (
     <section className="relative isolate overflow-hidden bg-as-ink pt-[82px]">
-      <Image src={image} alt="" fill priority className="object-cover object-center" />
+      <Parallax className="absolute inset-0" amount={120}>
+        <Image src={image} alt="" fill priority className="object-cover object-center" />
+      </Parallax>
       <div className="absolute inset-0 bg-gradient-to-r from-as-ink/90 via-as-ink/60 to-as-ink/20" />
 
       <div className="as-container relative z-10 flex min-h-[80vh] flex-col justify-center py-24">

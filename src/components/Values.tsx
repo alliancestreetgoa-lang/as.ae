@@ -3,6 +3,7 @@ import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Frame } from "@/components/primitives/Frame";
 import { Section } from "@/components/primitives/Section";
 import { Reveal } from "@/components/motion/Reveal";
+import { Parallax } from "@/components/motion/Parallax";
 import { VALUES } from "@/lib/content";
 
 /**
@@ -32,15 +33,15 @@ export function Values() {
         className="col-span-12 lg:col-span-5 lg:self-center"
       >
         <Frame tone="red" className="mx-auto w-full max-w-[480px] lg:max-w-none">
-          <div className="relative overflow-hidden rounded-[18px]">
+          <Parallax className="aspect-[5/6] rounded-[18px]" amount={70}>
             <Image
               src="/images/values-stallone.jpg"
               alt="Alliance Street team in a meeting"
-              width={640}
-              height={620}
-              className="h-full w-full object-cover"
+              fill
+              sizes="(min-width: 1024px) 480px, 480px"
+              className="object-cover"
             />
-          </div>
+          </Parallax>
         </Frame>
       </Reveal>
 

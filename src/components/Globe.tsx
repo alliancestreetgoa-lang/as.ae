@@ -2,6 +2,7 @@
 
 import createGlobe, { type COBEOptions } from "cobe";
 import { useEffect, useRef } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { prefersReduced } from "@/components/motion/gsap-setup";
 import { cn } from "@/lib/utils";
 
@@ -29,6 +30,7 @@ export function Globe({ className }: { className?: string }) {
   useEffect(() => {
     let width = 0;
     let phi = 0;
+    let scrollSpin = 0;
     const reduce = prefersReduced();
 
     const onResize = () => {
@@ -36,6 +38,20 @@ export function Globe({ className }: { className?: string }) {
     };
     window.addEventListener("resize", onResize);
     onResize();
+
+    // Scroll-reactive spin: as the hero scrolls past, the globe turns an extra
+    // ~1.4 rad on top of its idle rotation. Skipped under reduced motion.
+    const trigger = reduce
+      ? null
+      : ScrollTrigger.create({
+          trigger: canvasRef.current?.closest("section") ?? canvasRef.current!,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+          onUpdate: (self) => {
+            scrollSpin = self.progress * 1.4;
+          },
+        });
 
     const config: GlobeConfig = {
       devicePixelRatio: 2,
@@ -61,7 +77,7 @@ export function Globe({ className }: { className?: string }) {
       ],
       onRender: (state) => {
         if (!reduce) phi += 0.003;
-        state.phi = phi;
+        state.phi = phi + scrollSpin;
         state.width = width * 2;
         state.height = width * 2;
       },
@@ -75,6 +91,7 @@ export function Globe({ className }: { className?: string }) {
 
     return () => {
       clearTimeout(reveal);
+      trigger?.kill();
       globe.destroy();
       window.removeEventListener("resize", onResize);
     };

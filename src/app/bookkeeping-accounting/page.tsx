@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Navbar } from "@/components/Navbar";
 import { Frame } from "@/components/primitives/Frame";
+import { Parallax } from "@/components/motion/Parallax";
 import { GradientHero } from "@/components/GradientHero";
 import { AsSeenIn } from "@/components/AsSeenIn";
 import { Stats3 } from "@/components/Stats3";
@@ -66,7 +67,10 @@ export default function BookkeepingAccountingPage() {
         <Section bg="canvas">
           <Reveal as="div" y={28} className="col-span-12">
             <Frame tone="red">
-              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[18px] sm:aspect-[2/1]">
+              <Parallax
+                className="aspect-[16/10] rounded-[18px] sm:aspect-[2/1]"
+                amount={80}
+              >
                 <Image
                   src="/images/team-3.jpg"
                   alt="The Alliance Street accounting team at work in the Dubai office"
@@ -74,7 +78,7 @@ export default function BookkeepingAccountingPage() {
                   sizes="(min-width: 1024px) 1100px, 100vw"
                   className="object-cover object-[center_34%]"
                 />
-              </div>
+              </Parallax>
             </Frame>
           </Reveal>
         </Section>
