@@ -103,7 +103,7 @@ export function Globe({
       globe.destroy();
       window.removeEventListener("resize", onResize);
     };
-  }, []);
+  }, [light]);
 
   return (
     <canvas
