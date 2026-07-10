@@ -1,6 +1,7 @@
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Section } from "@/components/primitives/Section";
 import { Reveal } from "@/components/motion/Reveal";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 
 export interface InfoBlock {
   heading: string;
@@ -27,9 +28,11 @@ export function InfoBlocks({
     <Section bg="canvas">
       <Reveal as="div" y={28} className="col-span-12">
         <Eyebrow>{eyebrow}</Eyebrow>
-        <h2 className="font-display mt-6 max-w-4xl text-[32px] leading-[1.15] tracking-[-0.03em] text-as-ink sm:text-[44px]">
-          {title}
-        </h2>
+        <SplitReveal
+          as="h2"
+          text={title}
+          className="font-display mt-6 max-w-4xl text-[32px] leading-[1.15] tracking-[-0.03em] text-as-ink sm:text-[44px]"
+        />
       </Reveal>
 
       <div className="col-span-12 mt-14 grid gap-12 md:grid-cols-3">

@@ -37,6 +37,8 @@ export function Mission() {
       <Reveal
         as="div"
         y={28}
+        scale={0.94}
+        blur={8}
         delay={0.15}
         className="col-span-12 mt-14 lg:col-span-5 lg:mt-0 lg:self-center"
       >

@@ -3,6 +3,7 @@ import { Button } from "@/components/primitives/Button";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Section } from "@/components/primitives/Section";
 import { Reveal } from "@/components/motion/Reveal";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 import { ORBIT_AVATARS } from "@/lib/content";
 
 // Two concentric rings, three avatars each, evenly spaced 120deg apart.
@@ -79,9 +80,11 @@ export function Collaborate() {
         className="relative z-10 col-span-12 flex flex-col items-center text-center"
       >
         <Eyebrow>Let&apos;s collaborate</Eyebrow>
-        <h2 className="font-display mt-6 max-w-2xl text-[40px] leading-[1.05] tracking-[-0.03em] text-as-ink sm:text-[56px] lg:text-[64px]">
-          Go where you&apos;re treated best.
-        </h2>
+        <SplitReveal
+          as="h2"
+          text="Go where you're treated best."
+          className="font-display mt-6 max-w-2xl text-[40px] leading-[1.05] tracking-[-0.03em] text-as-ink sm:text-[56px] lg:text-[64px]"
+        />
         <Button href="/contact-us" variant="primary" className="mt-10">
           Get in Touch
         </Button>

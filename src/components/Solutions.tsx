@@ -5,6 +5,7 @@ import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Section } from "@/components/primitives/Section";
 import { GlowCard } from "@/components/ui/spotlight-card";
 import { Reveal } from "@/components/motion/Reveal";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 import { Counter } from "@/components/motion/Counter";
 import { SOLUTIONS } from "@/lib/content";
 import { cn } from "@/lib/utils";
@@ -37,7 +38,7 @@ function SolutionTile({
 }) {
   const Icon = ICONS[item.icon];
   return (
-    <Reveal as="div" y={24} delay={delay} className={cn("h-full", className)}>
+    <Reveal as="div" y={24} scale={0.96} delay={delay} className={cn("h-full", className)}>
       <div
         className={cn(
           HOVER_LIFT,
@@ -77,9 +78,11 @@ export function Solutions() {
     <Section id="solutions" bg="canvas">
       <Reveal as="div" y={28} className="col-span-12 lg:col-span-8">
         <Eyebrow>Our Solutions</Eyebrow>
-        <h2 className="font-display mt-6 max-w-2xl text-[32px] leading-[1.1] tracking-[-0.03em] text-as-ink sm:text-[44px]">
-          Solutions designed to meet the unique state of your business.
-        </h2>
+        <SplitReveal
+          as="h2"
+          text="Solutions designed to meet the unique state of your business."
+          className="font-display mt-6 max-w-2xl text-[32px] leading-[1.1] tracking-[-0.03em] text-as-ink sm:text-[44px]"
+        />
       </Reveal>
 
       <div className="col-span-12 mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-12 lg:gap-6">

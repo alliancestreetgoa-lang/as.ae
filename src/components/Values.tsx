@@ -3,6 +3,7 @@ import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Frame } from "@/components/primitives/Frame";
 import { Section } from "@/components/primitives/Section";
 import { Reveal } from "@/components/motion/Reveal";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 import { Parallax } from "@/components/motion/Parallax";
 import { VALUES } from "@/lib/content";
 
@@ -48,9 +49,11 @@ export function Values() {
       <div className="col-span-12 mt-14 lg:col-span-7 lg:mt-0 lg:self-center lg:pl-8">
         <Reveal as="div" y={28} delay={0.08}>
           <Eyebrow>Our Values</Eyebrow>
-          <h2 className="font-display mt-6 max-w-xl text-[34px] leading-[1.1] tracking-[-0.03em] text-as-ink sm:text-[46px]">
-            Our values are the foundation of everything we do.
-          </h2>
+          <SplitReveal
+            as="h2"
+            text="Our values are the foundation of everything we do."
+            className="font-display mt-6 max-w-xl text-[34px] leading-[1.1] tracking-[-0.03em] text-as-ink sm:text-[46px]"
+          />
         </Reveal>
 
         <ol className="mt-12 divide-y divide-as-line border-t border-as-line">
