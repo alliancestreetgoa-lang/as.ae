@@ -139,13 +139,13 @@ export function Publications() {
                 className="group w-full shrink-0 lg:w-[400px]"
               >
                 <div className="flex h-full flex-col overflow-hidden rounded-[20px] border border-white/10 bg-white/[0.03] transition-colors group-hover:border-as-red/50">
-                  <div className="relative aspect-[16/10] w-full shrink-0 overflow-hidden bg-white/5">
+                  <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden bg-white/5">
                     <Image
                       src={pub.image}
                       alt={pub.outlet}
                       fill
                       sizes="(min-width: 1024px) 400px, 85vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                      className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
                     />
                   </div>
                   <div className="flex min-h-0 flex-1 flex-col p-7">
