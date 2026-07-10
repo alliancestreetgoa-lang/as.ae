@@ -3,6 +3,7 @@ import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Frame } from "@/components/primitives/Frame";
 import { Section } from "@/components/primitives/Section";
 import { Reveal } from "@/components/motion/Reveal";
+import { Parallax } from "@/components/motion/Parallax";
 
 /**
  * Mission — an editorial split beneath the ink Hero: the mission statement
@@ -41,13 +42,15 @@ export function Mission() {
       >
         <Frame tone="red" className="mx-auto w-full max-w-[420px] lg:max-w-none">
           <div className="group relative overflow-hidden rounded-[18px]">
-            <Image
-              src="/images/mission-team-homepage.jpg"
-              alt="The Alliance Street team"
-              width={420}
-              height={280}
-              className="h-auto w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-            />
+            <Parallax className="aspect-[3/2]" amount={50}>
+              <Image
+                src="/images/mission-team-homepage.jpg"
+                alt="The Alliance Street team"
+                fill
+                sizes="(min-width: 1024px) 460px, 420px"
+                className="object-cover transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+              />
+            </Parallax>
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
             <button
               type="button"
