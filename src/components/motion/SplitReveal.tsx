@@ -27,17 +27,10 @@ type SplitRevealProps = {
   start?: string;
 };
 
-export function SplitReveal({
-  as = "h2",
-  text,
-  className,
-  delay = 0,
-  stagger = 0.045,
-  start = "top 82%",
-}: SplitRevealProps) {
+// Ref + animation live in a hook (like `useReveal`) so the returned ref can be
+// handed to `createElement` without tripping the refs-during-render lint rule.
+function useWordReveal(delay: number, stagger: number, start: string) {
   const ref = useRef<HTMLElement>(null);
-  const words = text.split(" ");
-
   useGSAP(
     () => {
       const el = ref.current;
@@ -58,6 +51,19 @@ export function SplitReveal({
     },
     { scope: ref }
   );
+  return ref;
+}
+
+export function SplitReveal({
+  as = "h2",
+  text,
+  className,
+  delay = 0,
+  stagger = 0.045,
+  start = "top 82%",
+}: SplitRevealProps) {
+  const ref = useWordReveal(delay, stagger, start);
+  const words = text.split(" ");
 
   return createElement(
     as,
