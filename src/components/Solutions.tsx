@@ -91,7 +91,7 @@ export function Solutions() {
         >
           <SpotlightCard
             tone="light"
-            className="group flex h-full min-h-[320px] flex-col overflow-hidden rounded-[20px] border border-as-red/20 bg-as-red/[0.03] p-8 hover:border-as-red/40 lg:p-10"
+            className="group flex h-full min-h-[320px] flex-col justify-center rounded-[20px] border border-as-red/20 bg-as-red/[0.03] p-8 hover:border-as-red/40 lg:p-10"
           >
             {/* Copy pinned to the top of the card. */}
             <div className="relative z-10">
@@ -105,20 +105,6 @@ export function Solutions() {
               <Button href="#collaborate" variant="primary" arrow className="mt-8 w-fit">
                 Get in Touch
               </Button>
-            </div>
-
-            {/* Growth-graph motif fills all remaining height (flex-1) so the
-                tall row-spanning card never leaves an empty void. */}
-            <div className="relative -mx-8 -mb-8 mt-8 min-h-[150px] flex-1 lg:-mx-10 lg:-mb-10">
-              <Image
-                src="/images/graph-card.png"
-                alt=""
-                aria-hidden
-                fill
-                sizes="(min-width: 1024px) 40vw, 100vw"
-                className="select-none object-cover object-bottom opacity-90 transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-              />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-as-canvas via-transparent to-transparent" />
             </div>
           </SpotlightCard>
         </Reveal>
