@@ -102,7 +102,7 @@ export default function RealEstatePage() {
                     alt={d.name}
                     width={150}
                     height={44}
-                    className="h-7 w-auto object-contain grayscale opacity-80 sm:h-9"
+                    className="h-7 w-auto object-contain opacity-60 brightness-0 transition-opacity hover:opacity-100 sm:h-9"
                   />
                 </div>
               ))}
