@@ -24,10 +24,6 @@ import { ArrowRight } from "@/components/icons";
 type Variant = "primary" | "ink" | "white" | "outline";
 type Size = "default" | "sm";
 
-// Filled variants that get the light shine sweep on hover (skipped on the
-// white button, where a light shine would be invisible, and on outline).
-const SHINE: Variant[] = ["primary", "ink"];
-
 const base =
   "group relative inline-flex items-center justify-center gap-2 rounded-full font-sans font-semibold whitespace-nowrap transition-[transform,box-shadow,background-color,border-color,color] duration-300 ease-out will-change-transform active:translate-y-0 motion-reduce:transition-none motion-reduce:hover:translate-y-0";
 
@@ -36,17 +32,13 @@ const sizes: Record<Size, string> = {
   sm: "px-5 py-2.5 text-sm",
 };
 
+// Every button now renders as the easemize frosted "glass" pill
+// (`.glass-button` styles in globals.css). The variant is kept for API
+// compatibility but no longer changes the look.
 const variants: Record<Variant, string> = {
-  // Red gradient pill — the main CTA. Works on both light and dark surfaces.
-  primary:
-    "bg-[linear-gradient(180deg,var(--color-as-red-bright),var(--color-as-red))] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.25),0_6px_16px_-6px_rgba(226,46,52,0.55)] hover:-translate-y-0.5 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.38),0_14px_30px_-8px_rgba(226,46,52,0.7)]",
-  // Dark pill that warms to red on hover — used on light surfaces.
-  ink: "bg-as-ink text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.10),0_6px_16px_-8px_rgba(16,16,20,0.5)] hover:-translate-y-0.5 hover:bg-as-red hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),0_14px_30px_-8px_rgba(226,46,52,0.6)]",
-  // Light pill for dark surfaces.
-  white:
-    "bg-white text-as-ink shadow-[0_6px_16px_-8px_rgba(0,0,0,0.45)] hover:-translate-y-0.5 hover:shadow-[0_14px_30px_-10px_rgba(0,0,0,0.5)]",
-  // Secondary CTA — the easemize frosted "glass" pill (glass-button styles in
-  // globals.css). Glossy over imagery/colour, a subtle light pill on white.
+  primary: "glass-button",
+  ink: "glass-button",
+  white: "glass-button",
   outline: "glass-button",
 };
 
@@ -78,22 +70,12 @@ export function Button(props: AnchorProps | NativeButtonProps) {
   const cls = cn(base, sizes[size], variants[variant], className);
 
   const content = (
-    <>
-      {SHINE.includes(variant) && (
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 overflow-hidden rounded-full"
-        >
-          <span className="absolute -inset-y-4 -left-1/3 w-1/3 -skew-x-[20deg] bg-gradient-to-r from-transparent via-white/35 to-transparent translate-x-[-250%] transition-transform duration-700 ease-out group-hover:translate-x-[500%] motion-reduce:hidden" />
-        </span>
+    <span className="relative inline-flex items-center gap-2">
+      {children}
+      {arrow && (
+        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 motion-reduce:transition-none" />
       )}
-      <span className="relative inline-flex items-center gap-2">
-        {children}
-        {arrow && (
-          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 motion-reduce:transition-none" />
-        )}
-      </span>
-    </>
+    </span>
   );
 
   if (rest.href !== undefined) {
