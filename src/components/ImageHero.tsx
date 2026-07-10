@@ -27,7 +27,13 @@ export function ImageHero({
   return (
     <section className="relative isolate overflow-hidden bg-as-ink pt-[82px]">
       <Parallax className="absolute inset-0" amount={120}>
-        <Image src={image} alt="" fill priority className="object-cover object-center" />
+        <Image
+          src={image}
+          alt=""
+          fill
+          priority
+          className="object-cover object-center animate-[as-hero-zoom_1.8s_ease-out_both] motion-reduce:animate-none"
+        />
       </Parallax>
       <div className="absolute inset-0 bg-gradient-to-r from-as-ink/90 via-as-ink/60 to-as-ink/20" />
 

@@ -362,6 +362,16 @@
       transform: rotate(360deg);
     }
   }
+
+  /* Slow "Ken Burns" zoom-in for full-bleed hero photos on load. */
+  @keyframes as-hero-zoom {
+    from {
+      transform: scale(1.12);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
   @keyframes as-orbit-reverse {
     from {
       transform: rotate(0deg);

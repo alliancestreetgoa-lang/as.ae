@@ -39,6 +39,7 @@ export function FeatureGrid({
           <Reveal
             as="div"
             y={24}
+            blur={6}
             delay={0.06 * i}
             key={f.heading}
             className="border-t border-as-line pt-6 transition-colors duration-300 hover:border-as-red/60"

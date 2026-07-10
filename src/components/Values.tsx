@@ -60,7 +60,8 @@ export function Values() {
           {VALUES.map((v, i) => (
             <Reveal
               as="li"
-              y={24}
+              y={16}
+              x={-28}
               delay={0.2 + i * 0.12}
               key={v.title}
               className="flex gap-6 py-8 sm:gap-8"
