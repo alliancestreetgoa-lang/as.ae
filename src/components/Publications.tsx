@@ -88,10 +88,10 @@ export function Publications() {
     <section id="publications" className="bg-as-ink">
       <div
         ref={pinRef}
-        className="as-container flex flex-col gap-12 py-24 lg:flex-row lg:items-center lg:gap-16"
+        className="as-container flex flex-col gap-12 py-24 lg:flex-row lg:items-stretch lg:gap-16 lg:py-16"
       >
-        {/* Intro (fixed on the left while the cards scroll) */}
-        <Reveal as="div" y={24} className="lg:w-[340px] lg:shrink-0">
+        {/* Intro (centered on the left while the cards scroll) */}
+        <Reveal as="div" y={24} className="lg:w-[340px] lg:shrink-0 lg:self-center">
           <Eyebrow>Press coverage</Eyebrow>
           <h2 className="font-display mt-6 text-[40px] leading-[1.05] tracking-[-0.04em] text-white sm:text-[56px]">
             Publications
@@ -128,7 +128,7 @@ export function Publications() {
         >
           <div
             ref={trackRef}
-            className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:flex lg:w-max lg:gap-6"
+            className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:flex lg:h-full lg:w-max lg:gap-6"
           >
             {PUBLICATIONS.map((pub, i) => (
               <Reveal
@@ -139,7 +139,7 @@ export function Publications() {
                 className="group w-full shrink-0 lg:w-[400px]"
               >
                 <div className="flex h-full flex-col overflow-hidden rounded-[20px] border border-white/10 bg-white/[0.03] transition-colors group-hover:border-as-red/50">
-                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-white/5">
+                  <div className="relative aspect-[16/10] w-full shrink-0 overflow-hidden bg-white/5">
                     <Image
                       src={pub.image}
                       alt={pub.outlet}
@@ -148,21 +148,21 @@ export function Publications() {
                       className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                     />
                   </div>
-                  <div className="flex flex-1 flex-col p-7">
+                  <div className="flex min-h-0 flex-1 flex-col p-7">
                     <p className="font-mono text-xs uppercase tracking-[0.2em] text-as-red">
                       {pub.outlet}
                     </p>
-                    <h3 className="font-display mt-3 text-xl leading-snug text-white sm:text-2xl">
+                    <h3 className="font-display mt-3 text-xl leading-snug text-white sm:text-2xl lg:line-clamp-3">
                       {pub.title}
                     </h3>
-                    <p className="mt-4 text-[15px] leading-relaxed text-white/60">
+                    <p className="mt-4 text-[15px] leading-relaxed text-white/60 lg:line-clamp-3">
                       {pub.excerpt}
                     </p>
                     <a
                       href={pub.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-6 inline-flex items-center gap-2 font-sans font-semibold text-white transition-colors group-hover:text-as-red"
+                      className="mt-6 inline-flex items-center gap-2 font-sans font-semibold text-white transition-colors group-hover:text-as-red lg:mt-auto lg:pt-6"
                     >
                       Read the Full Article
                       <ArrowRight className="h-5 w-5 text-as-red" />
