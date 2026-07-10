@@ -8,7 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight } from "@/components/icons";
 import { Button } from "@/components/primitives/Button";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
-import { SpotlightCard } from "@/components/primitives/SpotlightCard";
+import { GlowCard } from "@/components/ui/spotlight-card";
 import { Reveal } from "@/components/motion/Reveal";
 import { PUBLICATIONS } from "@/lib/content";
 
@@ -137,7 +137,7 @@ export function Publications() {
                 delay={i * 0.05}
                 className="group w-full shrink-0 lg:w-[400px]"
               >
-                <SpotlightCard
+                <GlowCard
                   tone="light"
                   className="flex h-full flex-col rounded-[20px] border border-as-line bg-white shadow-sm hover:shadow-[0_20px_44px_-24px_rgba(16,16,20,0.25)] group-hover:border-as-red/50"
                 >
@@ -170,7 +170,7 @@ export function Publications() {
                       <ArrowRight className="h-5 w-5 text-as-red" />
                     </a>
                   </div>
-                </SpotlightCard>
+                </GlowCard>
               </Reveal>
             ))}
           </div>

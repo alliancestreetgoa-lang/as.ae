@@ -3,7 +3,7 @@ import { Building2, Landmark, BarChart3, LineChart } from "lucide-react";
 import { Button } from "@/components/primitives/Button";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Section } from "@/components/primitives/Section";
-import { SpotlightCard } from "@/components/primitives/SpotlightCard";
+import { GlowCard } from "@/components/ui/spotlight-card";
 import { Reveal } from "@/components/motion/Reveal";
 import { Counter } from "@/components/motion/Counter";
 import { SOLUTIONS } from "@/lib/content";
@@ -89,7 +89,7 @@ export function Solutions() {
           y={24}
           className="sm:col-span-2 lg:col-span-5 lg:row-span-2"
         >
-          <SpotlightCard
+          <GlowCard
             tone="light"
             className="group flex h-full min-h-[320px] flex-col justify-center rounded-[20px] border border-as-red/20 bg-as-red/[0.03] p-8 hover:border-as-red/40 lg:p-10"
           >
@@ -106,7 +106,7 @@ export function Solutions() {
                 Get in Touch
               </Button>
             </div>
-          </SpotlightCard>
+          </GlowCard>
         </Reveal>
 
         <SolutionTile item={SOLUTIONS[0]} delay={0.08} className="lg:col-span-4" />

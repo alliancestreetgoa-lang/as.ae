@@ -256,9 +256,23 @@
       transparent 100%
     );
   }
+  /* Blurred outer bloom that haloes the card behind its edges under the
+     cursor (the easemize card's soft glow). Sits behind the card, so the
+     card's own opaque surface masks the centre and only the halo shows. */
+  [data-glow-bloom] {
+    border-radius: inherit;
+    background: radial-gradient(
+      calc(var(--spotlight-size) * 0.7) calc(var(--spotlight-size) * 0.7) at
+      calc(var(--x, -999) * 1px) calc(var(--y, -999) * 1px),
+      hsl(var(--hue) calc(var(--sat) * 1%) calc(var(--light) * 1%) / 0.55),
+      transparent 60%
+    );
+    filter: blur(14px);
+  }
   @media (prefers-reduced-motion: reduce) {
     [data-glow]::before,
-    [data-glow]::after {
+    [data-glow]::after,
+    [data-glow-bloom] {
       display: none;
     }
   }
