@@ -193,9 +193,9 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
   {
     heading: "Company",
     links: [
-      { label: "About us", href: "#" },
-      { label: "FAQ", href: "#" },
-      { label: "Careers", href: "#" },
+      { label: "About us", href: "/contact-us" },
+      { label: "FAQ", href: "/contact-us" },
+      { label: "Careers", href: "/contact-us" },
     ],
   },
   {
@@ -211,10 +211,10 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
   {
     heading: "Resources",
     links: [
-      { label: '"Fast-Track to Zero Tax"', href: "#", strong: "Free E-Book:" },
-      { label: '"Dubai Banking Secrets"', href: "#", strong: "New Release:" },
-      { label: "Book a Free 1:1 Online Workshop", href: "#" },
-      { label: "Visit our Knowledge Center", href: "#" },
+      { label: '"Fast-Track to Zero Tax"', href: "/contact-us", strong: "Free E-Book:" },
+      { label: '"Dubai Banking Secrets"', href: "/contact-us", strong: "New Release:" },
+      { label: "Book a Free 1:1 Online Workshop", href: "/contact-us" },
+      { label: "Visit our Knowledge Center", href: "/contact-us" },
     ],
   },
 ];
