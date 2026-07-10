@@ -45,9 +45,9 @@ const variants: Record<Variant, string> = {
   // Light pill for dark surfaces.
   white:
     "bg-white text-as-ink shadow-[0_6px_16px_-8px_rgba(0,0,0,0.45)] hover:-translate-y-0.5 hover:shadow-[0_14px_30px_-10px_rgba(0,0,0,0.5)]",
-  // Hairline outline — the secondary CTA on light surfaces.
-  outline:
-    "border border-as-line bg-white text-as-ink shadow-[0_1px_2px_rgba(16,16,20,0.04)] hover:-translate-y-0.5 hover:border-as-red/40 hover:text-as-red hover:shadow-[0_12px_26px_-14px_rgba(226,46,52,0.4)]",
+  // Secondary CTA — the easemize frosted "glass" pill (glass-button styles in
+  // globals.css). Glossy over imagery/colour, a subtle light pill on white.
+  outline: "glass-button",
 };
 
 type CommonProps = {
