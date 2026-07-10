@@ -1,81 +1,47 @@
-"use client";
-
-import { useRef } from "react";
 import Image from "next/image";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight } from "@/components/icons";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Section } from "@/components/primitives/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { PUBLICATIONS } from "@/lib/content";
 
-gsap.registerPlugin(ScrollTrigger, useGSAP);
-
 /**
- * Publications — press coverage (content unchanged). On mobile/tablet the
- * cards are a plain vertical stack / 2-col grid (nothing clipped). On lg with
- * motion allowed, the section PINS and the press cards scroll HORIZONTALLY as
- * you scroll vertically — the page's signature cinematic scroll moment.
+ * Publications — press coverage (content unchanged: Daily Mail, Forbes,
+ * Gulf News, Business Insider, CEO Weekly, Digital Journal, Khaleej Times).
+ * Runs on `bg="ink"` for rhythm — it sits between two canvas sections
+ * (Process before it, Testimonials after) and the outlet covers read best
+ * against dark, matching Hero/StatsBanner's ink treatment.
  *
- * The horizontal pin is set up inside `gsap.matchMedia("(min-width:1024px)
- * and (prefers-reduced-motion: no-preference)")`, so it never runs on
- * smaller screens or under reduced motion: those users get the native
- * `lg:overflow-x-auto` rail (or the mobile stack) with no pin and no
- * scroll-jacking. matchMedia auto-reverts the pin + inline styles when the
- * query stops matching (resize / preference change).
+ * 21st.dev was checked first for the requested "sticky-left intro,
+ * horizontally scrolling cards" shape: search "sticky left intro
+ * horizontal scrolling cards" -> Horizontal Scroll Carousel (uniquesonu,
+ * id 4136, framer-motion `useScroll`/`useTransform` pinning the whole
+ * section and scrubbing cards across — scroll-jacked, no sticky *intro*
+ * column, and framer-motion is off-limits in this codebase), Sticky
+ * scroll cards section (thanh, id 5187, IntersectionObserver fades but
+ * the "sticky" element is each vertically-stacked card, not a side intro
+ * — different shape entirely), Smooth Scroll (ui-layouts, id 2836,
+ * Lenis-driven smooth scroll, same non-native-scroll dependency issue).
+ * Search "press articles cards" -> Stacked Article Cards (Mazyar kawa,
+ * id 10393), Article Cards (kavikatiyar, id 8222), Card (ravikatiyar,
+ * id 7456) — all plain vertical article grids, none pair a sticky intro
+ * with a horizontal card rail. Nothing fit, so this is hand-built: a
+ * `lg:sticky` intro column (the same sticky-on-scroll idea as the
+ * original component, restyled) beside a native `overflow-x-auto`
+ * snap-scroll row of cards. No GSAP pin/scrub is used for the scroll
+ * itself, so there is no scroll-jacking and no separate reduced-motion
+ * layout branch is needed — the rail is always plain, native horizontal
+ * scroll (trackpad, wheel+shift, touch swipe, or the visible scrollbar).
+ * `Reveal` staggers each card's fade/rise in as the section enters the
+ * viewport (and, per `Reveal`/`useReveal`, is skipped entirely under
+ * `prefers-reduced-motion`, leaving the fully visible static markup).
  */
 export function Publications() {
-  const pinRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  useGSAP(
-    () => {
-      const mm = gsap.matchMedia();
-      mm.add(
-        "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
-        () => {
-          const track = trackRef.current;
-          const pin = pinRef.current;
-          if (!track || !pin) return;
-
-          // Take over from the native horizontal scroll while pinned.
-          track.style.overflow = "hidden";
-          const distance = () => Math.max(0, track.scrollWidth - track.clientWidth);
-
-          const tween = gsap.to(track, {
-            x: () => -distance(),
-            ease: "none",
-            scrollTrigger: {
-              trigger: pin,
-              start: "top top+=90",
-              end: () => "+=" + distance(),
-              pin: true,
-              scrub: 1,
-              invalidateOnRefresh: true,
-            },
-          });
-
-          return () => {
-            tween.kill();
-            track.style.overflow = "";
-            gsap.set(track, { x: 0 });
-          };
-        }
-      );
-    },
-    { scope: pinRef }
-  );
-
   return (
     <Section id="publications" bg="ink">
-      <div
-        ref={pinRef}
-        className="col-span-12 grid gap-12 lg:grid-cols-[minmax(0,360px)_1fr] lg:items-center lg:gap-16"
-      >
-        {/* Intro */}
-        <Reveal as="div" y={24} className="lg:h-fit">
+      <div className="col-span-12 grid gap-12 lg:grid-cols-[minmax(0,360px)_1fr] lg:gap-16">
+        {/* Sticky intro */}
+        <Reveal as="div" y={24} className="lg:sticky lg:top-28 lg:h-fit">
           <Eyebrow>Press coverage</Eyebrow>
           <h2 className="font-display mt-6 text-[40px] leading-[1.05] tracking-[-0.04em] text-white sm:text-[56px]">
             Publications
@@ -96,12 +62,11 @@ export function Publications() {
           </p>
         </Reveal>
 
-        {/* Cards: vertical stack (mobile) / 2-col grid (sm) / horizontal rail
-            (lg — pinned + GSAP-driven when motion is allowed, otherwise native
-            scroll). The lg column clips so cards slide in from the right. */}
-        <div className="min-w-0 lg:overflow-hidden">
+        {/* Press cards — a clean vertical stack on mobile/tablet (every card
+            fully visible, nothing clipped), becoming the signature horizontal
+            snap-scroll rail beside the sticky intro at lg. */}
+        <div className="min-w-0">
           <div
-            ref={trackRef}
             className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:flex lg:snap-x lg:snap-mandatory lg:-mr-2 lg:gap-6 lg:overflow-x-auto lg:pb-6 lg:pr-2 lg:[scrollbar-color:var(--color-as-red)_transparent] lg:[scrollbar-width:thin] lg:[&::-webkit-scrollbar]:h-1.5 lg:[&::-webkit-scrollbar-thumb]:rounded-full lg:[&::-webkit-scrollbar-thumb]:bg-as-red/40 lg:[&::-webkit-scrollbar-track]:bg-transparent"
           >
             {PUBLICATIONS.map((pub, i) => (
