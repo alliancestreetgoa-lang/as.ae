@@ -1,20 +1,17 @@
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Fraunces, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { SmoothScroll } from "@/components/motion/SmoothScroll";
+import { ScrollProgress } from "@/components/motion/ScrollProgress";
 
-const inter = Inter({
-  variable: "--font-inter",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
   display: "swap",
+  axes: ["opsz"],
 });
-
-const poppins = Poppins({
-  variable: "--font-poppins",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  display: "swap",
-});
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "swap" });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], display: "swap" });
 
 // Metadata icons are not auto-prefixed with basePath, so add it explicitly.
 const basePath = process.env.NODE_ENV === "production" ? "/as.ae" : "";
@@ -37,9 +34,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${poppins.variable} antialiased`}
+      className={`${fraunces.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
     >
-      <body className="min-h-full bg-white text-black">{children}</body>
+      <body className="min-h-full bg-as-canvas text-as-ink font-sans">
+        <SmoothScroll />
+        <ScrollProgress />
+        {children}
+      </body>
     </html>
   );
 }

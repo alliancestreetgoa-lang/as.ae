@@ -4,6 +4,9 @@ import { GradientHero } from "@/components/GradientHero";
 import { Collaborate } from "@/components/Collaborate";
 import { AsSeenIn } from "@/components/AsSeenIn";
 import { Footer } from "@/components/Footer";
+import { Eyebrow } from "@/components/primitives/Eyebrow";
+import { Section } from "@/components/primitives/Section";
+import { Reveal } from "@/components/motion/Reveal";
 
 export const metadata: Metadata = {
   title: "Contact UAE Business Setup Experts | Dubai | Alliance Street",
@@ -77,7 +80,7 @@ const REGIONS: { region: string; offices: Office[] }[] = [
 export default function ContactUsPage() {
   return (
     <>
-      <Navbar />
+      <Navbar overLight />
       <main>
         <GradientHero
           title="Get in Touch"
@@ -86,47 +89,52 @@ export default function ContactUsPage() {
         />
 
         {/* Offices */}
-        <section className="bg-white py-24">
-          <div className="as-container">
-            <p className="as-eyebrow mb-12">
-              OUR <span className="accent">PRESENCE</span>
-            </p>
+        <Section bg="canvas">
+          <Reveal as="div" y={28} className="col-span-12">
+            <Eyebrow>Our Presence</Eyebrow>
+          </Reveal>
 
-            <div className="space-y-16">
-              {REGIONS.map((r) => (
-                <div key={r.region}>
-                  <h2 className="mb-8 text-[28px] font-semibold tracking-[-0.02em] text-black">
-                    {r.region}
-                  </h2>
-                  <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-                    {r.offices.map((o) => (
-                      <div key={o.country} className="border-t border-black/10 pt-6">
-                        <h3 className="mb-3 text-xl font-semibold text-black">
-                          {o.country}
-                        </h3>
-                        <p className="text-[15px] leading-relaxed text-as-muted">
-                          {o.address}
-                        </p>
-                        <a
-                          href={`tel:${o.phone.replace(/\s/g, "")}`}
-                          className="mt-2 block text-[15px] text-black hover:text-as-red"
-                        >
-                          {o.phone}
-                        </a>
-                        <a
-                          href={`mailto:${o.email}`}
-                          className="block text-[15px] text-as-red"
-                        >
-                          {o.email}
-                        </a>
-                      </div>
-                    ))}
-                  </div>
+          <div className="col-span-12 mt-14 space-y-16">
+            {REGIONS.map((r, ri) => (
+              <div key={r.region}>
+                <Reveal as="h2" y={24} delay={0.08 * ri} className="font-display mb-8 text-[28px] tracking-[-0.02em] text-as-ink sm:text-[32px]">
+                  {r.region}
+                </Reveal>
+                <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+                  {r.offices.map((o, oi) => (
+                    <Reveal
+                      as="div"
+                      y={20}
+                      blur={6}
+                      delay={0.08 * ri + 0.06 * oi}
+                      key={o.country}
+                      className="border-t border-as-line pt-6 transition-colors duration-300 hover:border-as-red/60"
+                    >
+                      <h3 className="font-display mb-3 text-xl text-as-ink">
+                        {o.country}
+                      </h3>
+                      <p className="text-[15px] leading-relaxed text-as-muted">
+                        {o.address}
+                      </p>
+                      <a
+                        href={`tel:${o.phone.replace(/\s/g, "")}`}
+                        className="mt-2 block text-[15px] text-as-ink hover:text-as-red"
+                      >
+                        {o.phone}
+                      </a>
+                      <a
+                        href={`mailto:${o.email}`}
+                        className="block text-[15px] text-as-red"
+                      >
+                        {o.email}
+                      </a>
+                    </Reveal>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
-        </section>
+        </Section>
 
         <Collaborate />
         <AsSeenIn />

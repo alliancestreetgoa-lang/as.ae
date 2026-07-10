@@ -1,9 +1,19 @@
+import { Eyebrow } from "@/components/primitives/Eyebrow";
+import { Section } from "@/components/primitives/Section";
+import { Reveal } from "@/components/motion/Reveal";
+import { SplitReveal } from "@/components/motion/SplitReveal";
+
 export interface Feature {
   heading: string;
   body: string;
 }
 
-/** Eyebrow + lead heading + grid of feature cards (financial-services funding section). */
+/**
+ * FeatureGrid — eyebrow + lead heading + grid of feature cards
+ * (financial-services funding section). Re-themed onto
+ * `Section`/`Eyebrow`/`Reveal`, matching the numbered hairline-divider
+ * treatment used in the sibling `InfoBlocks` primitive.
+ */
 export function FeatureGrid({
   eyebrow,
   title,
@@ -14,22 +24,34 @@ export function FeatureGrid({
   features: Feature[];
 }) {
   return (
-    <section className="bg-white py-24">
-      <div className="as-container">
-        <p className="as-eyebrow mb-6">{eyebrow}</p>
-        <h2 className="mb-16 max-w-3xl text-[32px] leading-[1.15] tracking-[-0.03em] sm:text-[44px]">
-          {title}
-        </h2>
+    <Section bg="canvas">
+      <Reveal as="div" y={28} className="col-span-12">
+        <Eyebrow>{eyebrow}</Eyebrow>
+        <SplitReveal
+          as="h2"
+          text={title}
+          className="font-display mt-6 max-w-3xl text-[32px] leading-[1.15] tracking-[-0.03em] text-as-ink sm:text-[44px]"
+        />
+      </Reveal>
 
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-          {features.map((f) => (
-            <div key={f.heading} className="border-t border-black/10 pt-6">
-              <h3 className="mb-3 text-xl font-semibold text-black">{f.heading}</h3>
-              <p className="text-[15px] leading-relaxed text-as-muted">{f.body}</p>
-            </div>
-          ))}
-        </div>
+      <div className="col-span-12 mt-14 grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+        {features.map((f, i) => (
+          <Reveal
+            as="div"
+            y={24}
+            blur={6}
+            delay={0.06 * i}
+            key={f.heading}
+            className="border-t border-as-line pt-6 transition-colors duration-300 hover:border-as-red/60"
+          >
+            <span aria-hidden="true" className="font-mono text-xs tabular-nums text-as-red">
+              0{i + 1}
+            </span>
+            <h3 className="font-display mt-3 text-xl text-as-ink">{f.heading}</h3>
+            <p className="mt-3 text-[15px] leading-relaxed text-as-muted">{f.body}</p>
+          </Reveal>
+        ))}
       </div>
-    </section>
+    </Section>
   );
 }

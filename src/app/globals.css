@@ -7,19 +7,18 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-poppins: var(--font-poppins), "Poppins", ui-sans-serif, sans-serif;
-  --font-mono: ui-monospace, monospace;
-  --font-heading: var(--font-inter), "Inter", sans-serif;
-  /* Alliance Street brand palette */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  /* Alliance Street brand palette — Modern Institutional Red */
+  --color-as-ink: #101014;
   --color-as-red: #e22e34;
   --color-as-red-bright: #f13232;
-  --color-as-ink: #171719;
-  --color-as-black: #000000;
-  --color-as-muted: #9b9ba6;
-  --color-as-gray: #afafaf;
-  --color-as-light: #fafafa;
-  --color-as-line: #eff0f0;
+  --color-as-canvas: #ffffff;
+  --color-as-line: #e9e8e4;
+  --color-as-muted: #6f6f78;
+  /* Legacy alias: un-migrated sections still reference bg-as-light; map to new canvas */
+  --color-as-light: var(--color-as-canvas);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -131,18 +130,26 @@
   * {
     @apply border-border outline-ring/50;
   }
+  /* Visible keyboard focus ring on every interactive element. `outline` (not
+     box-shadow) so it is never clipped by an overflow-hidden ancestor. */
+  :focus-visible {
+    outline: 2px solid var(--color-as-red);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
   body {
-    @apply bg-white text-black;
+    @apply bg-as-canvas text-as-ink;
     font-family: var(--font-sans);
   }
   html {
     @apply font-sans;
-    scroll-behavior: smooth;
+    /* Smooth scrolling is owned by Lenis (SmoothScroll.tsx); native
+       scroll-behavior would fight its programmatic scrollTo. */
   }
   h1,
   h2,
   h3 {
-    font-family: var(--font-heading);
+    font-family: var(--font-display);
     font-weight: 600;
     letter-spacing: -0.04em;
     line-height: 1.1;
@@ -150,25 +157,186 @@
 }
 
 @layer components {
-  /* Centered page container matching the site's ~1240px content width */
+  /* Centered page container — matches the `Section` primitive exactly
+     (max-w-7xl = 80rem, px-6 sm:px-8 lg:px-12) so every section, the navbar
+     and the footer share one set of left/right edges. */
   .as-container {
     width: 100%;
-    max-width: 1240px;
+    max-width: 80rem;
     margin-inline: auto;
     padding-inline: 1.5rem;
   }
-
-  /* Small tracked uppercase eyebrow label (OUR SOLUTIONS / OUR VALUES ...) */
-  .as-eyebrow {
-    font-family: var(--font-poppins);
-    font-size: 0.8125rem;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--color-as-ink);
+  @media (min-width: 640px) {
+    .as-container {
+      padding-inline: 2rem;
+    }
   }
-  .as-eyebrow .accent {
-    color: var(--color-as-red);
+  @media (min-width: 1024px) {
+    .as-container {
+      padding-inline: 3rem;
+    }
+  }
+
+  /* Card lift — the shared 21st.dev-inspired card hover: a small rise plus a
+     brand-tinted glow shadow and a red-leaning border. Applied to every card
+     wrapper site-wide (service cards, publication cards, stat cards, etc.) so
+     they respond consistently. Border-color transitions too, but each card
+     keeps its own resting/hover border classes; this only adds motion + glow.
+     The tint reads well on both dark (bg-as-ink) and light (canvas) surfaces.
+     Reduced-motion users get the border/shadow but no translate. */
+  .card-lift {
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease,
+      border-color 0.3s ease;
+  }
+  .card-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 42px -22px rgba(226, 46, 52, 0.38);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card-lift {
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .card-lift:hover {
+      transform: none;
+    }
+  }
+
+  /* Spotlight Card — adapted from 21st.dev "Spotlight Card" (easemize). A red
+     spotlight tracks the pointer and lights up the card: a soft fill glow on
+     the surface (background-image) and a bright glowing BORDER via two
+     mask-composited pseudo-elements (border-box minus padding-box = the ring).
+     `SpotlightCard.tsx` sets --x/--y (card-relative px) on pointer move and
+     resets them off-card on leave. Hue defaults to brand red. */
+  [data-glow] {
+    --border-size: 2px;
+    --spotlight-size: 320px;
+    --hue: 358;
+    --sat: 76;
+    --light: 54;
+    background-image: radial-gradient(
+      var(--spotlight-size) var(--spotlight-size) at
+      calc(var(--x, -999) * 1px) calc(var(--y, -999) * 1px),
+      hsl(var(--hue) calc(var(--sat) * 1%) calc(var(--light) * 1%) / var(--fill-opacity, 0.1)),
+      transparent 70%
+    );
+  }
+  [data-glow]::before,
+  [data-glow]::after {
+    pointer-events: none;
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: var(--border-size) solid transparent;
+    border-radius: inherit;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    /* Reliable "border ring" mask: border-box minus padding-box via exclude. */
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+  [data-glow]::before {
+    background-image: radial-gradient(
+      calc(var(--spotlight-size) * 0.75) calc(var(--spotlight-size) * 0.75) at
+      calc(var(--x, -999) * 1px) calc(var(--y, -999) * 1px),
+      hsl(var(--hue) calc(var(--sat) * 1%) calc(var(--light) * 1%) / 1),
+      transparent 100%
+    );
+    filter: brightness(1.35);
+  }
+  [data-glow]::after {
+    background-image: radial-gradient(
+      calc(var(--spotlight-size) * 0.5) calc(var(--spotlight-size) * 0.5) at
+      calc(var(--x, -999) * 1px) calc(var(--y, -999) * 1px),
+      hsl(0 0% 100% / 0.55),
+      transparent 100%
+    );
+  }
+  /* Blurred outer bloom that haloes the card behind its edges under the
+     cursor (the easemize card's soft glow). Sits behind the card, so the
+     card's own opaque surface masks the centre and only the halo shows. */
+  [data-glow-bloom] {
+    border-radius: inherit;
+    background: radial-gradient(
+      calc(var(--spotlight-size) * 0.7) calc(var(--spotlight-size) * 0.7) at
+      calc(var(--x, -999) * 1px) calc(var(--y, -999) * 1px),
+      hsl(var(--hue) calc(var(--sat) * 1%) calc(var(--light) * 1%) / 0.55),
+      transparent 60%
+    );
+    filter: blur(14px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-glow]::before,
+    [data-glow]::after,
+    [data-glow-bloom] {
+      display: none;
+    }
+  }
+
+  /* easemize Glass Button — the 21st registry ships only the component TSX;
+     these are the glass styles its classes depend on (recreated). A frosted
+     pill with a bright rim highlight, an inner sheen and a soft drop shadow.
+     Reads best over imagery / colour; on flat white it's a subtle glossy pill. */
+  .glass-button-wrap {
+    position: relative;
+    display: inline-flex;
+    isolation: isolate;
+  }
+  .glass-button {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.82) 0%,
+      rgba(255, 255, 255, 0.48) 100%
+    );
+    -webkit-backdrop-filter: blur(12px) saturate(1.5);
+    backdrop-filter: blur(12px) saturate(1.5);
+    color: var(--color-as-ink);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.9),
+      inset 0 -10px 18px -10px rgba(16, 16, 20, 0.14),
+      0 10px 24px -12px rgba(16, 16, 20, 0.28);
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+  .glass-button:hover {
+    transform: translateY(-1px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      inset 0 -10px 18px -10px rgba(16, 16, 20, 0.18),
+      0 16px 30px -14px rgba(16, 16, 20, 0.32);
+  }
+  .glass-button:active {
+    transform: translateY(0);
+  }
+  .glass-button-text {
+    position: relative;
+    z-index: 2;
+  }
+  .glass-button-shadow {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: 9999px;
+    box-shadow: 0 14px 30px -12px rgba(16, 16, 20, 0.35);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .glass-button {
+      transition: box-shadow 0.3s ease;
+    }
+    .glass-button:hover {
+      transform: none;
+    }
   }
 
   /* Vertical hero gradient: black -> Alliance red -> white */
@@ -181,48 +349,70 @@
     );
   }
 
-  /* Red "floating shadow" bar that peeks below the white cards */
-  .as-red-shadow {
-    position: absolute;
-    left: 8%;
-    right: 8%;
-    bottom: -10px;
-    height: 40px;
-    border-radius: 9999px;
-    background: var(--color-as-red);
-    filter: blur(2px);
-    z-index: 0;
+  /* Collaborate orbit: continuous rotation for the ring containers
+     (as-orbit) and its mirror (as-orbit-reverse), used together so an
+     avatar's own counter-rotation exactly cancels its parent ring's spin
+     and stays upright. Referenced via Tailwind arbitrary `animate-[...]`
+     utilities in Collaborate.tsx, paired with `motion-reduce:[animation:none]`. */
+  @keyframes as-orbit {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 
-  /* Dark pill button (Get in Touch / Let's talk) */
-  .as-btn-dark {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: #000000;
-    color: #ffffff;
-    border-radius: 9999px;
-    padding: 0.85rem 1.75rem;
-    font-weight: 600;
-    font-size: 1.05rem;
-    transition: background 0.2s ease, transform 0.2s ease;
-  }
-  .as-btn-dark:hover {
-    background: var(--color-as-red);
-    transform: translateY(-1px);
+  /* Slow "Ken Burns" zoom-in for full-bleed hero photos on load. */
+  @keyframes as-hero-zoom {
+    from {
+      transform: scale(1.12);
+    }
+    to {
+      transform: scale(1);
+    }
   }
 
-  /* Light pill button (footer Get in Touch) */
-  .as-btn-light {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: #ffffff;
-    color: #000000;
-    border-radius: 9999px;
-    padding: 0.85rem 1.75rem;
-    font-weight: 600;
-    font-size: 1.05rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  /* Navbar slides down + fades in on load. */
+  @keyframes as-nav-in {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  /* Slow sheen drifting across gradient-clipped text (background-position). */
+  @keyframes as-text-sheen {
+    to {
+      background-position: 200% center;
+    }
+  }
+  @keyframes as-orbit-reverse {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+
+  /* AsSeenIn press marquee: N adjacent duplicate track `<div>`s all run this
+     identical translateX loop in lockstep, so as one track slides fully
+     off-screen the next (already positioned right after it) takes its
+     place with no visible seam. `--as-marquee-gap` must be the same value
+     used for the flex `gap` between/within tracks (set inline via the
+     `[gap:var(--as-marquee-gap)]` utility in AsSeenIn.tsx) so the loop
+     distance exactly matches one track's width plus its trailing gap. */
+  @keyframes as-marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-100% - var(--as-marquee-gap, 4rem)));
+    }
   }
 }

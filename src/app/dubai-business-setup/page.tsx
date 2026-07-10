@@ -45,14 +45,38 @@ const STEPS: Step[] = [
   },
 ];
 
+/**
+ * Dubai Business Setup — this route is pure composition: every section it
+ * renders (`PageHero`, `Mission`, `Stats3`, `StepsSection`, `StatsBanner`,
+ * `Solutions`, `Values`, `Testimonials`, `Collaborate`, `AsSeenIn`) is a
+ * shared primitive already re-themed onto the Modern Institutional Red
+ * system by earlier tasks in this series, so there is no page-local markup
+ * left to re-theme here. This file's own contribution to the redesign is
+ * the page-specific pieces: the "Are you next?" globe-glow `PageHero` copy,
+ * the "Go Global in 4 Steps" `STEPS` data feeding `StepsSection`, and the
+ * section order below.
+ *
+ * Background rhythm: `ink` (PageHero) -> canvas x3 (Mission / Stats3 /
+ * StepsSection) -> `ink` (StatsBanner) -> canvas x3 (Solutions / Values /
+ * Testimonials) -> `ink` (Collaborate) -> the one deliberate red band
+ * (AsSeenIn). This route only has two ink-toned sections available to
+ * punctuate six canvas ones (no third ink divider like the homepage's
+ * `Publications`), so a 3/3 split around them is the most even rhythm
+ * achievable — reshuffling further wouldn't reduce the longest same-bg run,
+ * so the original section order is kept as-is rather than changed for its
+ * own sake. Each canvas run also varies in internal layout (editorial split
+ * -> stat grid -> tabbed steps, then bento grid -> ruled list -> carousel)
+ * so consecutive same-background sections don't read as repetitive.
+ */
 export default function DubaiBusinessSetupPage() {
   return (
     <>
-      <Navbar />
+      <Navbar overLight />
       <main>
         <PageHero
           title="Are you next?"
           subtitle="Are you ready to start business in Dubai and expand your global opportunities? At Alliance Street, we help entrepreneurs and companies establish a strong presence in the UAE through strategic Dubai business setup solutions."
+          globe
         />
         <Mission />
         <Stats3 />

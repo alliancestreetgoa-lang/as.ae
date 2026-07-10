@@ -1,7 +1,17 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Button } from "@/components/primitives/Button";
+import { Frame } from "@/components/primitives/Frame";
+import { Reveal } from "@/components/motion/Reveal";
+import { SplitReveal } from "@/components/motion/SplitReveal";
+import { Parallax } from "@/components/motion/Parallax";
 
-/** Full-bleed image hero with dark overlay and left-aligned title (banking/services pages). */
+/**
+ * ImageHero — full-bleed image hero with dark overlay and left-aligned title
+ * (banking/services pages). The hand-rolled single corner-bracket `<span>`
+ * is replaced by the shared `Frame` primitive (tone="red") wrapping the
+ * whole copy block, matching how `Hero.tsx` frames its content on the same
+ * dark canvas. Headline moves to Fraunces; CTA moves to the brand's red pill.
+ */
 export function ImageHero({
   title,
   subtitle,
@@ -16,20 +26,40 @@ export function ImageHero({
   ctaHref?: string;
 }) {
   return (
-    <section className="relative isolate overflow-hidden bg-black pt-[82px]">
-      <Image src={image} alt="" fill priority className="object-cover object-center" />
-      <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/20" />
+    <section className="relative isolate overflow-hidden bg-as-ink pt-[82px]">
+      <Parallax className="absolute inset-0" amount={120}>
+        <Image
+          src={image}
+          alt=""
+          fill
+          priority
+          className="object-cover object-center animate-[as-hero-zoom_1.8s_ease-out_both] motion-reduce:animate-none"
+        />
+      </Parallax>
+      <div className="absolute inset-0 bg-gradient-to-r from-as-ink/90 via-as-ink/60 to-as-ink/20" />
 
       <div className="as-container relative z-10 flex min-h-[80vh] flex-col justify-center py-24">
-        {/* red corner bracket */}
-        <span className="mb-8 hidden h-14 w-14 rounded-tl-md border-l-2 border-t-2 border-as-red/70 lg:block" />
-        <h1 className="max-w-3xl text-[42px] leading-[1.05] tracking-[-0.04em] text-white sm:text-[56px] lg:text-[68px]">
-          {title}
-        </h1>
-        <p className="mt-8 max-w-xl text-lg leading-relaxed text-white/70">{subtitle}</p>
-        <Link href={ctaHref} className="as-btn-dark mt-10 w-fit bg-white text-black hover:bg-white/90">
-          {cta}
-        </Link>
+        <Frame tone="red" className="max-w-3xl">
+          <SplitReveal
+            as="h1"
+            text={title}
+            stagger={0.05}
+            className="font-display text-[42px] leading-[1.05] tracking-[-0.04em] text-white sm:text-[56px] lg:text-[68px]"
+          />
+          <Reveal
+            as="p"
+            y={22}
+            delay={0.1}
+            className="mt-8 max-w-xl text-lg leading-relaxed text-white/70"
+          >
+            {subtitle}
+          </Reveal>
+          <Reveal as="div" y={18} delay={0.2} className="mt-10 w-fit">
+            <Button href={ctaHref} variant="primary">
+              {cta}
+            </Button>
+          </Reveal>
+        </Frame>
       </div>
     </section>
   );

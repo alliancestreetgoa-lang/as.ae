@@ -67,14 +67,14 @@ const STEPS: Step[] = [
 export default function FinancialServicesPage() {
   return (
     <>
-      <Navbar />
+      <Navbar overLight />
       <main>
         <PageHero
           title="UAE Corporate Tax, Compliance & Financial Advisory Services"
           subtitle="Getting a mortgage doesn't have to be complicated. At Alliance Street, we cut the noise and deliver solutions banks can't."
         />
         <FeatureGrid
-          eyebrow="HERE'S WHY WE'RE YOUR GO-TO FOR FUNDING:"
+          eyebrow="HERE'S WHY WE'RE YOUR GO-TO FOR FUNDING"
           title="First-time buyer? Refinancing? Doesn't matter—we've got you."
           features={FEATURES}
         />

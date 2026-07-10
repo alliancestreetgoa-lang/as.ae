@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import Image from "next/image";
 import { Navbar } from "@/components/Navbar";
+import { Button } from "@/components/primitives/Button";
+import { Frame } from "@/components/primitives/Frame";
+import { Parallax } from "@/components/motion/Parallax";
 import { GradientHero } from "@/components/GradientHero";
 import { AsSeenIn } from "@/components/AsSeenIn";
 import { Stats3 } from "@/components/Stats3";
@@ -10,6 +13,9 @@ import { Testimonials } from "@/components/Testimonials";
 import { Collaborate } from "@/components/Collaborate";
 import { Footer } from "@/components/Footer";
 import { Check } from "@/components/icons";
+import { Eyebrow } from "@/components/primitives/Eyebrow";
+import { Section } from "@/components/primitives/Section";
+import { Reveal } from "@/components/motion/Reveal";
 
 export const metadata: Metadata = {
   title: "Bookkeeping & Accounting Services in Dubai | Alliance Street",
@@ -34,7 +40,7 @@ const STATS = [
 export default function BookkeepingAccountingPage() {
   return (
     <>
-      <Navbar />
+      <Navbar overLight />
       <main>
         <GradientHero
           title="Bookkeeping, Accounting & VAT Services in Dubai"
@@ -44,54 +50,82 @@ export default function BookkeepingAccountingPage() {
         <AsSeenIn />
 
         {/* Statement */}
-        <section className="bg-white py-24">
-          <div className="as-container">
-            <h2 className="mx-auto max-w-4xl text-center text-[32px] leading-[1.15] tracking-[-0.03em] sm:text-[46px]">
-              <span className="text-black">We actually understand your business...</span>{" "}
-              <span className="text-as-muted">
-                that&apos;s why we customize every service.
-              </span>
-            </h2>
-          </div>
-        </section>
+        <Section bg="canvas">
+          <Reveal
+            as="h2"
+            y={24}
+            className="font-display col-span-12 mx-auto max-w-4xl text-center text-[32px] leading-[1.15] tracking-[-0.03em] sm:text-[46px]"
+          >
+            <span className="text-as-ink">We actually understand your business...</span>{" "}
+            <span className="text-as-muted">
+              that&apos;s why we customize every service.
+            </span>
+          </Reveal>
+        </Section>
+
+        {/* Team at work */}
+        <Section bg="canvas">
+          <Reveal as="div" y={28} className="col-span-12">
+            <Frame tone="red">
+              <Parallax
+                className="aspect-[16/10] rounded-[18px] sm:aspect-[2/1]"
+                amount={80}
+              >
+                <Image
+                  src="/images/team-3.jpg"
+                  alt="The Alliance Street accounting team at work in the Dubai office"
+                  fill
+                  sizes="(min-width: 1024px) 1100px, 100vw"
+                  className="object-cover object-[center_34%]"
+                />
+              </Parallax>
+            </Frame>
+          </Reveal>
+        </Section>
 
         <Stats3 stats={STATS} />
 
         {/* Why choose us */}
-        <section className="bg-as-light py-24">
-          <div className="as-container grid gap-12 lg:grid-cols-2 lg:gap-20">
-            <div>
-              <p className="as-eyebrow mb-6">
-                WHY <span className="accent">CHOOSE US</span>
-              </p>
-              <h2 className="mb-6 text-[34px] leading-[1.1] sm:text-[44px]">How we can help</h2>
-              <h3 className="mb-4 text-2xl font-semibold text-black">
-                Efficiency Meets Expertise
-              </h3>
-              <p className="max-w-md text-[15px] leading-relaxed text-as-muted">
-                We don&apos;t just balance books; we streamline your entire financial
-                process. Reach out today, and let&apos;s keep your business running
-                compliant and ready for what&apos;s next.
-              </p>
-            </div>
+        <Section bg="ink">
+          <Reveal as="div" y={28} className="col-span-12 lg:col-span-5">
+            <Eyebrow>Why Choose Us</Eyebrow>
+            <h2 className="font-display mt-6 mb-6 text-[34px] leading-[1.1] text-white sm:text-[44px]">
+              How we can help
+            </h2>
+            <h3 className="font-display mb-4 text-2xl text-white">
+              Efficiency Meets Expertise
+            </h3>
+            <p className="max-w-md text-[15px] leading-relaxed text-white/70">
+              We don&apos;t just balance books; we streamline your entire financial
+              process. Reach out today, and let&apos;s keep your business running
+              compliant and ready for what&apos;s next.
+            </p>
+          </Reveal>
 
-            <div className="flex flex-col justify-center">
-              <ul className="space-y-5">
-                {CHECKLIST.map((c) => (
-                  <li key={c.label} className="flex items-start gap-3">
-                    <Check className="mt-0.5 h-5 w-5 shrink-0 text-as-red" />
-                    <span className="text-[15px] text-black">
-                      <span className="font-semibold">{c.label}</span> {c.rest}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-              <Link href="/contact-us" className="as-btn-dark mt-10 w-fit">
+          <div className="col-span-12 mt-14 flex flex-col justify-center lg:col-span-7 lg:mt-0 lg:pl-8">
+            <ul className="space-y-5">
+              {CHECKLIST.map((c, i) => (
+                <Reveal
+                  as="li"
+                  y={20}
+                  delay={0.08 * i}
+                  key={c.label}
+                  className="flex items-start gap-3"
+                >
+                  <Check className="mt-0.5 h-5 w-5 shrink-0 text-as-red" />
+                  <span className="text-[15px] text-white">
+                    <span className="font-semibold">{c.label}</span> {c.rest}
+                  </span>
+                </Reveal>
+              ))}
+            </ul>
+            <Reveal as="div" y={16} delay={0.5} className="mt-10 w-fit">
+              <Button href="/contact-us" variant="primary">
                 Get in Touch
-              </Link>
-            </div>
+              </Button>
+            </Reveal>
           </div>
-        </section>
+        </Section>
 
         <Solutions />
         <StatsBanner />

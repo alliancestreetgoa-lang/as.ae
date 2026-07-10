@@ -82,7 +82,7 @@ export const PUBLICATIONS: Publication[] = [
     excerpt:
       "With zero personal income tax, a 9% federal corporate tax that many... (read more)",
     image: "/images/book-cover.png",
-    href: "#",
+    href: "https://www.dailymail.co.uk/news/article-14919147/How-Stallone-Shaikhs-Blueprint-Tax-Free-Company-Formation-Changing-Game-Digital-Nomads.html",
   },
   {
     outlet: "FORBES",
@@ -91,7 +91,7 @@ export const PUBLICATIONS: Publication[] = [
     excerpt:
       "Stallone Shaikh's New Book Unveils The Ultimate Guide To Legal Tax Freedom In The UAE... (read more)",
     image: "/images/book-mockup.png",
-    href: "#",
+    href: "https://forbesscotland.com/stallone-shaikhs-new-book-unveils-the-ultimate-guide-to-legal-tax-freedom-in-the-uae/",
   },
   {
     outlet: "GULF NEWS",
@@ -100,7 +100,7 @@ export const PUBLICATIONS: Publication[] = [
     excerpt:
       "Alliance Street Consultancy, a leading business consulting firm based in Dubai, has announced a strategic partnership with Vasil Legal, a renowned European law firm led by Martin Vasil. This collaboration will...",
     image: "/images/pub-gulfnews.avif",
-    href: "#",
+    href: "https://gulfnews.com/business/corporate-news/alliance-street-consultancy-announces-strategic-partnership-with-vasil-legal-1.1726217791344",
   },
   {
     outlet: "BUSINESS INSIDER",
@@ -109,7 +109,7 @@ export const PUBLICATIONS: Publication[] = [
     excerpt:
       "Alliance Street Consultancy offers a comprehensive suite of services, including company formation, visa applications, bank account assistance, tax advisory and more, providing businesses with the essential tools and precise processes needed to establish themselves in the region.",
     image: "/images/pub-businessinsider.jpg",
-    href: "#",
+    href: "https://markets.businessinsider.com/news/stocks/alliance-street-consultancy-launches-bookkeeping-and-tax-services-for-uae-startups-and-companies-1033521417",
   },
   {
     outlet: "CEO WEEKLY",
@@ -117,7 +117,7 @@ export const PUBLICATIONS: Publication[] = [
     excerpt:
       "Deciding to open a business is already daunting. However, navigating all the policy requirements and technicalities is even more challenging. In the burgeoning commerce of the United Arab Emirates (UAE),...",
     image: "/images/pub-ceoweekly.png",
-    href: "#",
+    href: "https://ceoweekly.com/navigating-uae-business-formation-with-stallone-shaikh/",
   },
   {
     outlet: "DIGITAL JOURNAL",
@@ -126,7 +126,7 @@ export const PUBLICATIONS: Publication[] = [
     excerpt:
       "In the bustling heart of the United Arab Emirates (UAE), where ambition meets innovation, Stallone Shaikh and Alliance Street Consultancy have emerged as pivotal figures in transforming entrepreneurial dreams into tangible realities.",
     image: "/images/pub-digitaljournal.png",
-    href: "#",
+    href: "https://www.digitaljournal.com/business/transforming-dreams-into-reality-the-formula-of-stallone-shaikh-of-alliance-street-consultancy-for-business-setup-success-in-dubai/article",
   },
   {
     outlet: "KHALEEJ TIMES",
@@ -135,7 +135,16 @@ export const PUBLICATIONS: Publication[] = [
     excerpt:
       "Addressing this vital need for guidance and support is where firms like Alliance Street Consultancy come into play. By simplifying the business establishment process, Alliance Street Consultancy offers a holistic suite of services that facilitates the entrepreneurial journey.",
     image: "/images/pub-khaleejtimes.jpeg",
-    href: "#",
+    href: "https://www.khaleejtimes.com/kt-network/meet-alliance-street-consultancy-the-one-stop-shop-business-consultancy-in-uae",
+  },
+  {
+    outlet: "ASIA BUSINESS OUTLOOK",
+    title:
+      "ASIA BUSINESS OUTLOOK on Alliance Street Consultancy Steering Businesses to Growth with Bespoke Consulting Solutions",
+    excerpt:
+      "Named among the region's best, Alliance Street Consultancy is recognised for steering businesses to growth with bespoke, end-to-end consulting solutions across the UAE.",
+    image: "/images/mission-team-homepage.jpg",
+    href: "https://www.asiabusinessoutlook.com/services-and-consulting/cover-story/alliance-street-consultancy-steering-businesses-to-growth-with-bespoke-consulting-solutions-cid-1423.html",
   },
 ];
 
@@ -184,9 +193,9 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
   {
     heading: "Company",
     links: [
-      { label: "About us", href: "#" },
-      { label: "FAQ", href: "#" },
-      { label: "Careers", href: "#" },
+      { label: "About us", href: "/contact-us" },
+      { label: "FAQ", href: "/contact-us" },
+      { label: "Careers", href: "/contact-us" },
     ],
   },
   {
@@ -202,10 +211,10 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
   {
     heading: "Resources",
     links: [
-      { label: '"Fast-Track to Zero Tax"', href: "#", strong: "Free E-Book:" },
-      { label: '"Dubai Banking Secrets"', href: "#", strong: "New Release:" },
-      { label: "Book a Free 1:1 Online Workshop", href: "#" },
-      { label: "Visit our Knowledge Center", href: "#" },
+      { label: '"Fast-Track to Zero Tax"', href: "/contact-us", strong: "Free E-Book:" },
+      { label: '"Dubai Banking Secrets"', href: "/contact-us", strong: "New Release:" },
+      { label: "Book a Free 1:1 Online Workshop", href: "/contact-us" },
+      { label: "Visit our Knowledge Center", href: "/contact-us" },
     ],
   },
 ];

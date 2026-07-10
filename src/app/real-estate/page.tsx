@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import { Button } from "@/components/primitives/Button";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 import { Navbar } from "@/components/Navbar";
 import { InfoBlocks, type InfoBlock } from "@/components/InfoBlocks";
 import { Testimonials } from "@/components/Testimonials";
@@ -8,6 +9,9 @@ import { Values } from "@/components/Values";
 import { Collaborate } from "@/components/Collaborate";
 import { AsSeenIn } from "@/components/AsSeenIn";
 import { Footer } from "@/components/Footer";
+import { Counter } from "@/components/motion/Counter";
+import { Reveal } from "@/components/motion/Reveal";
+import { Parallax } from "@/components/motion/Parallax";
 
 export const metadata: Metadata = {
   title: "Commercial Real Estate & Office Space in Dubai | Alliance Street",
@@ -41,52 +45,72 @@ const BLOCKS: InfoBlock[] = [
 export default function RealEstatePage() {
   return (
     <>
-      <Navbar />
+      <Navbar overLight />
       <main>
-        {/* Split gradient hero */}
-        <section className="as-hero-gradient pt-[82px]">
+        {/* Split gradient hero — the page's one large red hero moment (brand
+            exception to the red-accent-only rule), same `.as-hero-gradient`
+            background used by `GradientHero`, but kept as a bespoke
+            two-column split (headline left / subcopy + CTA right) since
+            `GradientHero` only supports a single centered column. */}
+        <section className="bg-as-canvas pt-[82px]">
           <div className="as-container grid min-h-[70vh] items-center gap-10 py-24 lg:grid-cols-2">
-            <div>
-              <h1 className="text-[44px] leading-[1.05] tracking-[-0.04em] text-black sm:text-[60px] lg:text-[68px]">
-                Invest, Buy or Rent Property in Dubai
-              </h1>
-              <p className="mt-8 text-lg text-black/60">
+            <Reveal as="div" y={28}>
+              <SplitReveal
+                as="h1"
+                text="Invest, Buy or Rent Property in Dubai"
+                stagger={0.05}
+                className="font-display text-[44px] leading-[1.05] tracking-[-0.04em] text-as-ink sm:text-[60px] lg:text-[68px]"
+              />
+              <p className="mt-8 text-lg text-as-muted">
                 *The Way It Benefits You (Not Some Agent&apos;s Bank Account).
               </p>
-            </div>
-            <div className="lg:pl-10">
-              <p className="max-w-md text-lg text-black/70">
+            </Reveal>
+            <Reveal as="div" y={28} delay={0.1} className="lg:pl-10">
+              <p className="max-w-md text-lg text-as-muted">
                 Our Developer Connections can and will help you access deals no Agent in
                 Dubai can afford to offer:
               </p>
-              <Link href="/contact-us" className="as-btn-dark mt-8">
+              <Button href="/contact-us" variant="ink" className="mt-8">
                 Let&apos;s talk
-              </Link>
-            </div>
+              </Button>
+            </Reveal>
           </div>
         </section>
 
-        {/* Trusted by developers */}
-        <section className="bg-black py-14">
+        {/* Trusted by developers — a clean, muted ink trust strip (not the
+            red `AsSeenIn` marquee treatment): grayscale logos separated by
+            hairline dividers, mirroring `AsSeenIn`'s hand-rolled label
+            pattern rather than the red `Eyebrow` primitive, so the row
+            stays a quiet ink moment. */}
+        <section className="border-y border-as-line bg-as-canvas py-14">
           <div className="as-container">
-            <p
-              className="mb-10 text-center text-[13px] font-medium uppercase tracking-[0.22em] text-white/70"
-              style={{ fontFamily: "var(--font-poppins)" }}
+            <Reveal
+              as="p"
+              y={16}
+              className="mb-10 flex items-center justify-center gap-3 text-center font-mono text-xs uppercase tracking-[0.3em] text-as-muted"
             >
+              <span aria-hidden="true" className="inline-block h-px w-6 bg-as-line" />
               Trusted by the best in the market:
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-x-16 gap-y-8">
+              <span aria-hidden="true" className="inline-block h-px w-6 bg-as-line" />
+            </Reveal>
+            <Reveal
+              as="div"
+              y={20}
+              delay={0.08}
+              className="flex flex-wrap items-center justify-center divide-x divide-as-line"
+            >
               {DEVELOPERS.map((d) => (
-                <Image
-                  key={d.name}
-                  src={d.src}
-                  alt={d.name}
-                  width={150}
-                  height={44}
-                  className="h-7 w-auto object-contain opacity-90 sm:h-9"
-                />
+                <div key={d.name} className="px-8 py-1 first:pl-0 last:pr-0 sm:px-10">
+                  <Image
+                    src={d.src}
+                    alt={d.name}
+                    width={150}
+                    height={44}
+                    className="h-7 w-auto object-contain opacity-60 brightness-0 transition-opacity hover:opacity-100 sm:h-9"
+                  />
+                </div>
               ))}
-            </div>
+            </Reveal>
           </div>
         </section>
 
@@ -98,23 +122,43 @@ export default function RealEstatePage() {
 
         <Testimonials />
 
-        {/* Transactions stat */}
-        <section className="bg-as-light py-24">
-          <div className="as-container max-w-3xl">
-            <p className="text-[110px] font-semibold leading-none tracking-[-0.05em] text-black sm:text-[150px]">
-              200<span className="text-as-red">+</span>
-            </p>
-            <p className="mt-2 text-2xl font-medium text-black">
-              Successful transactions completed.
-            </p>
-            <p className="mt-6 max-w-2xl text-lg text-as-muted">
-              With over 200 successful transactions, Alliance Street has built a solid
-              reputation for providing trusted, reliable advice that clients can count
-              on.
-            </p>
-            <Link href="/contact-us" className="as-btn-dark mt-8">
-              Tell us how we can help you
-            </Link>
+        {/* Transactions stat — oversized proof-point over a full-bleed
+            background image with a dark ink scrim (matches the `StatsBanner`
+            treatment), the `Counter` driving the big number. */}
+        <section className="relative isolate overflow-hidden bg-as-ink py-24 sm:py-32">
+          <div className="absolute inset-0 -z-10">
+            <Parallax className="absolute inset-0" amount={100}>
+              <Image
+                src="/images/businessman-hero.jpg"
+                alt=""
+                aria-hidden
+                fill
+                sizes="100vw"
+                className="object-cover object-center opacity-60"
+              />
+            </Parallax>
+            {/* Left-weighted scrim keeps the (left-aligned) copy legible. */}
+            <div className="absolute inset-0 bg-gradient-to-r from-as-ink via-as-ink/85 to-as-ink/40" />
+            <div className="absolute inset-0 bg-gradient-to-t from-as-ink/80 to-transparent" />
+          </div>
+          <div className="as-container">
+            <Reveal as="div" y={28} className="max-w-3xl">
+              <p className="font-display text-[110px] leading-none tracking-[-0.05em] text-white sm:text-[150px]">
+                <Counter to={200} />
+                <span className="text-as-red">+</span>
+              </p>
+              <p className="mt-2 text-2xl font-medium text-white">
+                Successful transactions completed.
+              </p>
+              <p className="mt-6 max-w-2xl text-lg text-white/70">
+                With over 200 successful transactions, Alliance Street has built a solid
+                reputation for providing trusted, reliable advice that clients can count
+                on.
+              </p>
+              <Button href="/contact-us" variant="white" className="mt-8">
+                Tell us how we can help you
+              </Button>
+            </Reveal>
           </div>
         </section>
 
