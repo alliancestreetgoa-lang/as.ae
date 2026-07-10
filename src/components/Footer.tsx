@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/primitives/Button";
-import { Logo, LogoMark } from "@/components/icons";
+import { Logo } from "@/components/icons";
 import { Reveal } from "@/components/motion/Reveal";
 import { FOOTER_COLUMNS } from "@/lib/content";
 
@@ -106,7 +106,7 @@ export function Footer() {
           <p className="text-sm text-as-muted">
             © Alliance Street Consultancy 2025 All Rights Reserved.
           </p>
-          <LogoMark className="h-6 w-auto" />
+          <Logo variant="black" className="h-7 w-auto" />
         </div>
       </div>
     </footer>
