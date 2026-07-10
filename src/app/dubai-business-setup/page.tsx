@@ -71,7 +71,7 @@ const STEPS: Step[] = [
 export default function DubaiBusinessSetupPage() {
   return (
     <>
-      <Navbar />
+      <Navbar overLight />
       <main>
         <PageHero
           title="Are you next?"

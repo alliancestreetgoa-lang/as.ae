@@ -24,7 +24,13 @@ type GlobeConfig = COBEOptions & {
  * Under `prefers-reduced-motion` the globe renders a static frame (no
  * auto-rotation).
  */
-export function Globe({ className }: { className?: string }) {
+export function Globe({
+  className,
+  light = false,
+}: {
+  className?: string;
+  light?: boolean;
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -59,14 +65,16 @@ export function Globe({ className }: { className?: string }) {
       height: width * 2,
       phi: 0,
       theta: 0.28,
-      dark: 1,
-      diffuse: 1.5,
+      // Light theme (for white hero backgrounds): a near-white sphere whose
+      // continents read as soft grey dots, with the brand-red markers popping.
+      dark: light ? 0 : 1,
+      diffuse: light ? 1.1 : 1.5,
       mapSamples: 22000,
-      mapBrightness: 16,
-      mapBaseBrightness: 0.12,
-      baseColor: [0.45, 0.5, 0.58],
+      mapBrightness: light ? 5 : 16,
+      mapBaseBrightness: light ? 0 : 0.12,
+      baseColor: light ? [1, 1, 1] : [0.45, 0.5, 0.58],
       markerColor: [226 / 255, 46 / 255, 52 / 255],
-      glowColor: [0.55, 0.24, 0.27],
+      glowColor: light ? [1, 1, 1] : [0.55, 0.24, 0.27],
       markers: [
         { location: [25.2048, 55.2708], size: 0.11 }, // Dubai
         { location: [40.7128, -74.006], size: 0.06 }, // New York

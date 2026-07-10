@@ -3,13 +3,10 @@ import { Globe } from "@/components/Globe";
 import { Reveal } from "@/components/motion/Reveal";
 
 /**
- * PageHero — centered dark hero used across sub-pages ("Are you next?"
- * style). Re-themed onto `bg-as-ink` with the same red radial glow (already
- * on-brand — the glow's `rgba(226,46,52,…)` is the `as-red` value), Fraunces
- * headline, and the staggered `Reveal` load-in established in `Hero.tsx`.
- * The CTA switches from the old plain white pill to the brand's red pill
- * (matches `Hero.tsx`'s "Let's talk" button) since this hero sits on the same
- * dark `as-ink` canvas.
+ * PageHero — centered light hero used across sub-pages ("Are you next?"
+ * style): a white field with a soft red radial glow, an optional light
+ * "dotted globe" rising from the bottom (red Dubai marker), the Fraunces
+ * headline and the staggered `Reveal` load-in established in `Hero.tsx`.
  */
 export function PageHero({
   title,
@@ -24,47 +21,30 @@ export function PageHero({
   ctaHref?: string;
   globe?: boolean;
 }) {
-  // The globe hero keeps its dramatic dark field (the globe is designed for
-  // it); text-only heroes sit on the site's white canvas.
-  const dark = globe;
   return (
-    <section
-      className={`relative isolate overflow-hidden pt-[82px] ${
-        dark ? "bg-as-ink" : "bg-as-canvas"
-      }`}
-    >
-      {/* Decorative WebGL globe rising from the bottom-centre (behind the copy). */}
+    <section className="relative isolate overflow-hidden bg-as-canvas pt-[82px]">
+      {/* Decorative light WebGL globe rising from the bottom-centre. */}
       {globe && (
         <div className="pointer-events-none absolute bottom-0 left-1/2 z-0 aspect-square w-[min(1180px,155vw)] -translate-x-1/2 translate-y-[46%]">
-          <Globe />
+          <Globe light />
         </div>
       )}
 
-      {/* Warm red atmospheric glow rising from the bottom (softer on white). */}
+      {/* Soft red atmospheric glow rising from the bottom. */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0 flex justify-center">
-        <div
-          className={`h-[600px] w-[1100px] translate-y-1/2 rounded-full ${
-            dark
-              ? "bg-[radial-gradient(circle_at_50%_0%,rgba(226,46,52,0.35),rgba(226,46,52,0.05)_40%,transparent_70%)]"
-              : "bg-[radial-gradient(circle_at_50%_0%,rgba(226,46,52,0.14),rgba(226,46,52,0.04)_40%,transparent_70%)]"
-          }`}
-        />
+        <div className="h-[600px] w-[1100px] translate-y-1/2 rounded-full bg-[radial-gradient(circle_at_50%_0%,rgba(226,46,52,0.14),rgba(226,46,52,0.04)_40%,transparent_70%)]" />
       </div>
 
-      {/* Scrim keeps the hero copy legible over the (now brighter) globe —
-          only the top band behind the headline is darkened; the lower globe
-          stays bright. */}
+      {/* White scrim so the headline stays crisp over the globe. */}
       {globe && (
-        <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-as-ink via-as-ink/20 to-transparent" />
+        <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-as-canvas via-as-canvas/50 to-transparent" />
       )}
 
       <div className="as-container relative z-10 flex min-h-[70vh] flex-col items-center justify-center py-24 text-center">
         <Reveal
           as="h1"
           y={28}
-          className={`font-display max-w-4xl text-[52px] leading-[1.05] tracking-[-0.04em] sm:text-[72px] lg:text-[88px] ${
-            dark ? "text-white" : "text-as-ink"
-          }`}
+          className="font-display max-w-4xl text-[52px] leading-[1.05] tracking-[-0.04em] text-as-ink sm:text-[72px] lg:text-[88px]"
         >
           {title}
         </Reveal>
@@ -72,9 +52,7 @@ export function PageHero({
           as="p"
           y={22}
           delay={0.1}
-          className={`mt-8 max-w-2xl text-lg leading-relaxed ${
-            dark ? "text-white/60" : "text-as-muted"
-          }`}
+          className="mt-8 max-w-2xl text-lg leading-relaxed text-as-muted"
         >
           {subtitle}
         </Reveal>
