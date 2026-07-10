@@ -112,7 +112,9 @@ export function Hero() {
               Alliance Street is nominated as best business consulting firm in Asia
             </span>
             <a
-              href="#publications"
+              href="https://www.asiabusinessoutlook.com/services-and-consulting/cover-story/alliance-street-consultancy-steering-businesses-to-growth-with-bespoke-consulting-solutions-cid-1423.html"
+              target="_blank"
+              rel="noopener noreferrer"
               className="rounded-full bg-white px-4 py-1.5 text-sm font-medium text-black shadow-sm transition-colors hover:bg-white/90"
             >
               Read more

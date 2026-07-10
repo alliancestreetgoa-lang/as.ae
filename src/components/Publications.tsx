@@ -134,6 +134,8 @@ export function Publications() {
                     </p>
                     <a
                       href={pub.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="mt-6 inline-flex items-center gap-2 font-sans font-semibold text-white transition-colors group-hover:text-as-red"
                     >
                       Read the Full Article
