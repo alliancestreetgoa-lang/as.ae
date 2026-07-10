@@ -44,12 +44,13 @@ export function Globe({ className }: { className?: string }) {
       phi: 0,
       theta: 0.28,
       dark: 1,
-      diffuse: 1.2,
+      diffuse: 1.5,
       mapSamples: 22000,
-      mapBrightness: 9,
-      baseColor: [0.32, 0.35, 0.42],
+      mapBrightness: 16,
+      mapBaseBrightness: 0.12,
+      baseColor: [0.45, 0.5, 0.58],
       markerColor: [226 / 255, 46 / 255, 52 / 255],
-      glowColor: [0.4, 0.15, 0.17],
+      glowColor: [0.55, 0.24, 0.27],
       markers: [
         { location: [25.2048, 55.2708], size: 0.11 }, // Dubai
         { location: [40.7128, -74.006], size: 0.06 }, // New York

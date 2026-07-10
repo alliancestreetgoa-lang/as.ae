@@ -38,9 +38,11 @@ export function PageHero({
         <div className="h-[600px] w-[1100px] translate-y-1/2 rounded-full bg-[radial-gradient(circle_at_50%_0%,rgba(226,46,52,0.35),rgba(226,46,52,0.05)_40%,transparent_70%)]" />
       </div>
 
-      {/* Scrim keeps the hero copy legible over the globe. */}
+      {/* Scrim keeps the hero copy legible over the (now brighter) globe —
+          only the top band behind the headline is darkened; the lower globe
+          stays bright. */}
       {globe && (
-        <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-as-ink via-as-ink/50 to-transparent" />
+        <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-as-ink via-as-ink/20 to-transparent" />
       )}
 
       <div className="as-container relative z-10 flex min-h-[70vh] flex-col items-center justify-center py-24 text-center">
