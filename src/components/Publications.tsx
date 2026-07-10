@@ -60,6 +60,9 @@ export function Publications() {
               pin: true,
               scrub: 1,
               anticipatePin: 1,
+              // Lower than Process (refreshPriority 1) above it, so the upper
+              // pin computes its spacer first and the two don't overlap.
+              refreshPriority: 0,
               invalidateOnRefresh: true,
               onUpdate: (self) => {
                 if (progressRef.current) {

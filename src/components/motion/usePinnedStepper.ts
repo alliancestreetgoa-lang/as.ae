@@ -54,8 +54,15 @@ export interface PinnedStepper {
  *
  * @param steps   number of steps in the sequence
  * @param enabled opt-in to pinning (false → always the click fallback)
+ * @param refreshPriority ScrollTrigger refresh order — set higher than any
+ *   pin BELOW this one on the page so stacked pins compute their positions in
+ *   top-to-bottom order (prevents adjacent pins overlapping).
  */
-export function usePinnedStepper(steps: number, enabled = true): PinnedStepper {
+export function usePinnedStepper(
+  steps: number,
+  enabled = true,
+  refreshPriority = 0
+): PinnedStepper {
   const sectionRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
@@ -81,6 +88,7 @@ export function usePinnedStepper(steps: number, enabled = true): PinnedStepper {
         pin: true,
         scrub: 0.6,
         anticipatePin: 1,
+        refreshPriority,
         onUpdate: (self) => {
           const idx = Math.min(steps - 1, Math.floor(self.progress * steps));
           if (idx !== lastIndex) {

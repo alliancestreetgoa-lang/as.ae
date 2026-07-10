@@ -103,8 +103,10 @@ const STEPS = PANELS.length;
  */
 export function Process() {
   const panelRef = useRef<HTMLDivElement>(null);
+  // refreshPriority 1: Process sits ABOVE the (also-pinned) Publications
+  // section, so it must refresh first — otherwise the two pins overlap.
   const { sectionRef, stageRef, progressRef, active, setActive, motionEnabled } =
-    usePinnedStepper(STEPS);
+    usePinnedStepper(STEPS, true, 1);
 
   // Cross-fade the panel card on every step change (pinned mode only).
   useGSAP(
