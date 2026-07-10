@@ -28,7 +28,7 @@ export function Stats3({ stats = DEFAULT_STATS }: { stats?: Stat[] }) {
           const numeric = parseInt(s.value.replace(/[^\d]/g, ""), 10) || 0;
           const suffix = s.value.replace(/^[\d,]+/, "");
           return (
-            <Reveal as="div" y={24} delay={0.08 * i} key={s.label}>
+            <Reveal as="div" y={24} scale={0.9} delay={0.08 * i} key={s.label}>
               <p className="font-display text-[56px] leading-none tracking-[-0.03em] text-as-ink sm:text-[72px]">
                 <Counter to={numeric} suffix={suffix} />
               </p>

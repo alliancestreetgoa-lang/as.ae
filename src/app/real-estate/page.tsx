@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Button } from "@/components/primitives/Button";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 import { Navbar } from "@/components/Navbar";
 import { InfoBlocks, type InfoBlock } from "@/components/InfoBlocks";
 import { Testimonials } from "@/components/Testimonials";
@@ -54,9 +55,12 @@ export default function RealEstatePage() {
         <section className="bg-as-canvas pt-[82px]">
           <div className="as-container grid min-h-[70vh] items-center gap-10 py-24 lg:grid-cols-2">
             <Reveal as="div" y={28}>
-              <h1 className="font-display text-[44px] leading-[1.05] tracking-[-0.04em] text-as-ink sm:text-[60px] lg:text-[68px]">
-                Invest, Buy or Rent Property in Dubai
-              </h1>
+              <SplitReveal
+                as="h1"
+                text="Invest, Buy or Rent Property in Dubai"
+                stagger={0.05}
+                className="font-display text-[44px] leading-[1.05] tracking-[-0.04em] text-as-ink sm:text-[60px] lg:text-[68px]"
+              />
               <p className="mt-8 text-lg text-as-muted">
                 *The Way It Benefits You (Not Some Agent&apos;s Bank Account).
               </p>

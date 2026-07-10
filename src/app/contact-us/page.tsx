@@ -105,6 +105,7 @@ export default function ContactUsPage() {
                     <Reveal
                       as="div"
                       y={20}
+                      blur={6}
                       delay={0.08 * ri + 0.06 * oi}
                       key={o.country}
                       className="border-t border-as-line pt-6 transition-colors duration-300 hover:border-as-red/60"

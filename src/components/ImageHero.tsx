@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Button } from "@/components/primitives/Button";
 import { Frame } from "@/components/primitives/Frame";
 import { Reveal } from "@/components/motion/Reveal";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 import { Parallax } from "@/components/motion/Parallax";
 
 /**
@@ -39,9 +40,12 @@ export function ImageHero({
 
       <div className="as-container relative z-10 flex min-h-[80vh] flex-col justify-center py-24">
         <Frame tone="red" className="max-w-3xl">
-          <Reveal as="h1" y={28} className="font-display text-[42px] leading-[1.05] tracking-[-0.04em] text-white sm:text-[56px] lg:text-[68px]">
-            {title}
-          </Reveal>
+          <SplitReveal
+            as="h1"
+            text={title}
+            stagger={0.05}
+            className="font-display text-[42px] leading-[1.05] tracking-[-0.04em] text-white sm:text-[56px] lg:text-[68px]"
+          />
           <Reveal
             as="p"
             y={22}

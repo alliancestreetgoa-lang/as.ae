@@ -64,8 +64,8 @@ export function Footer() {
 
         {/* Link columns, pulled from FOOTER_COLUMNS */}
         <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:col-span-7 lg:gap-8">
-          {FOOTER_COLUMNS.map((col) => (
-            <div key={col.heading}>
+          {FOOTER_COLUMNS.map((col, i) => (
+            <Reveal as="div" y={20} delay={0.06 * i} key={col.heading}>
               <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-as-red">
                 {col.heading}
               </h3>
@@ -95,7 +95,7 @@ export function Footer() {
                   );
                 })}
               </ul>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

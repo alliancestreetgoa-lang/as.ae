@@ -1,6 +1,7 @@
 import { Button } from "@/components/primitives/Button";
 import { Globe } from "@/components/Globe";
 import { Reveal } from "@/components/motion/Reveal";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 
 /**
  * PageHero — centered light hero used across sub-pages ("Are you next?"
@@ -41,13 +42,12 @@ export function PageHero({
       )}
 
       <div className="as-container relative z-10 flex min-h-[70vh] flex-col items-center justify-center py-24 text-center">
-        <Reveal
+        <SplitReveal
           as="h1"
-          y={28}
+          text={title}
+          stagger={0.05}
           className="font-display max-w-4xl text-[52px] leading-[1.05] tracking-[-0.04em] text-as-ink sm:text-[72px] lg:text-[88px]"
-        >
-          {title}
-        </Reveal>
+        />
         <Reveal
           as="p"
           y={22}

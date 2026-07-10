@@ -1,5 +1,6 @@
 import { Button } from "@/components/primitives/Button";
 import { Reveal } from "@/components/motion/Reveal";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 
 /**
  * GradientHero — centered hero over the black -> red -> white brand gradient
@@ -25,13 +26,12 @@ export function GradientHero({
   return (
     <section className="bg-as-canvas pt-[82px]">
       <div className="as-container flex min-h-[78vh] flex-col items-center justify-center py-24 text-center">
-        <Reveal
+        <SplitReveal
           as="h1"
-          y={28}
+          text={title}
+          stagger={0.05}
           className="font-display max-w-4xl text-[40px] leading-[1.08] tracking-[-0.04em] text-as-ink sm:text-[56px] lg:text-[64px]"
-        >
-          {title}
-        </Reveal>
+        />
         <Reveal
           as="p"
           y={22}
