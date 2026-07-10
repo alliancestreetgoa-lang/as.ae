@@ -39,7 +39,7 @@ export function InfoBlocks({
             y={24}
             delay={0.08 * i}
             key={b.heading}
-            className="border-t border-as-line pt-6"
+            className="border-t border-as-line pt-6 transition-colors duration-300 hover:border-as-red/60"
           >
             <span aria-hidden="true" className="font-mono text-xs tabular-nums text-as-red">
               0{i + 1}

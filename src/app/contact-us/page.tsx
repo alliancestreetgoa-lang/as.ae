@@ -107,7 +107,7 @@ export default function ContactUsPage() {
                       y={20}
                       delay={0.08 * ri + 0.06 * oi}
                       key={o.country}
-                      className="border-t border-as-line pt-6"
+                      className="border-t border-as-line pt-6 transition-colors duration-300 hover:border-as-red/60"
                     >
                       <h3 className="font-display mb-3 text-xl text-as-ink">
                         {o.country}

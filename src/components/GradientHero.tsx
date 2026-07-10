@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Button } from "@/components/primitives/Button";
 import { Reveal } from "@/components/motion/Reveal";
 
 /**
@@ -41,12 +41,9 @@ export function GradientHero({
           {subtitle}
         </Reveal>
         <Reveal as="div" y={18} delay={0.2} className="mt-10">
-          <Link
-            href={ctaHref}
-            className="inline-flex items-center gap-2 rounded-full bg-as-ink px-7 py-3.5 font-sans text-[15px] font-semibold text-white transition-colors hover:bg-as-red"
-          >
+          <Button href={ctaHref} variant="ink">
             {cta}
-          </Link>
+          </Button>
         </Reveal>
       </div>
     </section>

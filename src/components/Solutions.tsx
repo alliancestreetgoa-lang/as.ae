@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { Building2, Landmark, BarChart3, LineChart } from "lucide-react";
-import { ArrowRight } from "@/components/icons";
+import { Button } from "@/components/primitives/Button";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Section } from "@/components/primitives/Section";
+import { SpotlightCard } from "@/components/primitives/SpotlightCard";
 import { Reveal } from "@/components/motion/Reveal";
 import { Counter } from "@/components/motion/Counter";
 import { SOLUTIONS } from "@/lib/content";
@@ -22,9 +23,8 @@ const TRUST_AVATARS = [
   "/images/values-meeting.jpg",
 ];
 
-/** Hover-lift + entrance styling shared by every bento cell. */
-const HOVER_LIFT =
-  "h-full transition-transform duration-300 ease-out hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0";
+/** Hover-lift + brand glow shared by every bento cell (see `.card-lift`). */
+const HOVER_LIFT = "card-lift h-full";
 
 function SolutionTile({
   item,
@@ -41,7 +41,7 @@ function SolutionTile({
       <div
         className={cn(
           HOVER_LIFT,
-          "rounded-[20px] border border-as-line bg-as-canvas p-8"
+          "rounded-[20px] border border-as-line bg-as-canvas p-8 hover:border-as-red/40"
         )}
       >
         <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-as-red/50 text-as-red">
@@ -89,11 +89,9 @@ export function Solutions() {
           y={24}
           className="sm:col-span-2 lg:col-span-5 lg:row-span-2"
         >
-          <div
-            className={cn(
-              HOVER_LIFT,
-              "group relative flex min-h-[320px] flex-col overflow-hidden rounded-[20px] border border-as-ink bg-as-ink p-8 lg:p-10"
-            )}
+          <SpotlightCard
+            tone="dark"
+            className="group flex h-full min-h-[320px] flex-col rounded-[20px] border border-as-ink bg-as-ink p-8 hover:border-as-red/40 lg:p-10"
           >
             {/* Copy pinned to the top of the card. */}
             <div className="relative z-10">
@@ -104,12 +102,9 @@ export function Solutions() {
               <p className="mt-4 max-w-[26ch] text-[15px] leading-relaxed text-white/60">
                 Tell us where you want to go — we&apos;ll design the UAE setup around it.
               </p>
-              <a
-                href="#collaborate"
-                className="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-white px-6 py-3 font-sans text-[15px] font-semibold text-as-ink transition-colors hover:bg-white/90"
-              >
-                Get in Touch <ArrowRight className="h-4 w-4 text-as-red" />
-              </a>
+              <Button href="#collaborate" variant="white" arrow className="mt-8 w-fit">
+                Get in Touch
+              </Button>
             </div>
 
             {/* Growth-graph motif fills all remaining height (flex-1) so the
@@ -125,7 +120,7 @@ export function Solutions() {
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-as-ink via-transparent to-transparent" />
             </div>
-          </div>
+          </SpotlightCard>
         </Reveal>
 
         <SolutionTile item={SOLUTIONS[0]} delay={0.08} className="lg:col-span-4" />
@@ -138,7 +133,7 @@ export function Solutions() {
           <div
             className={cn(
               HOVER_LIFT,
-              "flex flex-col items-start gap-6 rounded-[20px] border border-as-line bg-as-canvas p-8 sm:flex-row sm:items-center sm:justify-between"
+              "flex flex-col items-start gap-6 rounded-[20px] border border-as-line bg-as-canvas p-8 hover:border-as-red/40 sm:flex-row sm:items-center sm:justify-between"
             )}
           >
             <div className="flex items-center gap-5">
@@ -161,12 +156,9 @@ export function Solutions() {
                 <p className="text-[15px] text-as-muted">businesses trust our services</p>
               </div>
             </div>
-            <a
-              href="#collaborate"
-              className="inline-flex items-center gap-2 rounded-full bg-as-ink px-7 py-3.5 font-sans text-[15px] font-semibold text-white transition-colors hover:bg-as-red"
-            >
-              Get in Touch <ArrowRight className="h-4 w-4" />
-            </a>
+            <Button href="#collaborate" variant="ink" arrow>
+              Get in Touch
+            </Button>
           </div>
         </Reveal>
       </div>
@@ -182,12 +174,9 @@ export function Solutions() {
           structures, we help you legally minimize your tax liability &amp; protect
           your wealth for generations to come.
         </p>
-        <a
-          href="#collaborate"
-          className="inline-flex shrink-0 items-center gap-2 rounded-full bg-as-ink px-7 py-3.5 font-sans text-[15px] font-semibold text-white transition-colors hover:bg-as-red"
-        >
+        <Button href="#collaborate" variant="ink" className="shrink-0">
           Get in Touch
-        </a>
+        </Button>
       </Reveal>
     </Section>
   );

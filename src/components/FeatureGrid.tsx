@@ -38,7 +38,7 @@ export function FeatureGrid({
             y={24}
             delay={0.06 * i}
             key={f.heading}
-            className="border-t border-as-line pt-6"
+            className="border-t border-as-line pt-6 transition-colors duration-300 hover:border-as-red/60"
           >
             <span aria-hidden="true" className="font-mono text-xs tabular-nums text-as-red">
               0{i + 1}

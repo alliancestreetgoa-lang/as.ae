@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ArrowRight } from "@/components/icons";
+import { Button } from "@/components/primitives/Button";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Frame } from "@/components/primitives/Frame";
 import { prefersReduced } from "@/components/motion/gsap-setup";
@@ -140,19 +140,12 @@ export function Hero() {
           </p>
 
           <div ref={ctaRef} className="mt-8 flex flex-wrap items-center gap-6">
-            <a
-              href="#collaborate"
-              className="inline-flex items-center gap-2 rounded-full bg-as-red px-7 py-3.5 font-sans text-[15px] font-semibold text-white transition-colors hover:bg-as-red-bright"
-            >
+            <Button href="#collaborate" variant="primary">
               Let&apos;s talk
-            </a>
-            <a
-              href="#solutions"
-              className="inline-flex items-center gap-2 rounded-full border border-as-line px-7 py-3.5 font-sans text-[15px] font-semibold text-as-ink transition-colors hover:border-as-red/60 hover:text-as-red"
-            >
+            </Button>
+            <Button href="#solutions" variant="outline" arrow>
               Our solutions
-              <ArrowRight className="h-4 w-4" />
-            </a>
+            </Button>
           </div>
         </Frame>
       </div>

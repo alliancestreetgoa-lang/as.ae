@@ -4,8 +4,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight } from "@/components/icons";
+import { Button } from "@/components/primitives/Button";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Frame } from "@/components/primitives/Frame";
 import { Section } from "@/components/primitives/Section";
@@ -92,13 +91,9 @@ export function StepsSection({
         <p className="mt-5 max-w-lg text-[15px] leading-relaxed text-as-muted">
           {step.body}
         </p>
-        <Link
-          href="/contact-us"
-          className="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-as-ink px-7 py-3.5 font-sans text-[15px] font-semibold text-white transition-colors hover:bg-as-red"
-        >
+        <Button href="/contact-us" variant="ink" arrow className="mt-8 w-fit">
           {cta}
-          <ArrowRight className="h-4 w-4" />
-        </Link>
+        </Button>
       </div>
       {step.image && (
         <Frame tone="red" className="min-h-[320px]">

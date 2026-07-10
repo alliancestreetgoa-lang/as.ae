@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import { Button } from "@/components/primitives/Button";
 import { Logo } from "@/components/icons";
 import { NAV_ITEMS } from "@/lib/content";
 import { cn } from "@/lib/utils";
@@ -94,12 +95,14 @@ export function Navbar({
         </ul>
 
         <div className="flex items-center gap-2">
-          <Link
+          <Button
             href="/contact-us"
-            className="hidden shrink-0 rounded-full bg-as-red px-5 py-2.5 font-sans text-[15px] font-semibold text-white transition-colors hover:bg-as-red-bright sm:inline-flex"
+            variant="primary"
+            size="sm"
+            className="hidden shrink-0 sm:inline-flex"
           >
             Get in Touch
-          </Link>
+          </Button>
 
           <button
             type="button"
@@ -148,13 +151,15 @@ export function Navbar({
               </li>
             ))}
             <li className="pt-2">
-              <Link
+              <Button
                 href="/contact-us"
+                variant="primary"
+                size="sm"
                 onClick={closeMobile}
-                className="block rounded-full bg-as-red px-5 py-3 text-center font-sans text-[15px] font-semibold text-white transition-colors hover:bg-as-red-bright"
+                className="w-full"
               >
                 Get in Touch
-              </Link>
+              </Button>
             </li>
           </ul>
         </div>

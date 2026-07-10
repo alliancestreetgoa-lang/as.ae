@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Button } from "@/components/primitives/Button";
 import { Logo, LogoMark } from "@/components/icons";
 import { Reveal } from "@/components/motion/Reveal";
 import { FOOTER_COLUMNS } from "@/lib/content";
@@ -56,12 +57,9 @@ export function Footer() {
             Compliant.
           </Reveal>
 
-          <a
-            href="#collaborate"
-            className="mt-10 inline-flex rounded-full bg-as-red px-7 py-3.5 font-sans font-semibold text-white transition-colors hover:bg-as-red-bright"
-          >
+          <Button href="#collaborate" variant="primary" className="mt-10">
             Get in Touch
-          </a>
+          </Button>
         </div>
 
         {/* Link columns, pulled from FOOTER_COLUMNS */}

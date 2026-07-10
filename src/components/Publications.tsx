@@ -6,7 +6,9 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight } from "@/components/icons";
+import { Button } from "@/components/primitives/Button";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
+import { SpotlightCard } from "@/components/primitives/SpotlightCard";
 import { Reveal } from "@/components/motion/Reveal";
 import { PUBLICATIONS } from "@/lib/content";
 
@@ -100,12 +102,9 @@ export function Publications() {
             Read about us in renowned publications, each underlining our
             dedication to excellence and innovation.
           </p>
-          <a
-            href="#collaborate"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-as-red px-7 py-3.5 font-sans text-[15px] font-semibold text-white transition-colors hover:bg-as-red-bright"
-          >
+          <Button href="#collaborate" variant="primary" className="mt-8">
             Let&apos;s talk
-          </a>
+          </Button>
           {/* Progress rail (lg motion only) */}
           <div className="mt-10 hidden h-px w-40 overflow-hidden bg-white/15 lg:block">
             <div
@@ -138,8 +137,11 @@ export function Publications() {
                 delay={i * 0.05}
                 className="group w-full shrink-0 lg:w-[400px]"
               >
-                <div className="flex h-full flex-col overflow-hidden rounded-[20px] border border-white/10 bg-white/[0.03] transition-colors group-hover:border-as-red/50">
-                  <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden bg-white/5">
+                <SpotlightCard
+                  tone="dark"
+                  className="flex h-full flex-col rounded-[20px] border border-white/10 bg-white/[0.03] group-hover:border-as-red/50"
+                >
+                  <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden rounded-t-[20px] bg-white/5">
                     <Image
                       src={pub.image}
                       alt={pub.outlet}
@@ -168,7 +170,7 @@ export function Publications() {
                       <ArrowRight className="h-5 w-5 text-as-red" />
                     </a>
                   </div>
-                </div>
+                </SpotlightCard>
               </Reveal>
             ))}
           </div>

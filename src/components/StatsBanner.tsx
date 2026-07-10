@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { Button } from "@/components/primitives/Button";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
@@ -94,12 +94,9 @@ export function StatsBanner({
             {quote}
           </p>
           {showButton && (
-            <Link
-              href="/contact-us"
-              className="mt-8 inline-flex rounded-full bg-white px-6 py-3 font-sans font-semibold text-black transition-colors hover:bg-white/90"
-            >
+            <Button href="/contact-us" variant="white" className="mt-8">
               About Us
-            </Link>
+            </Button>
           )}
         </div>
       </div>

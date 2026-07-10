@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Button } from "@/components/primitives/Button";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Section } from "@/components/primitives/Section";
 import { Reveal } from "@/components/motion/Reveal";
@@ -82,12 +82,9 @@ export function Collaborate() {
         <h2 className="font-display mt-6 max-w-2xl text-[40px] leading-[1.05] tracking-[-0.03em] text-white sm:text-[56px] lg:text-[64px]">
           Go where you&apos;re treated best.
         </h2>
-        <Link
-          href="/contact-us"
-          className="mt-10 inline-flex items-center gap-2 rounded-full bg-as-red px-7 py-3.5 font-sans text-[15px] font-semibold text-white transition-colors hover:bg-as-red-bright"
-        >
+        <Button href="/contact-us" variant="primary" className="mt-10">
           Get in Touch
-        </Link>
+        </Button>
       </Reveal>
 
       {/* Orbit graphic */}

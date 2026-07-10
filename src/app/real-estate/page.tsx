@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import { Button } from "@/components/primitives/Button";
 import { Navbar } from "@/components/Navbar";
 import { InfoBlocks, type InfoBlock } from "@/components/InfoBlocks";
 import { Testimonials } from "@/components/Testimonials";
@@ -66,12 +66,9 @@ export default function RealEstatePage() {
                 Our Developer Connections can and will help you access deals no Agent in
                 Dubai can afford to offer:
               </p>
-              <Link
-                href="/contact-us"
-                className="mt-8 inline-flex items-center gap-2 rounded-full bg-as-ink px-7 py-3.5 font-sans text-[15px] font-semibold text-white transition-colors hover:bg-as-red"
-              >
+              <Button href="/contact-us" variant="ink" className="mt-8">
                 Let&apos;s talk
-              </Link>
+              </Button>
             </Reveal>
           </div>
         </section>
@@ -154,12 +151,9 @@ export default function RealEstatePage() {
                 reputation for providing trusted, reliable advice that clients can count
                 on.
               </p>
-              <Link
-                href="/contact-us"
-                className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 font-sans text-[15px] font-semibold text-as-ink transition-colors hover:bg-white/90"
-              >
+              <Button href="/contact-us" variant="white" className="mt-8">
                 Tell us how we can help you
-              </Link>
+              </Button>
             </Reveal>
           </div>
         </section>

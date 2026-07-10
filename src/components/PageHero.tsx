@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Button } from "@/components/primitives/Button";
 import { Globe } from "@/components/Globe";
 import { Reveal } from "@/components/motion/Reveal";
 
@@ -62,12 +62,9 @@ export function PageHero({
           {subtitle}
         </Reveal>
         <Reveal as="div" y={18} delay={0.2} className="mt-10">
-          <Link
-            href={ctaHref}
-            className="inline-flex items-center gap-2 rounded-full bg-as-red px-7 py-3.5 font-sans text-[15px] font-semibold text-white transition-colors hover:bg-as-red-bright"
-          >
+          <Button href={ctaHref} variant="primary">
             {cta}
-          </Link>
+          </Button>
         </Reveal>
       </div>
     </section>

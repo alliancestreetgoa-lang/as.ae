@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Button } from "@/components/primitives/Button";
 import { Frame } from "@/components/primitives/Frame";
 import { Reveal } from "@/components/motion/Reveal";
 import { Parallax } from "@/components/motion/Parallax";
@@ -45,12 +45,9 @@ export function ImageHero({
             {subtitle}
           </Reveal>
           <Reveal as="div" y={18} delay={0.2} className="mt-10 w-fit">
-            <Link
-              href={ctaHref}
-              className="inline-flex items-center gap-2 rounded-full bg-as-red px-7 py-3.5 font-sans text-[15px] font-semibold text-white transition-colors hover:bg-as-red-bright"
-            >
+            <Button href={ctaHref} variant="primary">
               {cta}
-            </Link>
+            </Button>
           </Reveal>
         </Frame>
       </div>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { Navbar } from "@/components/Navbar";
+import { Button } from "@/components/primitives/Button";
 import { Frame } from "@/components/primitives/Frame";
 import { Parallax } from "@/components/motion/Parallax";
 import { GradientHero } from "@/components/GradientHero";
@@ -120,12 +120,9 @@ export default function BookkeepingAccountingPage() {
               ))}
             </ul>
             <Reveal as="div" y={16} delay={0.5} className="mt-10 w-fit">
-              <Link
-                href="/contact-us"
-                className="inline-flex items-center gap-2 rounded-full bg-as-red px-7 py-3.5 font-sans text-[15px] font-semibold text-white transition-colors hover:bg-as-red-bright"
-              >
+              <Button href="/contact-us" variant="primary">
                 Get in Touch
-              </Link>
+              </Button>
             </Reveal>
           </div>
         </Section>
