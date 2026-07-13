@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Navbar } from "@/components/Navbar";
-import { GradientHero } from "@/components/GradientHero";
 import { Values } from "@/components/Values";
 import { Testimonials } from "@/components/Testimonials";
 import { Collaborate } from "@/components/Collaborate";
@@ -9,6 +8,7 @@ import { Footer } from "@/components/Footer";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Section } from "@/components/primitives/Section";
 import { Reveal } from "@/components/motion/Reveal";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 
 export const metadata: Metadata = {
   title: "Careers at Alliance Street | Dubai Business Consultancy",
@@ -19,12 +19,33 @@ export const metadata: Metadata = {
 export default function CareersPage() {
   return (
     <>
-      <Navbar overLight />
+      <Navbar />
       <main>
-        <GradientHero
-          title="Careers at Alliance Street"
-          subtitle="We're a small team doing real structuring work for real clients - not a call center reading scripts. If that's the kind of work you want to do, we want to hear from you."
-        />
+        {/* Careers hero — the site's black -> red -> white brand gradient
+            (`.as-hero-gradient`, defined in globals.css but otherwise
+            unused), with white bold sans copy matching the reference
+            design, instead of the light-background/Fraunces GradientHero
+            used on every other page. */}
+        <section className="as-hero-gradient min-h-[115vh] pt-[82px]">
+          <div className="as-container flex flex-col items-center pt-20 text-center sm:pt-28">
+            <SplitReveal
+              as="h1"
+              text="Careers in UAE Business Consulting & Advisory"
+              stagger={0.05}
+              className="font-sans font-extrabold max-w-4xl text-[40px] leading-[1.1] tracking-[-0.02em] text-white sm:text-[56px] lg:text-[64px]"
+            />
+            <Reveal
+              as="p"
+              y={22}
+              delay={0.1}
+              className="mt-8 max-w-xl text-lg leading-relaxed text-white/85"
+            >
+              At Alliance Street, we built business structures that help
+              entrepreneurs protect their assets and eliminate taxation -
+              corporate & private.
+            </Reveal>
+          </div>
+        </section>
 
         {/* Open roles - honest, no fabricated listings */}
         <Section bg="canvas">
