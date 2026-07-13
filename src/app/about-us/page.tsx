@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Navbar } from "@/components/Navbar";
-import { GradientHero } from "@/components/GradientHero";
 import { Stats3 } from "@/components/Stats3";
 import { StatsBanner } from "@/components/StatsBanner";
 import { Values } from "@/components/Values";
@@ -12,6 +11,7 @@ import { Footer } from "@/components/Footer";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Section } from "@/components/primitives/Section";
 import { Reveal } from "@/components/motion/Reveal";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 import { serviceSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
@@ -41,12 +41,30 @@ export default function AboutUsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }}
       />
-      <Navbar overLight />
+      <Navbar />
       <main>
-        <GradientHero
-          title="About Alliance Street"
-          subtitle="At Alliance Street, we built business structures that help you protect your assets and eliminate taxation (often fully) - corporate & private."
-        />
+        {/* Same black -> red -> white brand gradient as the Careers hero,
+            matching the reference design exactly. */}
+        <section className="as-hero-gradient min-h-[115vh] pt-[82px]">
+          <div className="as-container flex flex-col items-center pt-20 text-center sm:pt-28">
+            <SplitReveal
+              as="h1"
+              text="Trusted Business Setup Consultants in Dubai, UAE"
+              stagger={0.05}
+              className="font-sans font-extrabold max-w-4xl text-[40px] leading-[1.1] tracking-[-0.02em] text-white sm:text-[56px] lg:text-[64px]"
+            />
+            <Reveal
+              as="p"
+              y={22}
+              delay={0.1}
+              className="mt-8 max-w-xl text-lg leading-relaxed text-white/85"
+            >
+              At Alliance Street, we built business structures that help you
+              protect your assets and eliminate taxation (often fully) -
+              corporate & private.
+            </Reveal>
+          </div>
+        </section>
 
         {/* Company origin */}
         <Section bg="canvas">
@@ -108,7 +126,7 @@ export default function AboutUsPage() {
         </Section>
 
         <Values />
-        <StatsBanner />
+        <StatsBanner light showButton={false} />
         <Testimonials />
         <Collaborate />
         <AsSeenIn />

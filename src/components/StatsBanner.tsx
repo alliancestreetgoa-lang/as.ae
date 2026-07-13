@@ -34,16 +34,21 @@ const DEFAULT_QUOTE =
 export function StatsBanner({
   quote = DEFAULT_QUOTE,
   showButton = true,
+  light = false,
 }: {
   quote?: string;
   showButton?: boolean;
+  /** White-background variant (no full-bleed photo) for pages that stay
+   *  light end-to-end, e.g. About Us / Careers. Every existing caller keeps
+   *  the default dark, full-bleed treatment. */
+  light?: boolean;
 }) {
   const sectionRef = useRef<HTMLElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
-      if (prefersReduced() || !imageRef.current) return;
+      if (light || prefersReduced() || !imageRef.current) return;
 
       // Scale is applied here (via GSAP) rather than as a Tailwind class:
       // GSAP writes the composed transform as an inline style, so a
@@ -68,6 +73,30 @@ export function StatsBanner({
     },
     { scope: sectionRef }
   );
+
+  if (light) {
+    return (
+      <section className="bg-as-canvas">
+        <div className="as-container flex flex-col items-center py-20 text-center sm:py-28">
+          <Eyebrow>Track record</Eyebrow>
+          <p className="font-display mt-4 text-[80px] leading-none tracking-[-0.05em] text-as-ink sm:text-[110px]">
+            <Counter to={200} suffix="+" />
+          </p>
+          <p className="mt-2 font-sans text-2xl font-medium text-as-ink">
+            Successful projects completed.
+          </p>
+          <p className="mt-6 max-w-2xl font-sans text-lg italic text-as-muted">
+            {quote}
+          </p>
+          {showButton && (
+            <Button href="/contact-us" variant="primary" className="mt-8">
+              About Us
+            </Button>
+          )}
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section ref={sectionRef} className="relative isolate overflow-hidden bg-as-ink">
