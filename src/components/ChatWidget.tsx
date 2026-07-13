@@ -233,26 +233,38 @@ export function ChatWidget() {
   return (
     <>
       {/* Launcher */}
-      <button
-        type="button"
-        aria-label={open ? "Close chat" : "Chat with Alliance Street"}
-        aria-expanded={open}
-        onClick={() => setOpen((v) => !v)}
-        className="group fixed bottom-5 right-5 z-[70] flex h-14 w-14 items-center justify-center rounded-full bg-[linear-gradient(180deg,var(--color-as-red-bright),var(--color-as-red))] text-white shadow-[0_10px_30px_-8px_rgba(226,46,52,0.6)] transition-transform duration-300 ease-out hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-as-red motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:bottom-6 sm:right-6"
-      >
-        <MessageSquare
-          className={cn(
-            "h-6 w-6 transition-all duration-200",
-            open && "scale-0 opacity-0"
-          )}
-        />
-        <X
-          className={cn(
-            "absolute h-6 w-6 transition-all duration-200",
-            open ? "scale-100 opacity-100" : "scale-0 opacity-0"
-          )}
-        />
-      </button>
+      <div className="fixed bottom-5 right-5 z-[70] flex items-center gap-3 sm:bottom-6 sm:right-6">
+        {!open && (
+          <button
+            type="button"
+            aria-label="Check your eligibility — open chat"
+            onClick={() => setOpen(true)}
+            className="rounded-full border border-as-line bg-white px-4 py-2.5 text-[13px] font-medium text-as-ink shadow-[0_10px_30px_-12px_rgba(16,16,20,0.4)] transition-transform duration-300 ease-out hover:-translate-y-0.5 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+          >
+            Check your eligibility
+          </button>
+        )}
+        <button
+          type="button"
+          aria-label={open ? "Close chat" : "Chat with Alliance Street"}
+          aria-expanded={open}
+          onClick={() => setOpen((v) => !v)}
+          className="group flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(180deg,var(--color-as-red-bright),var(--color-as-red))] text-white shadow-[0_10px_30px_-8px_rgba(226,46,52,0.6)] transition-transform duration-300 ease-out hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-as-red motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+        >
+          <MessageSquare
+            className={cn(
+              "h-6 w-6 transition-all duration-200",
+              open && "scale-0 opacity-0"
+            )}
+          />
+          <X
+            className={cn(
+              "absolute h-6 w-6 transition-all duration-200",
+              open ? "scale-100 opacity-100" : "scale-0 opacity-0"
+            )}
+          />
+        </button>
+      </div>
 
       {/* Panel */}
       <div
