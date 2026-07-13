@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Navbar } from "@/components/Navbar";
 import { GradientHero } from "@/components/GradientHero";
 import { Collaborate } from "@/components/Collaborate";
@@ -7,75 +8,13 @@ import { Footer } from "@/components/Footer";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Section } from "@/components/primitives/Section";
 import { Reveal } from "@/components/motion/Reveal";
+import { REGIONS } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Contact UAE Business Setup Experts | Dubai | Alliance Street",
   description:
     "Get in touch with Alliance Street. Offices across the UAE (Dubai, Ras Al Khaimah) and Europe (UK, Germany, Austria, Slovakia).",
 };
-
-interface Office {
-  country: string;
-  city: string;
-  address: string;
-  phone: string;
-  email: string;
-}
-
-const REGIONS: { region: string; offices: Office[] }[] = [
-  {
-    region: "United Arab Emirates",
-    offices: [
-      {
-        country: "Dubai",
-        city: "Dubai",
-        address: "Oxford Tower 104, Business Bay",
-        phone: "+971 4 262 7928",
-        email: "info@alliancestreet.ae",
-      },
-      {
-        country: "Ras Al Khaimah",
-        city: "Ras Al Khaimah",
-        address: "T1-SF-6B RAKEZ, Amenity Center, Al Hamra FZ",
-        phone: "+971 7 207 7052",
-        email: "info@alliancestreet.ae",
-      },
-    ],
-  },
-  {
-    region: "Europe",
-    offices: [
-      {
-        country: "United Kingdom",
-        city: "United Kingdom",
-        address: "Pine Tree House Gardiners Close, Basildon",
-        phone: "+44 07427 431400",
-        email: "info@alliancestreet.ae",
-      },
-      {
-        country: "Germany",
-        city: "Germany",
-        address: "Garmischer Str. 4, 80339 Munich",
-        phone: "+49 89 250066266",
-        email: "info@alliancestreet.ae",
-      },
-      {
-        country: "Austria",
-        city: "Austria",
-        address: "Schloßbergstraße 1, 6370 Kitzbühel",
-        phone: "+43 1 742501006",
-        email: "info@alliancestreet.ae",
-      },
-      {
-        country: "Slovakia",
-        city: "Slovakia",
-        address: "Zizkova 4D, Kosice",
-        phone: "+421 908 996 667",
-        email: "info@alliancestreet.ae",
-      },
-    ],
-  },
-];
 
 export default function ContactUsPage() {
   return (
@@ -134,6 +73,43 @@ export default function ContactUsPage() {
               </div>
             ))}
           </div>
+        </Section>
+
+        {/* Founder credential block */}
+        <Section bg="canvas">
+          <Reveal
+            as="div"
+            y={24}
+            className="col-span-12 flex flex-col items-start gap-8 border-t border-as-line pt-14 sm:flex-row sm:items-center"
+          >
+            <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-full">
+              <Image
+                src="/images/values-stallone.jpg"
+                alt="Stallone Shaikh, Founder & CEO of Alliance Street Consultancy"
+                fill
+                sizes="112px"
+                className="object-cover"
+              />
+            </div>
+            <div>
+              <p className="font-display text-xl text-as-ink">Stallone Shaikh</p>
+              <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-as-red">
+                Founder &amp; CEO
+              </p>
+              <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-as-muted">
+                A former banker with hands-on experience at one of the UAE&apos;s
+                top five banks, Stallone has helped 200+ businesses relocate to
+                and structure in the UAE. He&apos;s the author of{" "}
+                <em>
+                  Dubai Dreams &amp; Tax-Free Schemes: The Smart Digital
+                  Nomad&apos;s Guide to Building and Protecting Wealth in the
+                  UAE
+                </em>
+                , and has been featured in Khaleej Times, Gulf News, Forbes,
+                and Business Insider.
+              </p>
+            </div>
+          </Reveal>
         </Section>
 
         <Collaborate />

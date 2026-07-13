@@ -8,12 +8,20 @@ import { Solutions } from "@/components/Solutions";
 import { Collaborate } from "@/components/Collaborate";
 import { AsSeenIn } from "@/components/AsSeenIn";
 import { Footer } from "@/components/Footer";
+import { serviceSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "UAE Business Bank Account Opening Services | Alliance Street",
   description:
     "Open a UAE business bank account without the tedious KYC, bureaucracy or large deposits. Our banking connections get your accounts opened in hours or days.",
 };
+
+const SCHEMA = serviceSchema({
+  name: "UAE Business & Private Banking",
+  description:
+    "Open a UAE business bank account without the tedious KYC, bureaucracy or large deposits. Our banking connections get your accounts opened in hours or days.",
+  path: "banking",
+});
 
 const BLOCKS: InfoBlock[] = [
   {
@@ -60,6 +68,10 @@ const STEPS: Step[] = [
 export default function BankingPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }}
+      />
       <Navbar alwaysSolid />
       <main>
         <ImageHero

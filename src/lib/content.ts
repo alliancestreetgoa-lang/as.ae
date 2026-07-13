@@ -6,6 +6,7 @@ import type {
   Testimonial,
   PressLogo,
   FooterColumn,
+  Region,
 } from "@/types";
 
 export const NAV_ITEMS: NavItem[] = [
@@ -215,6 +216,61 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
       { label: '"Dubai Banking Secrets"', href: "/contact-us", strong: "New Release:" },
       { label: "Book a Free 1:1 Online Workshop", href: "/contact-us" },
       { label: "Visit our Knowledge Center", href: "/contact-us" },
+    ],
+  },
+];
+
+export const REGIONS: Region[] = [
+  {
+    region: "United Arab Emirates",
+    offices: [
+      {
+        country: "Dubai",
+        city: "Dubai",
+        address: "Oxford Tower 104, Business Bay",
+        phone: "+971 4 262 7928",
+        email: "info@alliancestreet.ae",
+      },
+      {
+        country: "Ras Al Khaimah",
+        city: "Ras Al Khaimah",
+        address: "T1-SF-6B RAKEZ, Amenity Center, Al Hamra FZ",
+        phone: "+971 7 207 7052",
+        email: "info@alliancestreet.ae",
+      },
+    ],
+  },
+  {
+    region: "Europe",
+    offices: [
+      {
+        country: "United Kingdom",
+        city: "United Kingdom",
+        address: "Pine Tree House Gardiners Close, Basildon",
+        phone: "+44 07427 431400",
+        email: "info@alliancestreet.ae",
+      },
+      {
+        country: "Germany",
+        city: "Germany",
+        address: "Garmischer Str. 4, 80339 Munich",
+        phone: "+49 89 250066266",
+        email: "info@alliancestreet.ae",
+      },
+      {
+        country: "Austria",
+        city: "Austria",
+        address: "Schloßbergstraße 1, 6370 Kitzbühel",
+        phone: "+43 1 742501006",
+        email: "info@alliancestreet.ae",
+      },
+      {
+        country: "Slovakia",
+        city: "Slovakia",
+        address: "Zizkova 4D, Kosice",
+        phone: "+421 908 996 667",
+        email: "info@alliancestreet.ae",
+      },
     ],
   },
 ];

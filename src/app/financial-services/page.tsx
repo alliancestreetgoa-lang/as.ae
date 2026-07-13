@@ -7,12 +7,20 @@ import { Solutions } from "@/components/Solutions";
 import { Collaborate } from "@/components/Collaborate";
 import { AsSeenIn } from "@/components/AsSeenIn";
 import { Footer } from "@/components/Footer";
+import { serviceSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Financial & Corporate Advisory Services UAE | Alliance Street",
   description:
     "UAE corporate tax, compliance and financial advisory. Business loans, working capital and mortgages - we cut the noise and deliver solutions banks can't.",
 };
+
+const SCHEMA = serviceSchema({
+  name: "Financial & Corporate Advisory Services",
+  description:
+    "UAE corporate tax, compliance and financial advisory. Business loans, working capital and mortgages - we cut the noise and deliver solutions banks can't.",
+  path: "financial-services",
+});
 
 const FEATURES: Feature[] = [
   {
@@ -67,6 +75,10 @@ const STEPS: Step[] = [
 export default function FinancialServicesPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }}
+      />
       <Navbar overLight />
       <main>
         <PageHero

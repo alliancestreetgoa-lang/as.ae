@@ -11,12 +11,20 @@ import { Testimonials } from "@/components/Testimonials";
 import { Collaborate } from "@/components/Collaborate";
 import { AsSeenIn } from "@/components/AsSeenIn";
 import { Footer } from "@/components/Footer";
+import { serviceSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Dubai Business Setup & Company Formation Experts | Alliance Street",
   description:
     "Start your business in Dubai and expand your global opportunities. Alliance Street helps entrepreneurs establish a strong, compliant presence in the UAE.",
 };
+
+const SCHEMA = serviceSchema({
+  name: "Dubai Business Setup & Company Formation",
+  description:
+    "Start your business in Dubai and expand your global opportunities. Alliance Street helps entrepreneurs establish a strong, compliant presence in the UAE.",
+  path: "dubai-business-setup",
+});
 
 const STEPS: Step[] = [
   {
@@ -71,6 +79,10 @@ const STEPS: Step[] = [
 export default function DubaiBusinessSetupPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }}
+      />
       <Navbar overLight />
       <main>
         <PageHero

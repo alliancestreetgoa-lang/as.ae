@@ -43,3 +43,16 @@ export interface FooterColumn {
   heading: string;
   links: { label: string; href: string; strong?: string }[];
 }
+
+export interface Office {
+  country: string;
+  city: string;
+  address: string;
+  phone: string;
+  email: string;
+}
+
+export interface Region {
+  region: string;
+  offices: Office[];
+}

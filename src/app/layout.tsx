@@ -4,6 +4,7 @@ import "./globals.css";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { ScrollProgress } from "@/components/motion/ScrollProgress";
 import { ChatWidget } from "@/components/ChatWidget";
+import { organizationSchema } from "@/lib/schema";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -59,6 +60,12 @@ export default function RootLayout({
       className={`${fraunces.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
     >
       <body className="min-h-full bg-as-canvas text-as-ink font-sans">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema()),
+          }}
+        />
         <SmoothScroll />
         <ScrollProgress />
         {children}

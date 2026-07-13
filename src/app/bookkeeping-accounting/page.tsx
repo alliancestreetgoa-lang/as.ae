@@ -16,12 +16,20 @@ import { Check } from "@/components/icons";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Section } from "@/components/primitives/Section";
 import { Reveal } from "@/components/motion/Reveal";
+import { serviceSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Bookkeeping & Accounting Services in Dubai | Alliance Street",
   description:
     "Bookkeeping, accounting & VAT services in Dubai. We take care of your finances so you can focus on scaling your business - compliant and audit-ready, always.",
 };
+
+const SCHEMA = serviceSchema({
+  name: "Bookkeeping, Accounting & VAT Compliance",
+  description:
+    "Bookkeeping, accounting & VAT services in Dubai. We take care of your finances so you can focus on scaling your business - compliant and audit-ready, always.",
+  path: "bookkeeping-accounting",
+});
 
 const CHECKLIST = [
   { label: "Spotless Bookkeeping:", rest: "All transactions tracked, no loose ends" },
@@ -40,6 +48,10 @@ const STATS = [
 export default function BookkeepingAccountingPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }}
+      />
       <Navbar overLight />
       <main>
         <GradientHero

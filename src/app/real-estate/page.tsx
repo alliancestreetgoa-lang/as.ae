@@ -12,12 +12,20 @@ import { Footer } from "@/components/Footer";
 import { Counter } from "@/components/motion/Counter";
 import { Reveal } from "@/components/motion/Reveal";
 import { Parallax } from "@/components/motion/Parallax";
+import { serviceSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Commercial Real Estate & Office Space in Dubai | Alliance Street",
   description:
     "Invest, buy or rent property in Dubai the way it benefits you. Our developer connections give you access to exclusive deals no agent in Dubai can offer.",
 };
+
+const SCHEMA = serviceSchema({
+  name: "Dubai Commercial Real Estate & Investment",
+  description:
+    "Invest, buy or rent property in Dubai the way it benefits you. Our developer connections give you access to exclusive deals no agent in Dubai can offer.",
+  path: "real-estate",
+});
 
 const DEVELOPERS = [
   { name: "Emaar", src: "/images/dev-emaar.png" },
@@ -45,6 +53,10 @@ const BLOCKS: InfoBlock[] = [
 export default function RealEstatePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }}
+      />
       <Navbar overLight />
       <main>
         {/* Split gradient hero — the page's one large red hero moment (brand
