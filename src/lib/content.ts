@@ -215,7 +215,7 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
       { label: '"Fast-Track to Zero Tax"', href: "/contact-us", strong: "Free E-Book:" },
       { label: '"Dubai Banking Secrets"', href: "/contact-us", strong: "New Release:" },
       { label: "Book a Free 1:1 Online Workshop", href: "/contact-us" },
-      { label: "Visit our Knowledge Center", href: "/contact-us" },
+      { label: "Visit our Knowledge Center", href: "/case-studies" },
     ],
   },
 ];

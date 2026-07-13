@@ -1,0 +1,23 @@
+# Alliance Street Consultancy
+
+> Dubai-based business consultancy specializing in UAE company formation, tax structuring, banking, and relocation for entrepreneurs, property investors, and businesses moving to the UAE.
+
+Founded by Stallone Shaikh, Alliance Street Consultancy has helped 200+ businesses relocate to and structure in the UAE. Services span company formation (free zone, mainland, and multi-jurisdictional structures), business & private banking introductions, bookkeeping/accounting/VAT compliance, financial & corporate advisory, and Dubai commercial real estate. Offices in the UAE (Dubai, Ras Al Khaimah) and Europe (UK, Germany, Austria, Slovakia).
+
+## Key pages
+
+- [Homepage](https://alliancestreetgoa-lang.github.io/as.ae/): Overview of all services.
+- [Dubai Business Setup](https://alliancestreetgoa-lang.github.io/as.ae/dubai-business-setup/): Company formation and structuring (free zone, mainland, multi-jurisdictional).
+- [Banking Solutions](https://alliancestreetgoa-lang.github.io/as.ae/banking/): UAE business & private bank account opening.
+- [Accounting Service](https://alliancestreetgoa-lang.github.io/as.ae/bookkeeping-accounting/): Bookkeeping, accounting, and VAT compliance.
+- [Financial Solutions](https://alliancestreetgoa-lang.github.io/as.ae/financial-services/): UAE corporate tax, compliance, and financial advisory.
+- [Real Estate](https://alliancestreetgoa-lang.github.io/as.ae/real-estate/): Dubai commercial real estate and investment.
+- [FAQ](https://alliancestreetgoa-lang.github.io/as.ae/faq/): 43 answers on UAE company formation, tax, Small Business Relief, banking, and tax residency.
+- [Case Studies](https://alliancestreetgoa-lang.github.io/as.ae/case-studies/): 20 anonymized real client situations, including cases advised against.
+- [Contact](https://alliancestreetgoa-lang.github.io/as.ae/contact-us/): Office locations, contact details, and founder background.
+
+## Optional
+
+- [Khaleej Times feature](https://www.khaleejtimes.com/kt-network/meet-alliance-street-consultancy-the-one-stop-shop-business-consultancy-in-uae)
+- [Gulf News feature](https://gulfnews.com/business/corporate-news/alliance-street-consultancy-announces-strategic-partnership-with-vasil-legal-1.1726217791344)
+- [Asia Business Outlook feature](https://www.asiabusinessoutlook.com/services-and-consulting/cover-story/alliance-street-consultancy-steering-businesses-to-growth-with-bespoke-consulting-solutions-cid-1423.html)
