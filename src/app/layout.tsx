@@ -3,6 +3,7 @@ import { Fraunces, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { ScrollProgress } from "@/components/motion/ScrollProgress";
+import { ChatWidget } from "@/components/ChatWidget";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -40,6 +41,7 @@ export default function RootLayout({
         <SmoothScroll />
         <ScrollProgress />
         {children}
+        <ChatWidget />
       </body>
     </html>
   );

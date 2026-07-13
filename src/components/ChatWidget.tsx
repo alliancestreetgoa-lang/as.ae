@@ -1,0 +1,254 @@
+"use client";
+
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { MessageSquare, X, Send } from "lucide-react";
+import { cn } from "@/lib/utils";
+import {
+  CHAT_ENDPOINT,
+  CHAT_GREETING,
+  CHAT_SUGGESTIONS,
+} from "@/lib/chat-config";
+
+type Msg = { role: "user" | "assistant"; content: string };
+
+/**
+ * ChatWidget — a floating AI assistant on every page. The site is a static
+ * export, so it can't hold an API key; instead this posts the message history
+ * to CHAT_ENDPOINT (the Cloudflare Worker in /chatbot), which talks to Claude
+ * with the key held server-side. On-brand (glass panel, red accents, Fraunces
+ * header); keyboard-accessible (Esc closes, focus moves to the input on open);
+ * only transform/opacity animate, gated for reduced motion.
+ */
+export function ChatWidget() {
+  const [open, setOpen] = useState(false);
+  const [messages, setMessages] = useState<Msg[]>([]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Focus the input when the panel opens.
+  useEffect(() => {
+    if (open) inputRef.current?.focus();
+  }, [open]);
+
+  // Esc closes the panel.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
+  // Keep the transcript pinned to the latest message.
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight });
+  }, [messages, loading]);
+
+  async function send(text: string) {
+    const trimmed = text.trim();
+    if (!trimmed || loading) return;
+
+    const next: Msg[] = [...messages, { role: "user", content: trimmed }];
+    setMessages(next);
+    setInput("");
+
+    if (!CHAT_ENDPOINT) {
+      setMessages([
+        ...next,
+        {
+          role: "assistant",
+          content:
+            "The assistant isn't connected yet. Meanwhile, please reach us via the Contact page and we'll get right back to you.",
+        },
+      ]);
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const res = await fetch(CHAT_ENDPOINT, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ messages: next }),
+      });
+      const data: { reply?: string; error?: string } = await res
+        .json()
+        .catch(() => ({}));
+      const reply =
+        (res.ok && data.reply) ||
+        "Sorry — I couldn't reach the assistant just now. Please try again, or use the Contact page.";
+      setMessages([...next, { role: "assistant", content: reply }]);
+    } catch {
+      setMessages([
+        ...next,
+        {
+          role: "assistant",
+          content:
+            "Sorry — I couldn't reach the assistant just now. Please try again, or use the Contact page.",
+        },
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <>
+      {/* Launcher */}
+      <button
+        type="button"
+        aria-label={open ? "Close chat" : "Chat with Alliance Street"}
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+        className="group fixed bottom-5 right-5 z-[70] flex h-14 w-14 items-center justify-center rounded-full bg-[linear-gradient(180deg,var(--color-as-red-bright),var(--color-as-red))] text-white shadow-[0_10px_30px_-8px_rgba(226,46,52,0.6)] transition-transform duration-300 ease-out hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-as-red motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:bottom-6 sm:right-6"
+      >
+        <MessageSquare
+          className={cn(
+            "h-6 w-6 transition-all duration-200",
+            open && "scale-0 opacity-0"
+          )}
+        />
+        <X
+          className={cn(
+            "absolute h-6 w-6 transition-all duration-200",
+            open ? "scale-100 opacity-100" : "scale-0 opacity-0"
+          )}
+        />
+      </button>
+
+      {/* Panel */}
+      <div
+        role="dialog"
+        aria-label="Alliance Street assistant"
+        aria-hidden={!open}
+        {...(!open ? { inert: true } : {})}
+        className={cn(
+          "fixed bottom-24 right-5 z-[70] flex w-[calc(100vw-2.5rem)] max-w-[380px] origin-bottom-right flex-col overflow-hidden rounded-[22px] border border-as-line bg-white shadow-[0_24px_60px_-20px_rgba(16,16,20,0.4)] transition-[transform,opacity] duration-300 ease-out motion-reduce:transition-none sm:bottom-28 sm:right-6",
+          open
+            ? "pointer-events-auto translate-y-0 scale-100 opacity-100"
+            : "pointer-events-none translate-y-3 scale-95 opacity-0"
+        )}
+        style={{ height: "min(560px, calc(100vh - 8rem))" }}
+      >
+        {/* Header */}
+        <div className="relative flex items-center gap-3 bg-as-ink px-5 py-4 text-white">
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-as-red">
+            <MessageSquare className="h-5 w-5" />
+          </span>
+          <div className="min-w-0">
+            <p className="font-display text-[17px] leading-tight">
+              Alliance Street
+            </p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">
+              Assistant · online
+            </p>
+          </div>
+          <button
+            type="button"
+            aria-label="Close chat"
+            onClick={() => setOpen(false)}
+            className="ml-auto rounded-full p-1.5 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+
+        {/* Transcript */}
+        <div
+          ref={scrollRef}
+          className="flex-1 space-y-4 overflow-y-auto bg-as-canvas px-4 py-5"
+        >
+          <Bubble role="assistant">{CHAT_GREETING}</Bubble>
+
+          {messages.length === 0 && (
+            <div className="flex flex-wrap gap-2 pt-1">
+              {CHAT_SUGGESTIONS.map((s) => (
+                <button
+                  key={s}
+                  type="button"
+                  onClick={() => send(s)}
+                  className="rounded-full border border-as-line bg-white px-3 py-1.5 text-left text-[13px] leading-snug text-as-ink transition-colors hover:border-as-red/50 hover:text-as-red"
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {messages.map((m, i) => (
+            <Bubble key={i} role={m.role}>
+              {m.content}
+            </Bubble>
+          ))}
+
+          {loading && (
+            <div className="flex w-fit items-center gap-1.5 rounded-2xl rounded-bl-md border border-as-line bg-white px-4 py-3">
+              <Dot /> <Dot delay="0.15s" /> <Dot delay="0.3s" />
+            </div>
+          )}
+        </div>
+
+        {/* Composer */}
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            send(input);
+          }}
+          className="flex items-center gap-2 border-t border-as-line bg-white px-3 py-3"
+        >
+          <input
+            ref={inputRef}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Ask about setup, banking, tax…"
+            className="min-w-0 flex-1 rounded-full border border-as-line bg-as-canvas px-4 py-2.5 text-[15px] text-as-ink outline-none transition-colors placeholder:text-as-muted focus:border-as-red/50"
+          />
+          <button
+            type="submit"
+            aria-label="Send message"
+            disabled={!input.trim() || loading}
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(180deg,var(--color-as-red-bright),var(--color-as-red))] text-white transition-opacity disabled:opacity-40"
+          >
+            <Send className="h-[18px] w-[18px]" />
+          </button>
+        </form>
+      </div>
+    </>
+  );
+}
+
+function Bubble({
+  role,
+  children,
+}: {
+  role: "user" | "assistant";
+  children: ReactNode;
+}) {
+  const isUser = role === "user";
+  return (
+    <div className={cn("flex", isUser ? "justify-end" : "justify-start")}>
+      <div
+        className={cn(
+          "max-w-[85%] whitespace-pre-wrap rounded-2xl px-4 py-2.5 text-[15px] leading-relaxed",
+          isUser
+            ? "rounded-br-md bg-as-red text-white"
+            : "rounded-bl-md border border-as-line bg-white text-as-ink"
+        )}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function Dot({ delay = "0s" }: { delay?: string }) {
+  return (
+    <span
+      className="inline-block h-1.5 w-1.5 animate-bounce rounded-full bg-as-muted motion-reduce:animate-none"
+      style={{ animationDelay: delay }}
+    />
+  );
+}

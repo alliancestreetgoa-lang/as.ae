@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Standalone Cloudflare Worker (deployed separately, not part of the app).
+    "chatbot/**",
   ]),
 ]);
 
