@@ -1,30 +1,24 @@
 /**
  * Alliance Street chat backend — a Cloudflare Worker that proxies the site's
- * chat widget to the Claude Messages API. The Anthropic API key lives here as
- * a Worker secret (never in the website), so the static site can call Claude
- * without exposing it.
+ * chat widget to the OpenAI Chat Completions API. The OpenAI API key lives
+ * here as a Worker secret (never in the website), so the static site can
+ * call the model without exposing it.
  *
  * Deploy:  see README.md in this folder.
- * Secret:  wrangler secret put ANTHROPIC_API_KEY
+ * Secret:  wrangler secret put OPENAI_API_KEY
  * Persona + knowledge come from knowledge.generated.js — edit files in
  * knowledge/ and run `node build-knowledge.mjs` to regenerate it.
  */
 
 import { SYSTEM_PROMPT, KNOWLEDGE } from "./knowledge.generated.js";
 
-const MODEL = "claude-opus-4-8"; // swap to "claude-haiku-4-5" for a cheaper/faster bot
+const MODEL = "gpt-4o-mini"; // swap to another OpenAI model as needed
 
-// System field: instructions, plus (if present) the knowledge base as a second
-// block with prompt caching so it's read at ~10% cost after the first call.
+// System message: instructions, plus (if present) the knowledge base appended
+// as reference context. OpenAI caches repeated prompt prefixes automatically
+// once they're long enough, so no explicit cache directive is needed here.
 const SYSTEM = KNOWLEDGE
-  ? [
-      { type: "text", text: SYSTEM_PROMPT },
-      {
-        type: "text",
-        text: `You have the following reference knowledge. Use it to answer; do not repeat it verbatim.\n\n${KNOWLEDGE}`,
-        cache_control: { type: "ephemeral", ttl: "1h" },
-      },
-    ]
+  ? `${SYSTEM_PROMPT}\n\nYou have the following reference knowledge. Use it to answer; do not repeat it verbatim.\n\n${KNOWLEDGE}`
   : SYSTEM_PROMPT;
 
 // Sites allowed to call this worker (CORS). Add your custom domain here.
@@ -64,7 +58,7 @@ export default {
     if (request.method !== "POST") {
       return json({ error: "method_not_allowed" }, 405, cors);
     }
-    if (!env.ANTHROPIC_API_KEY) {
+    if (!env.OPENAI_API_KEY) {
       return json({ error: "server_not_configured" }, 500, cors);
     }
 
@@ -92,31 +86,26 @@ export default {
     }
 
     try {
-      const upstream = await fetch("https://api.anthropic.com/v1/messages", {
+      const upstream = await fetch("https://api.openai.com/v1/chat/completions", {
         method: "POST",
         headers: {
           "content-type": "application/json",
-          "x-api-key": env.ANTHROPIC_API_KEY,
-          "anthropic-version": "2023-06-01",
+          Authorization: `Bearer ${env.OPENAI_API_KEY}`,
         },
         body: JSON.stringify({
           model: MODEL,
           max_tokens: 1024,
-          system: SYSTEM,
-          messages: cleaned,
+          messages: [{ role: "system", content: SYSTEM }, ...cleaned],
         }),
       });
 
       if (!upstream.ok) {
+        console.error("upstream_error", upstream.status, await upstream.text());
         return json({ error: "upstream_error" }, 502, cors);
       }
 
       const data = await upstream.json();
-      const reply = (data.content || [])
-        .filter((b) => b.type === "text")
-        .map((b) => b.text)
-        .join("\n")
-        .trim();
+      const reply = (data.choices?.[0]?.message?.content || "").trim();
 
       return json(
         { reply: reply || "Sorry, I couldn't generate a response." },

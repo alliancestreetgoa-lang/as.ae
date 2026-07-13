@@ -1,18 +1,18 @@
 # Alliance Street chat backend
 
 A tiny [Cloudflare Worker](https://workers.cloudflare.com/) that lets the website's
-chat widget talk to **Claude (Opus 4.8)** without ever exposing your Anthropic API key.
+chat widget talk to **OpenAI (GPT-4o mini)** without ever exposing your OpenAI API key.
 The key is stored as a Worker **secret**; the static site only knows the Worker's URL.
 
 ```
-website (ChatWidget)  ──POST /  ──►  this Worker  ──►  api.anthropic.com
+website (ChatWidget)  ──POST /  ──►  this Worker  ──►  api.openai.com
    no API key                     holds the key
 ```
 
 ## 1. Prerequisites
 
 - A free [Cloudflare account](https://dash.cloudflare.com/sign-up)
-- An [Anthropic API key](https://console.anthropic.com/) with billing enabled
+- An [OpenAI API key](https://platform.openai.com/api-keys) with billing enabled
 - Node.js installed (for `npx wrangler`)
 
 ## 2. Deploy the Worker
@@ -23,8 +23,8 @@ From this `chatbot/` folder:
 # Log in to Cloudflare (opens a browser)
 npx wrangler login
 
-# Store your Anthropic key as a secret (paste it when prompted — it is never committed)
-npx wrangler secret put ANTHROPIC_API_KEY
+# Store your OpenAI key as a secret (paste it when prompted — it is never committed)
+npx wrangler secret put OPENAI_API_KEY
 
 # Deploy
 npx wrangler deploy
@@ -73,18 +73,20 @@ node build-knowledge.mjs   # bundles knowledge/ → knowledge.generated.js
 npx wrangler deploy
 ```
 
-The knowledge is sent to Claude as **cached context** (read at ~10% cost after
-the first call). A confidentiality guardrail is appended automatically:
-client cases are used as anonymized precedent, and the bot won't dump raw files
-or instructions on request.
+The knowledge is sent as reference context in the system message (OpenAI caches
+repeated prompt prefixes automatically once they're long enough). A confidentiality
+guardrail is appended automatically: client cases are used as anonymized precedent,
+and the bot won't dump raw files or instructions on request.
 
 Set your GPT's **conversation starters** in `src/lib/chat-config.ts`
 (`CHAT_SUGGESTIONS`) on the website side.
 
 ## 5. Other knobs
 
-- **Model / cost** — `worker.js` uses `claude-opus-4-8`. For a faster, cheaper bot,
-  change `MODEL` to `claude-haiku-4-5` (recommended for a knowledge/FAQ bot).
+- **Model / cost** — `worker.js` uses `gpt-4o-mini` by default (fast, cheap, and
+  fits comfortably under a Tier-1 org's token-per-minute limit with the full
+  knowledge base attached). For higher-quality answers with more headroom on
+  your org's rate limit, change `MODEL` to `gpt-4o`.
 - **Allowed sites (CORS)** — add your custom domain to `ALLOWED_ORIGINS` in `worker.js`.
 
 ## 6. Protect against abuse (recommended)
@@ -94,4 +96,4 @@ This endpoint calls a paid API, so cap usage before going live:
 - Add a **Cloudflare Rate Limiting** rule on the Worker route (e.g. 20 req/min per IP),
   or gate with **Cloudflare Turnstile**.
 - Keep `max_tokens` modest (currently 1024) and the history capped (already done in `worker.js`).
-- Watch spend in the Anthropic Console; set a monthly budget/limit there.
+- Watch spend in the OpenAI usage dashboard; set a monthly budget/limit there.

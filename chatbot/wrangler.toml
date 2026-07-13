@@ -2,5 +2,5 @@ name = "alliance-chat"
 main = "worker.js"
 compatibility_date = "2026-01-01"
 
-# The Anthropic API key is NOT stored here — it's a secret set with:
-#   wrangler secret put ANTHROPIC_API_KEY
+# The OpenAI API key is NOT stored here — it's a secret set with:
+#   wrangler secret put OPENAI_API_KEY
