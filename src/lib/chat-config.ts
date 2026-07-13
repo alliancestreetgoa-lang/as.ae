@@ -6,11 +6,13 @@ export const CHAT_ENDPOINT =
 
 // First message the assistant shows when the panel opens.
 export const CHAT_GREETING =
-  "Hi! I'm the Alliance Street assistant. Ask me about UAE company formation, banking, accounting, tax, or real estate — or I can point you to the right team.";
+  "Hi! I'm the Alliance Street assistant — trained on the Fast Track to Zero Tax UAE structuring practice. Ask me about UAE company formation, banking, tax structuring, or real estate, or I can point you to the team for a live consultation.";
 
-// Quick-start prompts shown as chips under the greeting.
+// Quick-start prompts shown as chips under the greeting. Rephrased from the
+// GPT's team-facing starters ("a prospect says...") into visitor-facing ones —
+// same underlying knowledge, just addressed to someone asking for themselves.
 export const CHAT_SUGGESTIONS = [
-  "How do I set up a company in Dubai?",
-  "Can you help with a UAE business bank account?",
-  "What accounting & tax services do you offer?",
+  "What's the Small Business Relief threshold and how does it work?",
+  "Walk me through a case similar to a UK property landlord with a £2M portfolio.",
+  "How does the UAE structure work, and is it right for my business?",
 ];
