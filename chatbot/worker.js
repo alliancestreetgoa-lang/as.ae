@@ -62,6 +62,13 @@ export default {
       return json({ error: "server_not_configured" }, 500, cors);
     }
 
+    // Cap requests per visitor IP before they reach the paid OpenAI call.
+    const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+    const { success } = await env.RATE_LIMITER.limit({ key: ip });
+    if (!success) {
+      return json({ error: "rate_limited" }, 429, cors);
+    }
+
     let messages;
     try {
       ({ messages } = await request.json());

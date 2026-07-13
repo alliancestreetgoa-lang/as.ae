@@ -4,3 +4,12 @@ compatibility_date = "2026-01-01"
 
 # The OpenAI API key is NOT stored here — it's a secret set with:
 #   wrangler secret put OPENAI_API_KEY
+
+# Caps requests per visitor IP before they reach the (paid) OpenAI call.
+[[ratelimits]]
+name = "RATE_LIMITER"
+namespace_id = "1001"
+
+  [ratelimits.simple]
+  limit = 20
+  period = 60
