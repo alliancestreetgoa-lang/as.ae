@@ -1,7 +1,5 @@
-// Custom next/image loader for static export under a GitHub Pages basePath.
-// Prepends the basePath to local image src so /images/x -> /as.ae/images/x.
-const basePath = process.env.NODE_ENV === "production" ? "/as.ae" : "";
-
+// Custom next/image loader for static export (served from the custom
+// domain root - no basePath prefix needed).
 export default function imageLoader({
   src,
   width,
@@ -14,5 +12,5 @@ export default function imageLoader({
   // (each srcset entry now yields a distinct URL). The static export host
   // (GitHub Pages) ignores the query and serves the same file, so nothing is
   // actually resized — these images are unoptimizable static assets.
-  return `${basePath}${src}?w=${width}`;
+  return `${src}?w=${width}`;
 }

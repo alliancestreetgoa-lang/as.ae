@@ -15,12 +15,10 @@ const fraunces = Fraunces({
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "swap" });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], display: "swap" });
 
-// Metadata icons are not auto-prefixed with basePath, so add it explicitly.
 const isProd = process.env.NODE_ENV === "production";
-const basePath = isProd ? "/as.ae" : "";
-const siteUrl = isProd
-  ? "https://alliancestreetgoa-lang.github.io/as.ae"
-  : "http://localhost:3000";
+// Served from the custom domain root (shaukinsv.com via public/CNAME) - no
+// basePath prefix needed in production.
+const siteUrl = isProd ? "https://shaukinsv.com" : "http://localhost:3000";
 
 const SITE_TITLE = "Business Setup in Dubai & UAE | Alliance Street";
 const SITE_DESCRIPTION =
@@ -31,8 +29,8 @@ export const metadata: Metadata = {
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
   icons: {
-    icon: `${basePath}/images/favicon-32.png`,
-    apple: `${basePath}/images/favicon-32.png`,
+    icon: "/images/favicon-32.png",
+    apple: "/images/favicon-32.png",
   },
   openGraph: {
     type: "website",

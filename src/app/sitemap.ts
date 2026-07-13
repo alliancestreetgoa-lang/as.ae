@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const SITE_URL = "https://alliancestreetgoa-lang.github.io/as.ae";
+const SITE_URL = "https://shaukinsv.com";
 
 const ROUTES: { path: string; priority: number }[] = [
   { path: "", priority: 1 },

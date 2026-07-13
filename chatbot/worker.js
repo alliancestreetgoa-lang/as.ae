@@ -31,8 +31,10 @@ const SYSTEM = KNOWLEDGE
   ? `${SYSTEM_PROMPT}\n\nYou have the following reference knowledge. Use it to answer; do not repeat it verbatim.\n\n${KNOWLEDGE}`
   : SYSTEM_PROMPT;
 
-// Sites allowed to call this worker (CORS). Add your custom domain here.
+// Sites allowed to call this worker (CORS). Keeping the old github.io origin
+// during the shaukinsv.com DNS transition; safe to remove once cut over.
 const ALLOWED_ORIGINS = new Set([
+  "https://shaukinsv.com",
   "https://alliancestreetgoa-lang.github.io",
   "http://localhost:3000",
   "http://127.0.0.1:3000",
@@ -49,9 +51,7 @@ const LEAD_FIELDS = [
 ];
 
 function corsHeaders(origin) {
-  const allow = ALLOWED_ORIGINS.has(origin)
-    ? origin
-    : "https://alliancestreetgoa-lang.github.io";
+  const allow = ALLOWED_ORIGINS.has(origin) ? origin : "https://shaukinsv.com";
   return {
     "Access-Control-Allow-Origin": allow,
     "Access-Control-Allow-Methods": "POST, OPTIONS",

@@ -1,6 +1,6 @@
 import { PUBLICATIONS, REGIONS } from "@/lib/content";
 
-export const SITE_URL = "https://alliancestreetgoa-lang.github.io/as.ae";
+export const SITE_URL = "https://shaukinsv.com";
 export const ORG_NAME = "Alliance Street Consultancy";
 
 const dubai = REGIONS[0].offices[0];
