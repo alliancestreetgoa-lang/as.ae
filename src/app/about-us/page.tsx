@@ -17,7 +17,7 @@ import { serviceSchema } from "@/lib/schema";
 export const metadata: Metadata = {
   title: "About Alliance Street | Dubai Business Consultancy Since 2017",
   description:
-    "Since 2017, Alliance Street has helped 200+ businesses relocate to and structure in the UAE - bridging the gap between business goals and the capital required to achieve them.",
+    "Since 2017, Alliance Street has helped 200+ businesses relocate to and structure in the UAE - real banking relationships, tax strategists, and legal partners, not just paperwork.",
 };
 
 const SCHEMA = serviceSchema({
@@ -56,16 +56,14 @@ export default function AboutUsPage() {
               Streamlining company setup in Dubai, from day one.
             </h2>
             <p className="mt-6 max-w-2xl text-[16px] leading-relaxed text-as-muted">
-              Since its inception in 2017, Alliance Street has been dedicated
-              to streamlining company setups in Dubai. Our goal? Freeing up
-              our clients to give their undivided attention to business
-              success.
+              We started in 2017 with one job: make Dubai company setup fast
+              and painless, so you can get back to running the business - not
+              chasing paperwork.
             </p>
             <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-as-muted">
-              With a passion for entrepreneurship and a desire to drive
-              meaningful change, we set out to create a company that could
-              bridge the gap between business goals and the capital required
-              to achieve them.
+              Since then we&apos;ve built out the rest - banking relationships,
+              tax strategists, legal partners - everything it actually takes
+              to turn a business goal into a structure that protects it.
             </p>
           </Reveal>
         </Section>
