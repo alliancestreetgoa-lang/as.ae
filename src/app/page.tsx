@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { Mission } from "@/components/Mission";
@@ -10,6 +11,14 @@ import { Testimonials } from "@/components/Testimonials";
 import { Collaborate } from "@/components/Collaborate";
 import { AsSeenIn } from "@/components/AsSeenIn";
 import { Footer } from "@/components/Footer";
+
+// Homepage owns its metadata explicitly rather than inheriting the layout
+// default, so it stays correct even if the layout's fallback changes later.
+export const metadata: Metadata = {
+  title: "Business Setup in Dubai & UAE | Alliance Street",
+  description:
+    "Alliance Street helps entrepreneurs with UAE company formation, free zone & mainland setup, banking, tax, visas, and compliance end-to-end support.",
+};
 
 export default function Home() {
   return (
