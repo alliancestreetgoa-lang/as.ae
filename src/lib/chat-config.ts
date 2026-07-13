@@ -1,8 +1,7 @@
-// Endpoint of your deployed chat backend (the Cloudflare Worker in /chatbot).
-// Set it at build time via NEXT_PUBLIC_CHAT_ENDPOINT, or hardcode the URL here
-// after you deploy the worker (e.g. "https://alliance-chat.<you>.workers.dev").
+// Endpoint of the deployed chat backend (the Cloudflare Worker in /chatbot).
 export const CHAT_ENDPOINT =
-  process.env.NEXT_PUBLIC_CHAT_ENDPOINT ?? "";
+  process.env.NEXT_PUBLIC_CHAT_ENDPOINT ??
+  "https://alliance-chat.alliancestreetgoa.workers.dev";
 
 // First message the assistant shows when the panel opens.
 export const CHAT_GREETING =
