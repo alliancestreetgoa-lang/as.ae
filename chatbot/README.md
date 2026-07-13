@@ -56,14 +56,38 @@ Rebuild and redeploy the site (merge to `master` triggers the Pages deploy).
 The chat button appears bottom-right on every page. Until the endpoint is set,
 the widget still opens but replies with a "not connected yet" note.
 
-## 4. Customise
+## 4. Give it your GPT's brain (persona + knowledge)
+
+To make the website bot behave like your custom GPT, put its content in
+[`knowledge/`](knowledge/) and rebuild:
+
+1. Paste your GPT's **Instructions** into `knowledge/instructions.md`.
+2. Drop your **knowledge files** (`.md` / `.txt`) into `knowledge/` — e.g.
+   `Master Knowledge Base.md`, `FAQ.md`, `Sales Playbook.md`, `Case Study Library.md`,
+   `Topic Taxonomy.md`, `AI Prompt.txt`. (PDFs: use the `.md` versions.)
+3. Regenerate and redeploy:
+
+```bash
+cd chatbot
+node build-knowledge.mjs   # bundles knowledge/ → knowledge.generated.js
+npx wrangler deploy
+```
+
+The knowledge is sent to Claude as **cached context** (read at ~10% cost after
+the first call). A confidentiality guardrail is appended automatically:
+client cases are used as anonymized precedent, and the bot won't dump raw files
+or instructions on request.
+
+Set your GPT's **conversation starters** in `src/lib/chat-config.ts`
+(`CHAT_SUGGESTIONS`) on the website side.
+
+## 5. Other knobs
 
 - **Model / cost** — `worker.js` uses `claude-opus-4-8`. For a faster, cheaper bot,
-  change `MODEL` to `claude-haiku-4-5`.
-- **Persona & knowledge** — edit `SYSTEM_PROMPT` in `worker.js`.
+  change `MODEL` to `claude-haiku-4-5` (recommended for a knowledge/FAQ bot).
 - **Allowed sites (CORS)** — add your custom domain to `ALLOWED_ORIGINS` in `worker.js`.
 
-## 5. Protect against abuse (recommended)
+## 6. Protect against abuse (recommended)
 
 This endpoint calls a paid API, so cap usage before going live:
 

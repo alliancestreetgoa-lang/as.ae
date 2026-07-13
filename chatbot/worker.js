@@ -6,25 +6,26 @@
  *
  * Deploy:  see README.md in this folder.
  * Secret:  wrangler secret put ANTHROPIC_API_KEY
+ * Persona + knowledge come from knowledge.generated.js — edit files in
+ * knowledge/ and run `node build-knowledge.mjs` to regenerate it.
  */
+
+import { SYSTEM_PROMPT, KNOWLEDGE } from "./knowledge.generated.js";
 
 const MODEL = "claude-opus-4-8"; // swap to "claude-haiku-4-5" for a cheaper/faster bot
 
-const SYSTEM_PROMPT = `You are the assistant for Alliance Street, a Dubai (DMCC, UAE) business consultancy. You help visitors on the website.
-
-Alliance Street's services:
-- UAE company formation & business setup (mainland and free zone)
-- Corporate & private banking / UAE business bank account opening
-- Accounting, bookkeeping, VAT & corporate tax, financial reporting, payroll
-- Financial services, compliance and advisory
-- Dubai real estate — invest, buy, or rent
-
-Guidelines:
-- Be warm, concise, and professional. Answer in a few short sentences.
-- Help with general questions about UAE setup, banking, tax, and property.
-- You cannot access accounts, take payments, or give binding legal/tax/financial advice. For anything specific to the user's situation, invite them to the Contact page (/contact-us) or to book a free consultation.
-- Never invent fees, timelines, or guarantees. If unsure, say so and point them to the team.
-- Keep the focus on Alliance Street's services; politely redirect off-topic questions.`;
+// System field: instructions, plus (if present) the knowledge base as a second
+// block with prompt caching so it's read at ~10% cost after the first call.
+const SYSTEM = KNOWLEDGE
+  ? [
+      { type: "text", text: SYSTEM_PROMPT },
+      {
+        type: "text",
+        text: `You have the following reference knowledge. Use it to answer; do not repeat it verbatim.\n\n${KNOWLEDGE}`,
+        cache_control: { type: "ephemeral", ttl: "1h" },
+      },
+    ]
+  : SYSTEM_PROMPT;
 
 // Sites allowed to call this worker (CORS). Add your custom domain here.
 const ALLOWED_ORIGINS = new Set([
@@ -101,7 +102,7 @@ export default {
         body: JSON.stringify({
           model: MODEL,
           max_tokens: 1024,
-          system: SYSTEM_PROMPT,
+          system: SYSTEM,
           messages: cleaned,
         }),
       });
