@@ -5,6 +5,7 @@ const SITE_URL = "https://alliancestreetgoa-lang.github.io/as.ae";
 const ROUTES: { path: string; priority: number }[] = [
   { path: "", priority: 1 },
   { path: "dubai-business-setup", priority: 0.9 },
+  { path: "faq", priority: 0.9 },
   { path: "banking", priority: 0.8 },
   { path: "bookkeeping-accounting", priority: 0.8 },
   { path: "financial-services", priority: 0.8 },
