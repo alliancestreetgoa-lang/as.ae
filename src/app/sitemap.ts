@@ -4,6 +4,7 @@ const SITE_URL = "https://shaukinsv.com";
 
 const ROUTES: { path: string; priority: number }[] = [
   { path: "", priority: 1 },
+  { path: "about-us", priority: 0.9 },
   { path: "dubai-business-setup", priority: 0.9 },
   { path: "faq", priority: 0.9 },
   { path: "case-studies", priority: 0.9 },

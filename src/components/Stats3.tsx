@@ -1,6 +1,7 @@
 import { Section } from "@/components/primitives/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { Counter } from "@/components/motion/Counter";
+import { cn } from "@/lib/utils";
 
 interface Stat {
   value: string;
@@ -23,7 +24,12 @@ const DEFAULT_STATS: Stat[] = [
 export function Stats3({ stats = DEFAULT_STATS }: { stats?: Stat[] }) {
   return (
     <Section bg="canvas">
-      <div className="col-span-12 grid gap-10 sm:grid-cols-3">
+      <div
+        className={cn(
+          "col-span-12 grid gap-10",
+          stats.length === 4 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3"
+        )}
+      >
         {stats.map((s, i) => {
           const numeric = parseInt(s.value.replace(/[^\d]/g, ""), 10) || 0;
           const suffix = s.value.replace(/^[\d,]+/, "");
