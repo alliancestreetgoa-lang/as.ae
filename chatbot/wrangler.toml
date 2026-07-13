@@ -2,8 +2,9 @@ name = "alliance-chat"
 main = "worker.js"
 compatibility_date = "2026-01-01"
 
-# The OpenAI API key is NOT stored here — it's a secret set with:
+# API keys are NOT stored here — they're secrets set with:
 #   wrangler secret put OPENAI_API_KEY
+#   wrangler secret put RESEND_API_KEY
 
 # Caps requests per visitor IP before they reach the (paid) OpenAI call.
 [[ratelimits]]

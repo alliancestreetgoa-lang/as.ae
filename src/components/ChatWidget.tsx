@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type FormEvent,
+  type ReactNode,
+} from "react";
 import { MessageSquare, X, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -11,13 +17,75 @@ import {
 
 type Msg = { role: "user" | "assistant"; content: string };
 
+type Lead = {
+  name: string;
+  company: string;
+  email: string;
+  phone: string;
+  revenue: string;
+  occupation: string;
+  business: string;
+};
+
+const EMPTY_LEAD: Lead = {
+  name: "",
+  company: "",
+  email: "",
+  phone: "",
+  revenue: "",
+  occupation: "",
+  business: "",
+};
+
+const LEAD_FIELDS: {
+  key: keyof Lead;
+  label: string;
+  placeholder: string;
+  type?: string;
+}[] = [
+  { key: "name", label: "Full name", placeholder: "Jane Doe" },
+  { key: "company", label: "Company name", placeholder: "Acme Ltd" },
+  {
+    key: "email",
+    label: "Email",
+    placeholder: "jane@acme.com",
+    type: "email",
+  },
+  {
+    key: "phone",
+    label: "Contact number",
+    placeholder: "+44 7000 000000",
+    type: "tel",
+  },
+  {
+    key: "revenue",
+    label: "Yearly revenue",
+    placeholder: "e.g. £250,000/year",
+  },
+  {
+    key: "occupation",
+    label: "Occupation",
+    placeholder: "e.g. Managing Director",
+  },
+  {
+    key: "business",
+    label: "What does your business do?",
+    placeholder: "e.g. UK property rental portfolio",
+  },
+];
+
+const LEAD_STORAGE_KEY = "as_chat_lead_v1";
+
 /**
- * ChatWidget — a floating AI assistant on every page. The site is a static
- * export, so it can't hold an API key; instead this posts the message history
- * to CHAT_ENDPOINT (the Cloudflare Worker in /chatbot), which talks to Claude
- * with the key held server-side. On-brand (glass panel, red accents, Fraunces
- * header); keyboard-accessible (Esc closes, focus moves to the input on open);
- * only transform/opacity animate, gated for reduced motion.
+ * ChatWidget — a floating AI assistant on every page. Visitors must submit a
+ * short intake form before they can chat; the Worker judges UAE-relocation
+ * qualification against the full knowledge base and emails the lead, and the
+ * verdict is folded into every chat turn so the bot knows who it's talking to.
+ * The site is a static export, so it can't hold an API key; instead this
+ * posts to CHAT_ENDPOINT (the Cloudflare Worker in /chatbot), which talks to
+ * OpenAI with the key held server-side. On-brand (glass panel, red accents,
+ * Fraunces header); keyboard-accessible (Esc closes, focus moves to the
+ * input on open); only transform/opacity animate, gated for reduced motion.
  */
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
@@ -26,6 +94,27 @@ export function ChatWidget() {
   const [loading, setLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  const [lead, setLead] = useState<Lead | null>(null);
+  const [qualified, setQualified] = useState(false);
+  const [leadForm, setLeadForm] = useState<Lead>(EMPTY_LEAD);
+  const [leadSubmitting, setLeadSubmitting] = useState(false);
+  const [leadError, setLeadError] = useState<string | null>(null);
+
+  // Restore a previously-submitted lead so returning visitors aren't gated again.
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(LEAD_STORAGE_KEY);
+      if (!raw) return;
+      const saved: { lead?: Lead; qualified?: boolean } = JSON.parse(raw);
+      if (saved.lead) {
+        setLead(saved.lead);
+        setQualified(Boolean(saved.qualified));
+      }
+    } catch {
+      // ignore corrupt/blocked storage
+    }
+  }, []);
 
   // Focus the input when the panel opens.
   useEffect(() => {
@@ -46,6 +135,52 @@ export function ChatWidget() {
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight });
   }, [messages, loading]);
+
+  async function submitLead(e: FormEvent) {
+    e.preventDefault();
+    if (leadSubmitting) return;
+
+    if (LEAD_FIELDS.some(({ key }) => !leadForm[key].trim())) {
+      setLeadError("Please fill in every field.");
+      return;
+    }
+
+    if (!CHAT_ENDPOINT) {
+      setLeadError(
+        "The assistant isn't connected yet. Please use the Contact page instead."
+      );
+      return;
+    }
+
+    setLeadSubmitting(true);
+    setLeadError(null);
+    try {
+      const res = await fetch(`${CHAT_ENDPOINT}/lead`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ lead: leadForm }),
+      });
+      const data: { qualified?: boolean; error?: string } = await res
+        .json()
+        .catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || "failed");
+
+      setLead(leadForm);
+      setQualified(Boolean(data.qualified));
+      try {
+        localStorage.setItem(
+          LEAD_STORAGE_KEY,
+          JSON.stringify({ lead: leadForm, qualified: Boolean(data.qualified) })
+        );
+      } catch {
+        // ignore blocked storage
+      }
+    } catch {
+      setLeadError("Something went wrong submitting your details. Please try again.");
+    } finally {
+      setLeadSubmitting(false);
+    }
+  }
 
   async function send(text: string) {
     const trimmed = text.trim();
@@ -72,7 +207,7 @@ export function ChatWidget() {
       const res = await fetch(CHAT_ENDPOINT, {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ messages: next }),
+        body: JSON.stringify({ messages: next, lead, qualified }),
       });
       const data: { reply?: string; error?: string } = await res
         .json()
@@ -156,65 +291,106 @@ export function ChatWidget() {
           </button>
         </div>
 
-        {/* Transcript */}
-        <div
-          ref={scrollRef}
-          className="flex-1 space-y-4 overflow-y-auto bg-as-canvas px-4 py-5"
-        >
-          <Bubble role="assistant">{CHAT_GREETING}</Bubble>
-
-          {messages.length === 0 && (
-            <div className="flex flex-wrap gap-2 pt-1">
-              {CHAT_SUGGESTIONS.map((s) => (
-                <button
-                  key={s}
-                  type="button"
-                  onClick={() => send(s)}
-                  className="rounded-full border border-as-line bg-white px-3 py-1.5 text-left text-[13px] leading-snug text-as-ink transition-colors hover:border-as-red/50 hover:text-as-red"
-                >
-                  {s}
-                </button>
-              ))}
-            </div>
-          )}
-
-          {messages.map((m, i) => (
-            <Bubble key={i} role={m.role}>
-              {m.content}
-            </Bubble>
-          ))}
-
-          {loading && (
-            <div className="flex w-fit items-center gap-1.5 rounded-2xl rounded-bl-md border border-as-line bg-white px-4 py-3">
-              <Dot /> <Dot delay="0.15s" /> <Dot delay="0.3s" />
-            </div>
-          )}
-        </div>
-
-        {/* Composer */}
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            send(input);
-          }}
-          className="flex items-center gap-2 border-t border-as-line bg-white px-3 py-3"
-        >
-          <input
-            ref={inputRef}
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask about setup, banking, tax…"
-            className="min-w-0 flex-1 rounded-full border border-as-line bg-as-canvas px-4 py-2.5 text-[15px] text-as-ink outline-none transition-colors placeholder:text-as-muted focus:border-as-red/50"
-          />
-          <button
-            type="submit"
-            aria-label="Send message"
-            disabled={!input.trim() || loading}
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(180deg,var(--color-as-red-bright),var(--color-as-red))] text-white transition-opacity disabled:opacity-40"
+        {!lead ? (
+          <form
+            onSubmit={submitLead}
+            className="flex-1 space-y-3 overflow-y-auto bg-as-canvas px-4 py-5"
           >
-            <Send className="h-[18px] w-[18px]" />
-          </button>
-        </form>
+            <p className="text-[14px] leading-relaxed text-as-ink">
+              Tell us a bit about you and your business — we&apos;ll use this
+              to point you in the right direction before we chat.
+            </p>
+
+            {LEAD_FIELDS.map(({ key, label, placeholder, type }) => (
+              <label key={key} className="block text-[13px] text-as-muted">
+                {label}
+                <input
+                  type={type ?? "text"}
+                  value={leadForm[key]}
+                  onChange={(e) =>
+                    setLeadForm((f) => ({ ...f, [key]: e.target.value }))
+                  }
+                  placeholder={placeholder}
+                  className="mt-1 w-full rounded-lg border border-as-line bg-white px-3 py-2 text-[14px] text-as-ink outline-none transition-colors placeholder:text-as-muted/70 focus:border-as-red/50"
+                />
+              </label>
+            ))}
+
+            {leadError && (
+              <p className="text-[13px] text-as-red">{leadError}</p>
+            )}
+
+            <button
+              type="submit"
+              disabled={leadSubmitting}
+              className="w-full rounded-full bg-[linear-gradient(180deg,var(--color-as-red-bright),var(--color-as-red))] px-4 py-2.5 text-[14px] font-medium text-white transition-opacity disabled:opacity-60"
+            >
+              {leadSubmitting ? "Submitting…" : "Start chatting"}
+            </button>
+          </form>
+        ) : (
+          <>
+            {/* Transcript */}
+            <div
+              ref={scrollRef}
+              className="flex-1 space-y-4 overflow-y-auto bg-as-canvas px-4 py-5"
+            >
+              <Bubble role="assistant">{CHAT_GREETING}</Bubble>
+
+              {messages.length === 0 && (
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {CHAT_SUGGESTIONS.map((s) => (
+                    <button
+                      key={s}
+                      type="button"
+                      onClick={() => send(s)}
+                      className="rounded-full border border-as-line bg-white px-3 py-1.5 text-left text-[13px] leading-snug text-as-ink transition-colors hover:border-as-red/50 hover:text-as-red"
+                    >
+                      {s}
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {messages.map((m, i) => (
+                <Bubble key={i} role={m.role}>
+                  {m.content}
+                </Bubble>
+              ))}
+
+              {loading && (
+                <div className="flex w-fit items-center gap-1.5 rounded-2xl rounded-bl-md border border-as-line bg-white px-4 py-3">
+                  <Dot /> <Dot delay="0.15s" /> <Dot delay="0.3s" />
+                </div>
+              )}
+            </div>
+
+            {/* Composer */}
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                send(input);
+              }}
+              className="flex items-center gap-2 border-t border-as-line bg-white px-3 py-3"
+            >
+              <input
+                ref={inputRef}
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Ask about setup, banking, tax…"
+                className="min-w-0 flex-1 rounded-full border border-as-line bg-as-canvas px-4 py-2.5 text-[15px] text-as-ink outline-none transition-colors placeholder:text-as-muted focus:border-as-red/50"
+              />
+              <button
+                type="submit"
+                aria-label="Send message"
+                disabled={!input.trim() || loading}
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(180deg,var(--color-as-red-bright),var(--color-as-red))] text-white transition-opacity disabled:opacity-40"
+              >
+                <Send className="h-[18px] w-[18px]" />
+              </button>
+            </form>
+          </>
+        )}
       </div>
     </>
   );

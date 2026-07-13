@@ -13,6 +13,7 @@ website (ChatWidget)  ──POST /  ──►  this Worker  ──►  api.opena
 
 - A free [Cloudflare account](https://dash.cloudflare.com/sign-up)
 - An [OpenAI API key](https://platform.openai.com/api-keys) with billing enabled
+- A free [Resend account](https://resend.com/) and API key — used to email you each lead
 - Node.js installed (for `npx wrangler`)
 
 ## 2. Deploy the Worker
@@ -23,8 +24,9 @@ From this `chatbot/` folder:
 # Log in to Cloudflare (opens a browser)
 npx wrangler login
 
-# Store your OpenAI key as a secret (paste it when prompted — it is never committed)
+# Store your API keys as secrets (paste each when prompted — never committed)
 npx wrangler secret put OPENAI_API_KEY
+npx wrangler secret put RESEND_API_KEY
 
 # Deploy
 npx wrangler deploy
@@ -81,7 +83,31 @@ and the bot won't dump raw files or instructions on request.
 Set your GPT's **conversation starters** in `src/lib/chat-config.ts`
 (`CHAT_SUGGESTIONS`) on the website side.
 
-## 5. Other knobs
+## 5. Lead gate & qualification
+
+Before a visitor can chat, the widget shows a 7-field intake form (name,
+company, email, phone, yearly revenue, occupation, what their business does).
+On submit:
+
+1. The Worker (`POST /lead`) asks the model to judge whether they **qualify**
+   for a UAE relocation/company structure — using the *full* knowledge base's
+   own criteria (revenue thresholds, cost-effectiveness at their scale,
+   substance requirements, disqualification patterns from the case studies),
+   not a hardcoded cutoff.
+2. It emails you the lead — every field plus the qualified/not-qualified
+   verdict and a short reasoning — via Resend, to the address hardcoded as
+   `LEAD_EMAIL_TO` in `worker.js`.
+3. The widget unlocks chat. Every chat turn (`POST /`) now also sends the
+   lead's details and qualification verdict, folded into the system prompt,
+   so the bot knows who it's talking to — it's told to steer qualified
+   visitors toward booking a call, and to be honest (not pushy) with
+   unqualified ones, per the knowledge base's own tone.
+
+The submitted lead is cached in the visitor's browser (`localStorage`) so
+returning visitors aren't gated again. Change `LEAD_EMAIL_TO` in `worker.js`
+to redirect where leads land.
+
+## 6. Other knobs
 
 - **Model / cost** — `worker.js` uses `gpt-4o-mini` by default (fast, cheap, and
   fits comfortably under a Tier-1 org's token-per-minute limit with the full
@@ -89,11 +115,15 @@ Set your GPT's **conversation starters** in `src/lib/chat-config.ts`
   your org's rate limit, change `MODEL` to `gpt-4o`.
 - **Allowed sites (CORS)** — add your custom domain to `ALLOWED_ORIGINS` in `worker.js`.
 
-## 6. Protect against abuse (recommended)
+## 7. Abuse protection (already in place / recommended)
 
-This endpoint calls a paid API, so cap usage before going live:
+This endpoint calls paid APIs, so usage is capped before going live:
 
-- Add a **Cloudflare Rate Limiting** rule on the Worker route (e.g. 20 req/min per IP),
-  or gate with **Cloudflare Turnstile**.
-- Keep `max_tokens` modest (currently 1024) and the history capped (already done in `worker.js`).
-- Watch spend in the OpenAI usage dashboard; set a monthly budget/limit there.
+- **Done**: a Cloudflare Rate Limiting binding caps each visitor IP to 20
+  requests/60s (`RATE_LIMITER` in `wrangler.toml` + `worker.js`), checked
+  before any OpenAI call.
+- **Done**: `max_tokens` is modest (1024) and chat history is capped
+  (`worker.js`).
+- **Recommended**: watch spend in the OpenAI usage dashboard and set a
+  monthly budget/limit there — the rate limiter caps request volume, not
+  total spend over time.
