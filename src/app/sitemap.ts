@@ -13,6 +13,7 @@ const ROUTES: { path: string; priority: number }[] = [
   { path: "financial-services", priority: 0.8 },
   { path: "real-estate", priority: 0.8 },
   { path: "contact-us", priority: 0.7 },
+  { path: "careers", priority: 0.6 },
 ];
 
 export const dynamic = "force-static";
