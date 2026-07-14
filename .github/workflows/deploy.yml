@@ -34,6 +34,9 @@ jobs:
 
       - name: Build static site (next export -> out/)
         run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://shaukinsv.com
+          NEXT_PUBLIC_SITE_ENVIRONMENT: staging
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

@@ -1,14 +1,8 @@
 import type { Metadata } from "next";
-import { SITE_URL } from "@/lib/schema";
+import { pageUrl, shouldIndex } from "@/lib/site-config";
 
 /** Default social-share image; resolved to an absolute URL via metadataBase. */
 const DEFAULT_OG_IMAGE = "/images/businessman-hero.jpg";
-
-/** Absolute canonical URL for a route segment ("" = home), always trailing-slashed. */
-export function pageUrl(path: string): string {
-  const clean = path.replace(/^\/+|\/+$/g, "");
-  return clean ? `${SITE_URL}/${clean}/` : `${SITE_URL}/`;
-}
 
 /**
  * Per-page metadata: canonical + OpenGraph + Twitter, built from the page's own
@@ -28,6 +22,9 @@ export function pageMeta(opts: {
     title: opts.title,
     description: opts.description,
     alternates: { canonical: url },
+    robots: shouldIndex()
+      ? { index: true, follow: true }
+      : { index: false, follow: false },
     openGraph: {
       type: "website",
       url,

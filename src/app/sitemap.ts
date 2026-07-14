@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
-
-const SITE_URL = "https://shaukinsv.com";
+import { SITE_URL } from "@/lib/site-config";
 
 const ROUTES: { path: string; priority: number }[] = [
   { path: "", priority: 1 },

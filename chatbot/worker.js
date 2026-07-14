@@ -31,10 +31,12 @@ const SYSTEM = KNOWLEDGE
   ? `${SYSTEM_PROMPT}\n\nYou have the following reference knowledge. Use it to answer; do not repeat it verbatim.\n\n${KNOWLEDGE}`
   : SYSTEM_PROMPT;
 
-// Sites allowed to call this worker (CORS). Keeping the old github.io origin
-// during the shaukinsv.com DNS transition; safe to remove once cut over.
-const ALLOWED_ORIGINS = new Set([
-  "https://shaukinsv.com",
+// Sites allowed to call this worker (CORS). The primary site origin is
+// config-driven via wrangler.toml's SITE_URL var (see corsHeaders below),
+// so switching domains doesn't require touching this source file. The
+// github.io origin is kept as a permanent secondary origin (GitHub Pages
+// default URL), unrelated to the staging/production distinction.
+const SECONDARY_ALLOWED_ORIGINS = new Set([
   "https://alliancestreetgoa-lang.github.io",
   "http://localhost:3000",
   "http://127.0.0.1:3000",
@@ -50,8 +52,11 @@ const LEAD_FIELDS = [
   "business",
 ];
 
-function corsHeaders(origin) {
-  const allow = ALLOWED_ORIGINS.has(origin) ? origin : "https://shaukinsv.com";
+function corsHeaders(origin, env) {
+  const allow =
+    origin === env.SITE_URL || SECONDARY_ALLOWED_ORIGINS.has(origin)
+      ? origin
+      : env.SITE_URL;
   return {
     "Access-Control-Allow-Origin": allow,
     "Access-Control-Allow-Methods": "POST, OPTIONS",
@@ -255,7 +260,7 @@ async function handleChat(request, env, cors) {
 
 export default {
   async fetch(request, env) {
-    const cors = corsHeaders(request.headers.get("Origin") || "");
+    const cors = corsHeaders(request.headers.get("Origin") || "", env);
     const { pathname } = new URL(request.url);
 
     if (request.method === "OPTIONS") {
