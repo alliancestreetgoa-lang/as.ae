@@ -24,11 +24,11 @@ const FAQ: FaqCategory[] = [
     items: [
       {
         q: "Is UAE company structuring legal, or is this tax evasion?",
-        a: "It's legal tax structuring (avoidance), not evasion - provided the UAE entity has genuine economic substance: a real, UAE-based manager who actually signs contracts and makes decisions, arm's-length pricing between related entities, and documentation showing decisions were genuinely made in the UAE. A shell company used purely to redirect UK income, with no real UAE activity, is the scenario that actually creates risk.",
+        a: "UAE company structuring is a recognized, legal form of tax planning when the UAE entity has genuine economic substance: a real, UAE-based manager who actually signs contracts and makes decisions, arm's-length pricing between related entities, and documentation showing decisions were genuinely made in the UAE. That substance is what makes a structure compliant - a company with no real UAE activity, used only to redirect income on paper, does not meet the standard. Whether a specific structure is compliant depends on individual facts and should be confirmed with a qualified tax adviser.",
       },
       {
         q: "How do I prove \"control and management\" is genuinely in the UAE?",
-        a: "This is the single most important compliance requirement. In practice it means a UAE-based manager who signs contracts, invoices, and banking paperwork; regular travel by the owner to make and document strategic decisions in the UAE; a genuine UAE office or address; and paperwork - board minutes, invoices, contracts - showing decisions were made there. Only the manager's name appears on the public trade license; ownership is proven privately, not publicly.",
+        a: "This is the single most important compliance requirement. In practice it means a UAE-based manager who signs contracts, invoices, and banking paperwork; regular travel by the owner to make and document strategic decisions in the UAE; a genuine UAE office or address; and paperwork - board minutes, invoices, contracts - showing decisions were made there. The public trade license lists the appointed manager; shareholder ownership is recorded in the company's constitutional documents and verified by the bank and relevant authorities rather than shown on the license itself.",
       },
       {
         q: "What does a \"local manager\" actually do, and is my money safe?",
@@ -43,8 +43,8 @@ const FAQ: FaqCategory[] = [
         a: "No - you remain the legal shareholder throughout; a nominee director isn't required.",
       },
       {
-        q: "Will my business partners or clients find out if ownership moves to a UAE entity?",
-        a: "The trade license only shows the manager's name publicly. You can privately show your actual shareholding to reassure partners, clients, or banks - the change doesn't need to be broadcast.",
+        q: "Does moving ownership to a UAE entity change what's shown on public company records?",
+        a: "The UAE trade license lists the appointed manager rather than the shareholders. Your actual ownership and shareholding are documented in the company's constitutional documents and can be shared directly with partners, clients, or banks whenever you need to verify who owns the business.",
       },
     ],
   },
@@ -107,7 +107,7 @@ const FAQ: FaqCategory[] = [
       },
       {
         q: "Will HMRC automatically see my UAE bank account and balances?",
-        a: "The UAE participates in Common Reporting Standard (CRS) information exchange in principle, though certain account structures can reduce automatic reporting. Once someone is no longer UK tax resident, we generally advise against routing UAE company funds through a personal UK bank account, since that can itself trigger UK tax exposure - a UAE company debit card usable worldwide is the cleaner alternative.",
+        a: "The UAE participates in Common Reporting Standard (CRS) automatic information exchange, meaning UAE financial institutions can report account information to HMRC for UK tax residents in the normal course of CRS reporting. For everyday spending, a UAE company debit card usable worldwide is generally simpler than routing company funds through a personal UK bank account, which can carry its own separate UK tax implications and is worth discussing with your accountant.",
       },
       {
         q: "Can I get a debit card I can use back home?",
@@ -153,7 +153,7 @@ const FAQ: FaqCategory[] = [
       },
       {
         q: "Why would I want a foundation instead of just owning the company myself?",
-        a: "Two main reasons: UK inheritance tax avoidance - assets held via a UAE foundation rather than personally can pass to heirs without triggering the standard 40% UK inheritance tax - and privacy or protection from creditors and scrutiny, while remaining fully HMRC-compliant.",
+        a: "Two main reasons: succession and inheritance planning - assets held via a UAE foundation rather than personally can pass to heirs according to the foundation's bylaws, which can be structured to manage UK inheritance tax exposure within the law - and asset structuring, since a foundation is a separate legal person that can hold and govern assets independently of any one individual. As with any cross-border structure, the tax and legal treatment depends on individual circumstances and should be confirmed with a qualified adviser.",
       },
       {
         q: "What does a foundation cost, and is it worth it for future or uncertain income?",
@@ -309,11 +309,20 @@ export default function FaqPage() {
             ))}
 
             <p className="text-[13px] leading-relaxed text-as-muted">
-              Figures and thresholds above are illustrative and vary by
-              jurisdiction, currency, and individual circumstances - always
-              confirm current figures with our team before acting. This page
-              is general information, not regulated tax, legal, or financial
-              advice.
+              The information on this page is general in nature and provided
+              for informational purposes only. It does not constitute
+              regulated tax, legal, immigration, or financial advice, and it
+              is not a substitute for advice tailored to your individual
+              circumstances. Figures, thresholds, and requirements referenced
+              above are illustrative, change over time, and vary by
+              jurisdiction, currency, and personal situation. Tax residency,
+              corporate structuring, and cross-border compliance carry real
+              legal and financial consequences if applied incorrectly - before
+              making any decisions or taking any action, consult a qualified,
+              independently regulated tax adviser, accountant, or lawyer in
+              the relevant jurisdiction(s), including a UK tax professional
+              for UK tax matters. Nothing on this page should be relied on as
+              a recommendation to adopt any particular structure.
             </p>
           </div>
         </Section>
