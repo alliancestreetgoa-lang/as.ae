@@ -34,3 +34,19 @@ jobs:
 
       - name: Build
         run: npm run build
+
+  confidential-scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Scan for confidential data
+        run: node scripts/scan-confidential-data.mjs
