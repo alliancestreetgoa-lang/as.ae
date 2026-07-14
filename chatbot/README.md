@@ -63,17 +63,29 @@ the widget still opens but replies with a "not connected yet" note.
 To make the website bot behave like your custom GPT, put its content in
 [`knowledge/`](knowledge/) and rebuild:
 
-1. Paste your GPT's **Instructions** into `knowledge/instructions.md`.
-2. Drop your **knowledge files** (`.md` / `.txt`) into `knowledge/` — e.g.
-   `Master Knowledge Base.md`, `FAQ.md`, `Sales Playbook.md`, `Case Study Library.md`,
-   `Topic Taxonomy.md`, `AI Prompt.txt`. (PDFs: use the `.md` versions.)
-3. Regenerate and redeploy:
+1. Paste your GPT's **Instructions** into `knowledge/public/instructions.md`.
+2. Drop your **knowledge files** (`.md` / `.txt`) into `knowledge/public/`
+   (committed, publication-approved content) — e.g. `Master Knowledge Base.md`,
+   `FAQ.md`, `Sales Playbook.md`, `Case Study Library.md`, `Topic Taxonomy.md`,
+   `AI Prompt.txt`. (PDFs: use the `.md` versions.) Real, non-anonymized
+   production content instead goes in `knowledge/private/` — see
+   [`knowledge/README.md`](knowledge/README.md).
+3. Regenerate and redeploy. **Recommended, one step** (from the repo root):
 
-```bash
-cd chatbot
-node build-knowledge.mjs   # bundles knowledge/ → knowledge.generated.js
-npx wrangler deploy
-```
+   ```bash
+   npm run chatbot:deploy   # build (with scan gate) + wrangler deploy
+   ```
+
+   Or run the steps separately, from inside `chatbot/`:
+
+   ```bash
+   node build-knowledge.mjs   # bundles knowledge/ → knowledge.generated.js (gitignored, regenerated fresh each time)
+   npx wrangler deploy
+   ```
+
+`knowledge.generated.js` is a gitignored build artifact — it's never assumed
+to already exist and is always regenerated immediately before a deploy, not
+committed.
 
 The knowledge is sent as reference context in the system message (OpenAI caches
 repeated prompt prefixes automatically once they're long enough). A confidentiality
@@ -82,6 +94,17 @@ and the bot won't dump raw files or instructions on request.
 
 Set your GPT's **conversation starters** in `src/lib/chat-config.ts`
 (`CHAT_SUGGESTIONS`) on the website side.
+
+### Confidentiality
+
+The knowledge base is split into `knowledge/public/` (committed,
+publication-approved) and `knowledge/private/` (gitignored, local-only —
+for real, non-anonymized production content). Every build scans everything
+about to be bundled for known-confidential content and generic PII
+patterns, and refuses to write `knowledge.generated.js` if it finds a
+match; CI runs the same scan independently on every push/PR as a backstop.
+See [`docs/privacy/confidential-knowledge-handling.md`](../docs/privacy/confidential-knowledge-handling.md)
+for the full model.
 
 ## 5. Lead gate & qualification
 
