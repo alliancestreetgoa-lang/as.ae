@@ -117,7 +117,7 @@ const CASE_STUDIES: CaseStudy[] = [
     situation:
       "The core problem wasn't tax rate - it was cash flow and VAT: university partners were reluctant to pay commissions into a UAE-registered entity. Was also uneasy about a UAE entity being run by a different named manager.",
     structure:
-      "The UK company acting as a sourcing/marketing agent billing a new UAE entity for its costs, while the UAE entity billed the UK counterparties directly - framed correctly to avoid triggering VAT in either jurisdiction, with a genuine UAE office and employee for credibility.",
+      "The UK company acting as a sourcing/marketing agent billing a new UAE entity only for its real costs (not a marked-up fee), while the UAE entity billed the UK counterparties directly - a cost-recharge arrangement that doesn't create a VAT liability in either jurisdiction, backed by a genuine UAE office and employee.",
     outcome:
       "Still deciding, pending direct confirmation from university partners on whether they'd accept payment to a UAE entity.",
     takeaway:
@@ -184,7 +184,7 @@ const CASE_STUDIES: CaseStudy[] = [
     profile:
       "An influencer planning to relocate to Dubai with a partner, exploring a Golden Visa route rather than a standard employment or investor visa.",
     situation:
-      "Wanted UAE residency for both, ideally via Golden Visa, and was also looking to move surplus personal funds into a UAE structure without raising UK compliance flags.",
+      "Wanted UAE residency for both, ideally via Golden Visa, and was also exploring how to move surplus personal funds into a UAE structure as part of the relocation plan.",
     structure:
       "A Golden Visa proposal to the relevant UAE authority leveraging public influence/reach, alongside a standard UAE company structure with the influencer as an employee (securing residency) and a local manager on the trade license for HMRC purposes.",
     outcome:
@@ -213,7 +213,7 @@ const CASE_STUDIES: CaseStudy[] = [
     situation:
       "Directly worried that large, regular monthly payments to a UAE entity would draw HMRC investigation.",
     structure:
-      "A management consultancy license in the UAE, with a UK holding company owning the UAE operational entity to add a layer of legitimacy, plus a requirement to visit the UAE roughly every six months to maintain a credible record of real management decisions.",
+      "A management consultancy license in the UAE, with a UK holding company added above the UAE operational entity for standard dividend-routing and ownership structuring, plus regular UAE visits (roughly every six months) to maintain genuine, documented management decision-making there, consistent with the control-and-management test.",
     outcome:
       "Moved from \"worried this looks dodgy\" to open to proceeding, pending the client's own accountant's review.",
     takeaway:
