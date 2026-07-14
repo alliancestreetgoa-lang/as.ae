@@ -37,18 +37,14 @@ const OUT_DIR = join(ROOT, "out");
 const STAGING_DOMAIN_TOKEN = "shaukinsv";
 
 /**
- * The two domains this site can be built for. Mirrors
- * `KNOWN_DOMAINS` in src/lib/site-config.ts (kept as a separate copy here,
- * not imported, since this is a plain Node script and site-config.ts is a
- * TypeScript module evaluated inside the Next.js build). Used only to tell
- * "a stale/wrong reference to one of our own domains" apart from ordinary
- * external links (press coverage, social profiles) when checking JSON-LD.
+ * JSON-LD keys whose subtrees legitimately reference other people/orgs'
+ * domains and must not be walked when collecting this site's own "url"/
+ * "@id" self-references (see `collectUrlAndIdValues` and Check D below):
+ *   - `subjectOf`: press-coverage references emitted by organizationSchema()
+ *     (e.g. Daily Mail, Forbes article URLs) — not this site's identity.
+ *   - `sameAs`: social-media profile links — also genuinely external.
  */
-const KNOWN_DOMAINS = {
-  staging: "https://shaukinsv.com",
-  production: "https://alliancestreet.ae",
-};
-const KNOWN_SITE_ORIGINS = new Set(Object.values(KNOWN_DOMAINS));
+const EXTERNAL_REFERENCE_KEYS = new Set(["subjectOf", "sameAs"]);
 
 // --- generic fs helpers ---------------------------------------------------
 
@@ -110,7 +106,12 @@ function extractRobotsMetaContent(html) {
   return null;
 }
 
-/** Recursively collects every string value found under a "url" or "@id" key anywhere in a parsed JSON-LD structure. */
+/**
+ * Recursively collects every string value found under a "url" or "@id" key
+ * anywhere in a parsed JSON-LD structure — except within the subtree of an
+ * `EXTERNAL_REFERENCE_KEYS` key (`subjectOf`, `sameAs`), which is skipped
+ * entirely since those fields legitimately point at other domains.
+ */
 function collectUrlAndIdValues(node, out) {
   if (Array.isArray(node)) {
     for (const item of node) collectUrlAndIdValues(item, out);
@@ -118,6 +119,9 @@ function collectUrlAndIdValues(node, out) {
   }
   if (node && typeof node === "object") {
     for (const [key, value] of Object.entries(node)) {
+      if (EXTERNAL_REFERENCE_KEYS.has(key)) {
+        continue; // known-external reference — do not collect url/@id from within it
+      }
       if ((key === "url" || key === "@id") && typeof value === "string") {
         out.push({ key, value });
       } else {
@@ -347,11 +351,15 @@ function checkSchemaSitemapCanonicalAgreement() {
       );
     }
 
-    // JSON-LD "url" / "@id" values. Only values whose origin is one of this
-    // site's two known domains are checked against the expected origin —
-    // legitimate external references (press coverage in `subjectOf`, social
-    // profiles, etc.) are correctly a different origin and are out of scope
-    // for this check.
+    // JSON-LD "url" / "@id" values. Every such value is compared against the
+    // expected origin unconditionally — there is no domain allowlist here.
+    // `collectUrlAndIdValues` already excludes the specific fields that are
+    // legitimately external (press coverage in `subjectOf`, social profiles
+    // in `sameAs`) by skipping those subtrees during collection, so any
+    // "url"/"@id" that reaches this point is a self-referential site URL and
+    // must match. This catches a value drifting to ANY unexpected domain
+    // (not just "the other known domain"), which a domain-allowlist gate
+    // would silently skip as "external, out of scope".
     const blocks = extractJsonLdBlocks(html);
     if (blocks.length === 0) {
       failures.push(`[schema-consistency] ${pageLabel}: no JSON-LD <script type="application/ld+json"> blocks found.`);
@@ -373,9 +381,6 @@ function checkSchemaSitemapCanonicalAgreement() {
         } catch {
           failures.push(`[schema-consistency] ${pageLabel}: JSON-LD "${key}" value "${value}" is not a valid absolute URL.`);
           continue;
-        }
-        if (!KNOWN_SITE_ORIGINS.has(valueUrl.origin)) {
-          continue; // external reference (e.g. press article), not a self-referential site URL
         }
         if (valueUrl.origin !== expectedOrigin) {
           failures.push(
