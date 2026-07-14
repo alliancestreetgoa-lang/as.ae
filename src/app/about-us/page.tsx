@@ -12,19 +12,13 @@ import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Section } from "@/components/primitives/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { SplitReveal } from "@/components/motion/SplitReveal";
-import { serviceSchema, breadcrumbSchema } from "@/lib/schema";
+import { breadcrumbSchema } from "@/lib/schema";
+import { FOUNDER } from "@/lib/content";
 
 export const metadata = pageMeta({
   title: "About Alliance Street | Dubai Business Consultancy Since 2017",
   description:
     "Since 2017, Alliance Street has helped 200+ businesses relocate to and structure in the UAE - real banking relationships, tax strategists, and legal partners, not just paperwork.",
-  path: "about-us",
-});
-
-const SCHEMA = serviceSchema({
-  name: "About Alliance Street Consultancy",
-  description:
-    "Since 2017, Alliance Street has helped 200+ businesses relocate to and structure in the UAE.",
   path: "about-us",
 });
 
@@ -41,7 +35,7 @@ export default function AboutUsPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify([SCHEMA, breadcrumbSchema("About Us", "about-us")]),
+          __html: JSON.stringify(breadcrumbSchema("About Us", "about-us")),
         }}
       />
       <Navbar />
@@ -101,16 +95,16 @@ export default function AboutUsPage() {
             <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-full">
               <Image
                 src="/images/values-stallone.jpg"
-                alt="Stallone Shaikh, Founder & CEO of Alliance Street Consultancy"
+                alt={`${FOUNDER.name}, ${FOUNDER.jobTitle} of Alliance Street Consultancy`}
                 fill
                 sizes="112px"
                 className="object-cover"
               />
             </div>
             <div>
-              <p className="font-display text-xl text-as-ink">Stallone Shaikh</p>
+              <p className="font-display text-xl text-as-ink">{FOUNDER.name}</p>
               <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-as-red">
-                Founder &amp; CEO
+                {FOUNDER.jobTitle}
               </p>
               <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-as-muted">
                 A former banker with hands-on experience at a major UAE

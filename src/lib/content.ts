@@ -9,6 +9,13 @@ import type {
   Region,
 } from "@/types";
 
+/**
+ * The company founder's name/title, centralized so every consumer (schema.ts
+ * structured data, page copy) references one source instead of duplicating
+ * the literal string.
+ */
+export const FOUNDER = { name: "Stallone Shaikh", jobTitle: "Founder & CEO" };
+
 export const NAV_ITEMS: NavItem[] = [
   { label: "Business Setup", href: "/dubai-business-setup" },
   { label: "Banking Solutions", href: "/banking" },

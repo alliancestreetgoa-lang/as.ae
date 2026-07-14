@@ -9,7 +9,7 @@ import { Footer } from "@/components/Footer";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Section } from "@/components/primitives/Section";
 import { Reveal } from "@/components/motion/Reveal";
-import { REGIONS } from "@/lib/content";
+import { FOUNDER, REGIONS } from "@/lib/content";
 
 export const metadata = pageMeta({
   title: "Contact UAE Business Setup Experts | Dubai | Alliance Street",
@@ -93,16 +93,16 @@ export default function ContactUsPage() {
             <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-full">
               <Image
                 src="/images/values-stallone.jpg"
-                alt="Stallone Shaikh, Founder & CEO of Alliance Street Consultancy"
+                alt={`${FOUNDER.name}, ${FOUNDER.jobTitle} of Alliance Street Consultancy`}
                 fill
                 sizes="112px"
                 className="object-cover"
               />
             </div>
             <div>
-              <p className="font-display text-xl text-as-ink">Stallone Shaikh</p>
+              <p className="font-display text-xl text-as-ink">{FOUNDER.name}</p>
               <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-as-red">
-                Founder &amp; CEO
+                {FOUNDER.jobTitle}
               </p>
               <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-as-muted">
                 A former banker with hands-on experience at a major UAE
