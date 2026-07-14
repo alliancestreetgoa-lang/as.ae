@@ -15,11 +15,11 @@ const AUTOPLAY_MS = 6500;
 const TRANSITION_MS = 280;
 
 /**
- * Testimonials — editorial quote slider (content unchanged: Charlotte /
- * Henley Finance, Phaibion / Royal Energy Marketing, Richard / Padbrook
- * Finance). A large Fraunces pull-quote is the hero of the section; Geist
- * carries the name/company underneath. Runs on `bg="canvas"` between the
- * ink Publications rail before it and the section after.
+ * Testimonials — editorial quote slider. Content is data-driven from
+ * `TESTIMONIALS` in `content.ts` (no real client names/companies). A large
+ * Fraunces pull-quote is the hero of the section; Geist carries the
+ * name/company underneath. Runs on `bg="canvas"` between the ink
+ * Publications rail before it and the section after.
  *
  * 21st.dev was checked first: search "testimonial slider carousel" ->
  * Testimonial Slider (rf-rifat, id 2210) has the right shape (single active
