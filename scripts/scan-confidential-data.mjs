@@ -87,14 +87,24 @@ const CURRENCY_TOKEN_RE = /[£$]|^AED$/i;
 const CAP_WORD_RE = /^[A-Z][a-z]+$/;
 
 /**
+ * Strip leading/trailing punctuation (quotes, brackets, sentence
+ * punctuation) from a whitespace-split word. Shared by both detection tiers
+ * so a blocklisted phrase immediately followed by a comma/period or wrapped
+ * in parentheses still normalizes to the same word the hash was computed
+ * from — see findBlockMatchesInLine() below.
+ */
+function stripPunctuation(w) {
+  return w.replace(/^[("'“‘]+|[.,;:!?)"'”’]+$/g, "");
+}
+
+/**
  * Loose heuristic: two consecutive capitalized words within ~5 words of a
  * currency symbol / AED token on the same line. Expected to over-trigger
  * (e.g. on section headings) — that's acceptable at warn tier.
  */
 function findCurrencyNamePairs(line) {
   const rawWords = line.split(/\s+/).filter(Boolean);
-  const strip = (w) => w.replace(/^[("'“‘]+|[.,;:!?)"'”’]+$/g, "");
-  const words = rawWords.map(strip);
+  const words = rawWords.map(stripPunctuation);
   const isCurrency = (w) => CURRENCY_TOKEN_RE.test(w) || /^[£$]\d/.test(w);
   const isCapWord = (w) => CAP_WORD_RE.test(w);
   const found = [];
@@ -194,16 +204,33 @@ async function loadAllowlist() {
  * the blocklist. Intentionally brute-force: 42 short entries against
  * typical knowledge-file line lengths is fast enough, and a smarter
  * substring-matching algorithm isn't worth the complexity here.
+ *
+ * NOTE: the window is capped at 6 words (see `len <= 6` below). A blocklist
+ * entry whose normalized phrase is longer than 6 words will NEVER match —
+ * this is an undocumented-until-now limit, not a bug. If a future entry
+ * needs a longer phrase, either raise this cap (cost scales linearly with
+ * it) or split the entry into a shorter, still-uniquely-identifying phrase.
  */
 function findBlockMatchesInLine(line, blocklistMap) {
-  const words = line.split(/\s+/).filter(Boolean);
+  // Strip leading/trailing punctuation from each word before building
+  // candidate windows, so a blocklisted phrase immediately followed by a
+  // comma/period or wrapped in parentheses still hashes to the same value
+  // as the clean phrase the blocklist hash was computed from.
+  const words = line
+    .split(/\s+/)
+    .filter(Boolean)
+    .map(stripPunctuation)
+    .filter(Boolean);
   const found = [];
   for (let start = 0; start < words.length; start++) {
     for (let len = 1; len <= 6 && start + len <= words.length; len++) {
       const candidate = words.slice(start, start + len).join(" ");
       const hash = hashText(candidate);
       const entry = blocklistMap.get(hash);
-      if (entry) {
+      // Only "block" severity entries are enforced as hard blocks here. Any
+      // other severity value (e.g. a future "warn") is intentionally
+      // skipped by this tier rather than silently treated as a block.
+      if (entry && entry.severity === "block") {
         found.push({ ruleId: entry.id, matchedText: candidate });
       }
     }
