@@ -12,7 +12,7 @@ import { Footer } from "@/components/Footer";
 import { Counter } from "@/components/motion/Counter";
 import { Reveal } from "@/components/motion/Reveal";
 import { Parallax } from "@/components/motion/Parallax";
-import { serviceSchema } from "@/lib/schema";
+import { serviceSchema, breadcrumbSchema } from "@/lib/schema";
 
 export const metadata = pageMeta({
   title: "Commercial Real Estate & Office Space in Dubai | Alliance Street",
@@ -56,7 +56,9 @@ export default function RealEstatePage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([SCHEMA, breadcrumbSchema("Real Estate", "real-estate")]),
+        }}
       />
       <Navbar overLight />
       <main>

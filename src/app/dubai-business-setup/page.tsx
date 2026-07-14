@@ -11,7 +11,7 @@ import { Testimonials } from "@/components/Testimonials";
 import { Collaborate } from "@/components/Collaborate";
 import { AsSeenIn } from "@/components/AsSeenIn";
 import { Footer } from "@/components/Footer";
-import { serviceSchema } from "@/lib/schema";
+import { serviceSchema, breadcrumbSchema } from "@/lib/schema";
 
 export const metadata = pageMeta({
   title: "Dubai Business Setup & Company Formation Experts | Alliance Street",
@@ -82,7 +82,12 @@ export default function DubaiBusinessSetupPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            SCHEMA,
+            breadcrumbSchema("Dubai Business Setup", "dubai-business-setup"),
+          ]),
+        }}
       />
       <Navbar overLight />
       <main>

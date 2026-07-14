@@ -8,7 +8,7 @@ import { Solutions } from "@/components/Solutions";
 import { Collaborate } from "@/components/Collaborate";
 import { AsSeenIn } from "@/components/AsSeenIn";
 import { Footer } from "@/components/Footer";
-import { serviceSchema } from "@/lib/schema";
+import { serviceSchema, breadcrumbSchema } from "@/lib/schema";
 
 export const metadata = pageMeta({
   title: "UAE Business Bank Account Opening Services | Alliance Street",
@@ -71,7 +71,9 @@ export default function BankingPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([SCHEMA, breadcrumbSchema("Banking", "banking")]),
+        }}
       />
       <Navbar alwaysSolid />
       <main>

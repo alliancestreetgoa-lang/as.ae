@@ -1,4 +1,5 @@
 import { pageMeta } from "@/lib/seo";
+import { breadcrumbSchema } from "@/lib/schema";
 import Image from "next/image";
 import { Navbar } from "@/components/Navbar";
 import { GradientHero } from "@/components/GradientHero";
@@ -20,6 +21,12 @@ export const metadata = pageMeta({
 export default function ContactUsPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema("Contact", "contact-us")),
+        }}
+      />
       <Navbar overLight />
       <main>
         <GradientHero

@@ -1,4 +1,5 @@
 import { pageMeta } from "@/lib/seo";
+import { breadcrumbSchema } from "@/lib/schema";
 import { Navbar } from "@/components/Navbar";
 import { GradientHero } from "@/components/GradientHero";
 import { Section } from "@/components/primitives/Section";
@@ -267,7 +268,9 @@ export default function FaqPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSON_LD) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([FAQ_JSON_LD, breadcrumbSchema("FAQ", "faq")]),
+        }}
       />
       <Navbar />
       <main>

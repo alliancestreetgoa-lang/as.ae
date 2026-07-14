@@ -90,3 +90,20 @@ export function serviceSchema({
     },
   };
 }
+
+/**
+ * BreadcrumbList schema for a top-level page: Home > <name>. The site is flat,
+ * so every non-home page is a single hop from Home. `path` is the route segment
+ * (e.g. "banking"); the homepage doesn't need one.
+ */
+export function breadcrumbSchema(name: string, path: string) {
+  const seg = path.replace(/^\/+|\/+$/g, "");
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+      { "@type": "ListItem", position: 2, name, item: `${SITE_URL}/${seg}/` },
+    ],
+  };
+}

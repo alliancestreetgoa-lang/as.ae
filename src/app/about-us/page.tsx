@@ -12,7 +12,7 @@ import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Section } from "@/components/primitives/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { SplitReveal } from "@/components/motion/SplitReveal";
-import { serviceSchema } from "@/lib/schema";
+import { serviceSchema, breadcrumbSchema } from "@/lib/schema";
 
 export const metadata = pageMeta({
   title: "About Alliance Street | Dubai Business Consultancy Since 2017",
@@ -40,7 +40,9 @@ export default function AboutUsPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([SCHEMA, breadcrumbSchema("About Us", "about-us")]),
+        }}
       />
       <Navbar />
       <main>

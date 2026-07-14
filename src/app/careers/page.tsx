@@ -1,4 +1,5 @@
 import { pageMeta } from "@/lib/seo";
+import { breadcrumbSchema } from "@/lib/schema";
 import { Navbar } from "@/components/Navbar";
 import { Values } from "@/components/Values";
 import { Testimonials } from "@/components/Testimonials";
@@ -20,6 +21,12 @@ export const metadata = pageMeta({
 export default function CareersPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema("Careers", "careers")),
+        }}
+      />
       <Navbar />
       <main>
         {/* Careers hero — the site's black -> red -> white brand gradient

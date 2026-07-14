@@ -16,7 +16,7 @@ import { Check } from "@/components/icons";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Section } from "@/components/primitives/Section";
 import { Reveal } from "@/components/motion/Reveal";
-import { serviceSchema } from "@/lib/schema";
+import { serviceSchema, breadcrumbSchema } from "@/lib/schema";
 
 export const metadata = pageMeta({
   title: "Bookkeeping & Accounting Services in Dubai | Alliance Street",
@@ -51,7 +51,12 @@ export default function BookkeepingAccountingPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            SCHEMA,
+            breadcrumbSchema("Bookkeeping & Accounting", "bookkeeping-accounting"),
+          ]),
+        }}
       />
       <Navbar overLight />
       <main>
