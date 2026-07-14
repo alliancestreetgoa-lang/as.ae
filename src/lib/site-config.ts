@@ -6,7 +6,7 @@
  * Both values are read from build-time environment variables and validated
  * eagerly at module-evaluation time (which, in Next.js, happens at build
  * time). Neither value falls back to a default and neither is derived from
- * the other (or from `NODE_ENV`) — see the individual comments below for
+ * the other (or from Node's implicit build-mode flag) — see the individual comments below for
  * why. If either variable is missing or malformed, this module throws
  * immediately so a misconfigured build fails loudly at build time instead of
  * silently shipping the wrong domain, robots directives, or canonical URLs.
@@ -83,9 +83,9 @@ function readSiteUrl(): string {
  *
  * This is intentionally a separate, independently-configured variable from
  * `NEXT_PUBLIC_SITE_URL` — it is never inferred from the URL's hostname (or
- * from `NODE_ENV`, which distinguishes dev-vs-prod *builds*, not
+ * from Node's built-in dev/production build flag, which distinguishes development-vs-production *builds*, not
  * staging-vs-production *deployments*; both staging and production are
- * "production" NODE_ENV builds). Inferring one from the other would silently
+ * production-level builds). Inferring one from the other would silently
  * break the moment the staging or production domain changes, or if a build
  * is ever run against a domain not in `KNOWN_DOMAINS` (e.g. a preview URL).
  * Requiring both to be set explicitly makes every deployment's configuration
@@ -102,7 +102,7 @@ function readSiteEnvironment(): SiteEnvironment {
     `Invalid or missing NEXT_PUBLIC_SITE_ENVIRONMENT: ${
       raw === undefined ? "(not set)" : `"${raw}"`
     }. Must be set to exactly "staging" or "production" — it is not inferred from ` +
-      "NEXT_PUBLIC_SITE_URL or NODE_ENV. See .env.example for details."
+      "NEXT_PUBLIC_SITE_URL or Node's implicit build-mode flag. See .env.example for details."
   );
 }
 
