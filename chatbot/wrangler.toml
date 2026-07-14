@@ -6,6 +6,13 @@ compatibility_date = "2026-01-01"
 #   wrangler secret put OPENAI_API_KEY
 #   wrangler secret put RESEND_API_KEY
 
+# Primary site origin the worker allows CORS requests from (see corsHeaders
+# in worker.js). Currently the staging domain — update to
+# "https://alliancestreet.ae" as a deliberate, manual step when the real
+# production domain cutover happens; this is not automated.
+[vars]
+SITE_URL = "https://shaukinsv.com"
+
 # Caps requests per visitor IP before they reach the (paid) OpenAI call.
 [[ratelimits]]
 name = "RATE_LIMITER"
