@@ -153,22 +153,22 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     quote:
       "We've got our visas, bank accounts start to be opened, and we've just really benefited from his full ground knowledge of the, UK, tax and banking system and the same in The UAE. And, I wouldn't feel happier in anyone else's hands!",
-    name: "Charlotte",
-    company: "Henley Finance",
+    name: "UK Finance Professional",
+    company: "A UK-based financial services firm",
     image: "/images/photo-2.jpg",
   },
   {
     quote:
       "They are providing all of the education and resources that you need to understand that you're making a really good decision for your life and your business. So if you're on the fence, don't hesitate. Just reach out, and then they're more than happy to help you.",
-    name: "Phaibion",
-    company: "Royal Energy Marketing",
+    name: "Energy Sector Entrepreneur",
+    company: "An energy marketing company",
     image: "/images/mission-team.jpg",
   },
   {
     quote:
       "I could see that he understood the needs and requirements of our company. We embarked on the process, arrived in The UAE, and it's been a seamless flow of meetings, and we have everything in place for our new business life in The UAE.",
-    name: "Richard",
-    company: "Padbrook Finance",
+    name: "Finance Company Director",
+    company: "A UK-based finance firm",
     image: "/images/values-meeting.jpg",
   },
 ];

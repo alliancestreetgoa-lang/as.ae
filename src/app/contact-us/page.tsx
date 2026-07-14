@@ -105,14 +105,10 @@ export default function ContactUsPage() {
                 Founder &amp; CEO
               </p>
               <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-as-muted">
-                A former banker with hands-on experience at one of the UAE&apos;s
-                top five banks, Stallone has helped 200+ businesses relocate to
+                A former banker with hands-on experience at a major UAE
+                bank, Stallone has helped 200+ businesses relocate to
                 and structure in the UAE. He&apos;s the author of{" "}
-                <em>
-                  Dubai Dreams &amp; Tax-Free Schemes: The Smart Digital
-                  Nomad&apos;s Guide to Building and Protecting Wealth in the
-                  UAE
-                </em>
+                <em>Fast-Track to Zero Tax</em>
                 , and has been featured in Khaleej Times, Gulf News, Forbes,
                 and Business Insider.
               </p>
