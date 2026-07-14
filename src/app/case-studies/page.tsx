@@ -11,7 +11,7 @@ import { Footer } from "@/components/Footer";
 export const metadata = pageMeta({
   title: "UAE Company Formation Case Studies | Alliance Street",
   description:
-    "20 real, anonymized case studies on UAE company formation and tax structuring - across property, e-commerce, tech, trades, and more, including cases we advised against.",
+    "20 real case studies on UAE company formation and tax structuring, anonymized and generalized to protect client confidentiality - across property, e-commerce, tech, trades, and more, including cases we advised against.",
   path: "case-studies",
 });
 
@@ -46,7 +46,7 @@ const CASE_STUDIES: CaseStudy[] = [
     profile:
       "A UK property investor with a mixed commercial/residential portfolio worth roughly £1.2-1.3 million, generating about £120,000-130,000 a year before expenses.",
     situation:
-      "Was mid-transfer of properties into a UK limited company (which would raise annual tax to an estimated £62,000) and wanted to know whether relocating to Dubai could reduce the tax hit, plus how to protect the properties for his children long-term.",
+      "Was mid-transfer of properties into a UK limited company (which would raise annual tax to an estimated £60,000-65,000) and wanted to know whether relocating to Dubai could reduce the tax hit, plus how to protect the properties for his children long-term.",
     structure:
       "The Statutory Residence Test (SRT) path to non-UK tax residency (183+ days outside the UK), letting him draw money from the new company without UK dividend tax; and transferring the bulk of the properties into a UAE foundation to reduce personal income tax exposure and shield against UK inheritance tax.",
     outcome:
@@ -72,7 +72,7 @@ const CASE_STUDIES: CaseStudy[] = [
     number: 4,
     title: "Holding structure for a scaling e-commerce brand",
     profile:
-      "A UK e-commerce business importing and selling decorative goods, growing from roughly £274,000 to a targeted £400,000 turnover.",
+      "A UK e-commerce business importing and selling decorative goods, growing from roughly £250,000-300,000 toward a targeted £400,000 turnover.",
     situation:
       "Already paying UK corporation tax, wanted a scalable structure ahead of further growth and an eventual exit in 7-10 years, without disrupting the existing UK sales operation.",
     structure:
@@ -99,11 +99,11 @@ const CASE_STUDIES: CaseStudy[] = [
   {
     number: 6,
     title: "Closing on a time-limited visa promotion",
-    profile: "A UK accounting practice owner, already tax-literate.",
+    profile: "A UK professional-services practice owner, already tax-literate.",
     situation:
       "Paying high UK taxes on the practice, had been exploring a living trust before this conversation turned toward a UAE company structure. Was price-anchored against cheaper competitor quotes and skeptical of a \"visa-for-life\" promotional offer.",
     structure:
-      "A UAE trading entity managing a UK marketing-outsourcing relationship, with regular UAE travel to prove control-and-management to HMRC. All-in first-year cost around £6,500 including license, visa, medicals, and bank account.",
+      "A UAE trading entity managing a UK marketing-outsourcing relationship, with regular UAE travel to prove control-and-management to HMRC. All-in first-year cost around £6,000-7,000 including license, visa, medicals, and bank account.",
     outcome:
       "Proceeded after the promotional visa offer was verified live with the free zone representative on the call.",
     takeaway:
@@ -127,7 +127,7 @@ const CASE_STUDIES: CaseStudy[] = [
     number: 8,
     title: "A healthcare professional already living in the UAE",
     profile:
-      "A UK-qualified psychiatrist who had already relocated to the UAE, but still operated through a UK limited company with turnover around £122,000.",
+      "A UK-qualified healthcare professional who had already relocated to the UAE, but still operated through a UK limited company with turnover in the £100,000-130,000 range.",
     situation:
       "Was already a non-UK tax resident personally, but the company itself remained UK tax resident - meaning UK tax and VAT were still being paid unnecessarily. Practicing in the UAE required navigating separate professional licensing requirements.",
     structure:
@@ -141,7 +141,7 @@ const CASE_STUDIES: CaseStudy[] = [
     number: 9,
     title: "IP licensing for a multi-business trades roll-up",
     profile:
-      "A former property investor who pivoted to acquiring small trades businesses, owning two outright plus a stake in a third, for combined group turnover of roughly £3.5 million.",
+      "A former property investor who pivoted to acquiring small trades businesses, owning several outright plus a minority stake in another, for combined group turnover in the £3-4 million range.",
     situation:
       "Wanted to reduce the group's overall tax burden while continuing to roll up more trades businesses, with a genuine interest in legitimate anonymity and creditor protection.",
     structure:
@@ -155,7 +155,7 @@ const CASE_STUDIES: CaseStudy[] = [
     number: 10,
     title: "Choosing Cyprus over the UAE for an EU-facing business",
     profile:
-      "A business owner running in-person training courses across several European countries, plus roughly $60,000 in cryptocurrency trading profit.",
+      "A business owner running in-person training courses across several European countries, plus roughly $50,000-70,000 in cryptocurrency trading profit.",
     situation:
       "Wanted to structure both the training business and crypto gains tax-efficiently, weighing the UAE against other jurisdictions given the business was EU-centric, not UAE-facing.",
     structure:
@@ -196,7 +196,7 @@ const CASE_STUDIES: CaseStudy[] = [
     number: 13,
     title: "A multi-million-pound real estate fund structure",
     profile:
-      "Two partners with a corporate-finance background planning to pool £5-10 million from UK investors into a Dubai/Abu Dhabi off-plan real estate vehicle, targeting a 2-3 year hold.",
+      "A small founding team with a finance/investment background planning to pool £5-10 million from UK investors into a Dubai/Abu Dhabi off-plan real estate vehicle, targeting a 2-3 year hold.",
     situation:
       "Wanted a lighter-weight structure than a full regulated investment fund (which would take roughly 8 months and significant cost), while still giving larger investors real security.",
     structure:
@@ -209,7 +209,7 @@ const CASE_STUDIES: CaseStudy[] = [
     number: 14,
     title: "Working through an HMRC scrutiny objection",
     profile:
-      "A UK-based operation involving land sourcing and project coordination services (construction-adjacent), moving roughly £6,000/month between entities.",
+      "A UK-based operation involving land sourcing and project coordination services (construction-adjacent), moving several thousand pounds a month between entities.",
     situation:
       "Directly worried that large, regular monthly payments to a UAE entity would draw HMRC investigation.",
     structure:
@@ -223,11 +223,11 @@ const CASE_STUDIES: CaseStudy[] = [
     number: 15,
     title: "Restructuring around existing HMRC debt",
     profile:
-      "A high-earning director/contractor earning a high salary plus commission, separately holding an existing UK limited company carrying HMRC debt.",
+      "A UK professional with variable, high income (salary plus commission), separately holding an existing UK limited company carrying legacy HMRC debt.",
     situation:
       "Facing a steep UK tax bill and wanting to both optimize going forward and clean up the legacy debt situation. Cash flow was a genuine constraint on the upfront setup cost.",
     structure:
-      "A UAE trading entity paired with a trust/foundation for asset protection, targeting genuine non-UK tax residency, modeled to allow drawing significant income tax-efficiently. Total setup was quoted at roughly £12,500.",
+      "A UAE trading entity paired with a trust/foundation for asset protection, targeting genuine non-UK tax residency, modeled to allow drawing significant income tax-efficiently. Total setup was quoted in the £12,000-13,000 range.",
     outcome:
       "Payment was split into two stages - an upfront amount and a second instalment once the bank account was live - which converted a hesitation into a signed deal.",
     takeaway:
@@ -251,7 +251,7 @@ const CASE_STUDIES: CaseStudy[] = [
     number: 17,
     title: "Comparison-shopping between providers",
     profile:
-      "An executive search and leadership consulting practice owner, expecting around £300,000 in revenue, not needing to be physically based in Dubai.",
+      "A UK professional-services consulting practice owner, expecting around £300,000 in revenue, not needing to be physically based in Dubai.",
     situation:
       "Wanted a straightforward UAE setup for tax efficiency while living wherever suited personally, and was simultaneously in conversation with a competing provider.",
     structure:
@@ -276,12 +276,12 @@ const CASE_STUDIES: CaseStudy[] = [
   },
   {
     number: 19,
-    title: "Already well-optimized: an air conditioning business",
+    title: "Already well-optimized: a trades business",
     profile:
-      "An owner of a UK air conditioning business with a team of 10, annual turnover of £1.1-1.3 million.",
+      "An owner of a UK trades business (HVAC/mechanical services) with a small team, annual turnover of £1.1-1.3 million.",
     situation: "Exploring a UAE presence due to changing UK tax laws.",
     structure:
-      "A detailed analysis of the actual tax position (corporation tax plus Construction Industry Scheme labour taxes, totalling roughly £83,000/year) found the business was already well-optimized for its structure and sector - the potential UAE tax savings wouldn't cover the cost of establishing and maintaining a UAE structure.",
+      "A detailed analysis of the actual tax position (corporation tax plus Construction Industry Scheme labour taxes, totalling roughly £80,000/year) found the business was already well-optimized for its structure and sector - the potential UAE tax savings wouldn't cover the cost of establishing and maintaining a UAE structure.",
     outcome:
       "No UAE company was set up; alternatives (personal relocation, or UAE real estate as an investor) were offered instead.",
     takeaway:
@@ -291,7 +291,7 @@ const CASE_STUDIES: CaseStudy[] = [
     number: 20,
     title: "A pre-revenue founder with multiple ideas",
     profile:
-      "A founder building an ecosystem of ventures - a supplement brand, a jewelry business, and a coaching program - none of which had generated revenue yet.",
+      "A founder building an ecosystem of ventures - a consumer products brand, an accessories business, and a coaching program - none of which had generated revenue yet.",
     situation:
       "Wanted to set up UAE structures for multiple businesses simultaneously, primarily to lock in tax savings before the businesses even launched.",
     structure:
@@ -330,18 +330,20 @@ export default function CaseStudiesPage() {
       <main>
         <GradientHero
           title="Case Studies"
-          subtitle="20 real, anonymized situations we've worked through - across property, e-commerce, tech, trades, and more. Including the ones we said no to."
+          subtitle="20 real situations we've worked through, anonymized and generalized to protect client confidentiality - across property, e-commerce, tech, trades, and more. Including the ones we said no to."
         />
 
         <Section bg="canvas">
           <div className="col-span-12 mx-auto max-w-3xl">
             <Eyebrow>Anonymized precedent</Eyebrow>
             <p className="mt-4 text-[14px] leading-relaxed text-as-muted">
-              Every case below is drawn from a real client conversation, with
-              names, companies, and identifying details removed or
-              generalized - only the substance (the situation, the structure,
-              and the outcome) is kept. Figures are illustrative and vary by
-              individual circumstances.
+              Every case below is drawn from real client work, with names,
+              companies, exact figures, and other identifying details
+              removed, generalized, or rounded to protect confidentiality -
+              in some cases, details have also been merged across similar
+              situations so no single case can be traced back to one person.
+              The situation, structure, and outcome are kept intact. Figures
+              are illustrative and vary by individual circumstances.
             </p>
 
             <div className="mt-10 divide-y divide-as-line border-t border-as-line">
