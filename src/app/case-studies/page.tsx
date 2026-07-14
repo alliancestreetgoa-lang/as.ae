@@ -339,11 +339,10 @@ export default function CaseStudiesPage() {
             <p className="mt-4 text-[14px] leading-relaxed text-as-muted">
               Every case below is drawn from real client work, with names,
               companies, exact figures, and other identifying details
-              removed, generalized, or rounded to protect confidentiality -
-              in some cases, details have also been merged across similar
-              situations so no single case can be traced back to one person.
-              The situation, structure, and outcome are kept intact. Figures
-              are illustrative and vary by individual circumstances.
+              removed, generalized into broader categories, or rounded into
+              ranges to protect confidentiality. The situation, structure,
+              and outcome are kept intact. Figures are illustrative and vary
+              by individual circumstances.
             </p>
 
             <div className="mt-10 divide-y divide-as-line border-t border-as-line">
