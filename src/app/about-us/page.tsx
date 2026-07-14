@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Image from "next/image";
 import { Navbar } from "@/components/Navbar";
 import { Stats3 } from "@/components/Stats3";
@@ -14,11 +14,12 @@ import { Reveal } from "@/components/motion/Reveal";
 import { SplitReveal } from "@/components/motion/SplitReveal";
 import { serviceSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "About Alliance Street | Dubai Business Consultancy Since 2017",
   description:
     "Since 2017, Alliance Street has helped 200+ businesses relocate to and structure in the UAE - real banking relationships, tax strategists, and legal partners, not just paperwork.",
-};
+  path: "about-us",
+});
 
 const SCHEMA = serviceSchema({
   name: "About Alliance Street Consultancy",

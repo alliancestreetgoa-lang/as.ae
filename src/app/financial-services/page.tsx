@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { Navbar } from "@/components/Navbar";
 import { PageHero } from "@/components/PageHero";
 import { FeatureGrid, type Feature } from "@/components/FeatureGrid";
@@ -9,11 +9,12 @@ import { AsSeenIn } from "@/components/AsSeenIn";
 import { Footer } from "@/components/Footer";
 import { serviceSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "Financial & Corporate Advisory Services UAE | Alliance Street",
   description:
     "UAE corporate tax, compliance and financial advisory. Business loans, working capital and mortgages - we cut the noise and deliver solutions banks can't.",
-};
+  path: "financial-services",
+});
 
 const SCHEMA = serviceSchema({
   name: "Financial & Corporate Advisory Services",

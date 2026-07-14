@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { Mission } from "@/components/Mission";
@@ -14,11 +14,12 @@ import { Footer } from "@/components/Footer";
 
 // Homepage owns its metadata explicitly rather than inheriting the layout
 // default, so it stays correct even if the layout's fallback changes later.
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "Business Setup in Dubai & UAE | Alliance Street",
   description:
     "Alliance Street helps entrepreneurs with UAE company formation, free zone & mainland setup, banking, tax, visas, and compliance end-to-end support.",
-};
+  path: "",
+});
 
 export default function Home() {
   return (

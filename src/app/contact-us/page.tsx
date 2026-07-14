@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Image from "next/image";
 import { Navbar } from "@/components/Navbar";
 import { GradientHero } from "@/components/GradientHero";
@@ -10,11 +10,12 @@ import { Section } from "@/components/primitives/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { REGIONS } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "Contact UAE Business Setup Experts | Dubai | Alliance Street",
   description:
     "Get in touch with Alliance Street. Offices across the UAE (Dubai, Ras Al Khaimah) and Europe (UK, Germany, Austria, Slovakia).",
-};
+  path: "contact-us",
+});
 
 export default function ContactUsPage() {
   return (

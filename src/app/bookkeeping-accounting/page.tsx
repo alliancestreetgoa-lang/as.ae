@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Image from "next/image";
 import { Navbar } from "@/components/Navbar";
 import { Button } from "@/components/primitives/Button";
@@ -18,11 +18,12 @@ import { Section } from "@/components/primitives/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { serviceSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "Bookkeeping & Accounting Services in Dubai | Alliance Street",
   description:
     "Bookkeeping, accounting & VAT services in Dubai. We take care of your finances so you can focus on scaling your business - compliant and audit-ready, always.",
-};
+  path: "bookkeeping-accounting",
+});
 
 const SCHEMA = serviceSchema({
   name: "Bookkeeping, Accounting & VAT Compliance",

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { Navbar } from "@/components/Navbar";
 import { PageHero } from "@/components/PageHero";
 import { Mission } from "@/components/Mission";
@@ -13,11 +13,12 @@ import { AsSeenIn } from "@/components/AsSeenIn";
 import { Footer } from "@/components/Footer";
 import { serviceSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "Dubai Business Setup & Company Formation Experts | Alliance Street",
   description:
     "Start your business in Dubai and expand your global opportunities. Alliance Street helps entrepreneurs establish a strong, compliant presence in the UAE.",
-};
+  path: "dubai-business-setup",
+});
 
 const SCHEMA = serviceSchema({
   name: "Dubai Business Setup & Company Formation",

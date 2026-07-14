@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Image from "next/image";
 import { Button } from "@/components/primitives/Button";
 import { SplitReveal } from "@/components/motion/SplitReveal";
@@ -14,11 +14,12 @@ import { Reveal } from "@/components/motion/Reveal";
 import { Parallax } from "@/components/motion/Parallax";
 import { serviceSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "Commercial Real Estate & Office Space in Dubai | Alliance Street",
   description:
     "Invest, buy or rent property in Dubai the way it benefits you. Our developer connections give you access to exclusive deals no agent in Dubai can offer.",
-};
+  path: "real-estate",
+});
 
 const SCHEMA = serviceSchema({
   name: "Dubai Commercial Real Estate & Investment",

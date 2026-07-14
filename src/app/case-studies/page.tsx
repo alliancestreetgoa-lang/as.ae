@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { Navbar } from "@/components/Navbar";
 import { GradientHero } from "@/components/GradientHero";
 import { Section } from "@/components/primitives/Section";
@@ -7,11 +7,12 @@ import { Collaborate } from "@/components/Collaborate";
 import { AsSeenIn } from "@/components/AsSeenIn";
 import { Footer } from "@/components/Footer";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "UAE Company Formation Case Studies | Alliance Street",
   description:
     "20 real, anonymized case studies on UAE company formation and tax structuring - across property, e-commerce, tech, trades, and more, including cases we advised against.",
-};
+  path: "case-studies",
+});
 
 type CaseStudy = {
   number: number;

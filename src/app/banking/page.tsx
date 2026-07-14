@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { Navbar } from "@/components/Navbar";
 import { ImageHero } from "@/components/ImageHero";
 import { InfoBlocks, type InfoBlock } from "@/components/InfoBlocks";
@@ -10,11 +10,12 @@ import { AsSeenIn } from "@/components/AsSeenIn";
 import { Footer } from "@/components/Footer";
 import { serviceSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "UAE Business Bank Account Opening Services | Alliance Street",
   description:
     "Open a UAE business bank account without the tedious KYC, bureaucracy or large deposits. Our banking connections get your accounts opened in hours or days.",
-};
+  path: "banking",
+});
 
 const SCHEMA = serviceSchema({
   name: "UAE Business & Private Banking",

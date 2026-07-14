@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { Navbar } from "@/components/Navbar";
 import { Values } from "@/components/Values";
 import { Testimonials } from "@/components/Testimonials";
@@ -10,11 +10,12 @@ import { Section } from "@/components/primitives/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { SplitReveal } from "@/components/motion/SplitReveal";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "Careers at Alliance Street | Dubai Business Consultancy",
   description:
     "We're a small team doing real UAE structuring work for real clients. No open roles listed right now, but we're always open to hearing from the right person.",
-};
+  path: "careers",
+});
 
 export default function CareersPage() {
   return (

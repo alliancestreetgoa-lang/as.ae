@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { Navbar } from "@/components/Navbar";
 import { GradientHero } from "@/components/GradientHero";
 import { Section } from "@/components/primitives/Section";
@@ -7,11 +7,12 @@ import { Collaborate } from "@/components/Collaborate";
 import { AsSeenIn } from "@/components/AsSeenIn";
 import { Footer } from "@/components/Footer";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "UAE Company Formation & Tax FAQ | Alliance Street",
   description:
     "Answers to the most common questions on UAE company formation, tax structuring, Small Business Relief, banking, residency, and compliance - straight, no sales pitch.",
-};
+  path: "faq",
+});
 
 type FaqItem = { q: string; a: string };
 type FaqCategory = { category: string; items: FaqItem[] };
