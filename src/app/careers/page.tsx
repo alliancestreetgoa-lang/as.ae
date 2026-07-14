@@ -1,6 +1,7 @@
 import { pageMeta } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/schema";
 import { Navbar } from "@/components/Navbar";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { Values } from "@/components/Values";
 import { Testimonials } from "@/components/Testimonials";
 import { Collaborate } from "@/components/Collaborate";
@@ -28,6 +29,13 @@ export default function CareersPage() {
         }}
       />
       <Navbar />
+      <Breadcrumb
+        variant="dark"
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Careers", href: "/careers" },
+        ]}
+      />
       <main>
         {/* Careers hero — the site's black -> red -> white brand gradient
             (`.as-hero-gradient`, defined in globals.css but otherwise

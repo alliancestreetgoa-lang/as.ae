@@ -1,5 +1,6 @@
 import { pageMeta } from "@/lib/seo";
 import { Navbar } from "@/components/Navbar";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { PageHero } from "@/components/PageHero";
 import { FeatureGrid, type Feature } from "@/components/FeatureGrid";
 import { StepsSection, type Step } from "@/components/StepsSection";
@@ -86,6 +87,12 @@ export default function FinancialServicesPage() {
         }}
       />
       <Navbar overLight />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Financial Services", href: "/financial-services" },
+        ]}
+      />
       <main>
         <PageHero
           title="UAE Corporate Tax, Compliance & Financial Advisory Services"

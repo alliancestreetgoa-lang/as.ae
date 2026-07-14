@@ -2,6 +2,7 @@ import { pageMeta } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/schema";
 import Image from "next/image";
 import { Navbar } from "@/components/Navbar";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { GradientHero } from "@/components/GradientHero";
 import { Collaborate } from "@/components/Collaborate";
 import { AsSeenIn } from "@/components/AsSeenIn";
@@ -28,6 +29,12 @@ export default function ContactUsPage() {
         }}
       />
       <Navbar overLight />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Contact", href: "/contact-us" },
+        ]}
+      />
       <main>
         <GradientHero
           title="Get in Touch"

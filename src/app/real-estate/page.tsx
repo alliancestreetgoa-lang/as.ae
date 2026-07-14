@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Button } from "@/components/primitives/Button";
 import { SplitReveal } from "@/components/motion/SplitReveal";
 import { Navbar } from "@/components/Navbar";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { InfoBlocks, type InfoBlock } from "@/components/InfoBlocks";
 import { Testimonials } from "@/components/Testimonials";
 import { Values } from "@/components/Values";
@@ -61,6 +62,12 @@ export default function RealEstatePage() {
         }}
       />
       <Navbar overLight />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Real Estate", href: "/real-estate" },
+        ]}
+      />
       <main>
         {/* Split gradient hero — the page's one large red hero moment (brand
             exception to the red-accent-only rule), same `.as-hero-gradient`

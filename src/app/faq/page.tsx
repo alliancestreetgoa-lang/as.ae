@@ -1,6 +1,7 @@
 import { pageMeta } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/schema";
 import { Navbar } from "@/components/Navbar";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { GradientHero } from "@/components/GradientHero";
 import { Section } from "@/components/primitives/Section";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
@@ -273,6 +274,12 @@ export default function FaqPage() {
         }}
       />
       <Navbar />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "FAQ", href: "/faq" },
+        ]}
+      />
       <main>
         <GradientHero
           title="Frequently Asked Questions"

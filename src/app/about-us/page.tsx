@@ -1,6 +1,7 @@
 import { pageMeta } from "@/lib/seo";
 import Image from "next/image";
 import { Navbar } from "@/components/Navbar";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { Stats3 } from "@/components/Stats3";
 import { StatsBanner } from "@/components/StatsBanner";
 import { Values } from "@/components/Values";
@@ -39,6 +40,13 @@ export default function AboutUsPage() {
         }}
       />
       <Navbar />
+      <Breadcrumb
+        variant="dark"
+        items={[
+          { label: "Home", href: "/" },
+          { label: "About Us", href: "/about-us" },
+        ]}
+      />
       <main>
         {/* Same black -> red -> white brand gradient as the Careers hero,
             matching the reference design exactly. */}
