@@ -4,7 +4,7 @@ import "./globals.css";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { ScrollProgress } from "@/components/motion/ScrollProgress";
 import { ChatWidget } from "@/components/ChatWidget";
-import { organizationSchema } from "@/lib/schema";
+import { organizationSchema, websiteSchema } from "@/lib/schema";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -61,7 +61,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationSchema()),
+            __html: JSON.stringify([organizationSchema(), websiteSchema()]),
           }}
         />
         <SmoothScroll />

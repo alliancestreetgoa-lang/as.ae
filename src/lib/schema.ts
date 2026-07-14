@@ -22,6 +22,7 @@ export function organizationSchema() {
   return {
     "@context": "https://schema.org",
     "@type": ["Organization", "LocalBusiness"],
+    "@id": `${SITE_URL}/#organization`,
     name: ORG_NAME,
     alternateName: "Alliance Street",
     url: `${SITE_URL}/`,
@@ -105,5 +106,24 @@ export function breadcrumbSchema(name: string, path: string) {
       { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
       { "@type": "ListItem", position: 2, name, item: `${SITE_URL}/${seg}/` },
     ],
+  };
+}
+
+/**
+ * Site-wide WebSite node (rendered once, in the root layout, alongside the
+ * Organization). Aids entity recognition; `publisher` links to the Organization
+ * by @id so engines resolve them as the same entity.
+ */
+export function websiteSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
+    url: `${SITE_URL}/`,
+    name: "Alliance Street",
+    description:
+      "UAE company formation, banking, tax, accounting, real estate and financial advisory - Alliance Street Consultancy.",
+    publisher: { "@id": `${SITE_URL}/#organization` },
+    inLanguage: "en",
   };
 }
