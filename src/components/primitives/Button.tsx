@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { ComponentPropsWithoutRef, MouseEvent, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { ArrowRight } from "@/components/icons";
+import { trackEvent, type AnalyticsEvent } from "@/lib/analytics";
 
 /**
  * Button — the site-wide pill CTA, unifying every hand-rolled red pill /
@@ -53,6 +54,14 @@ type CommonProps = {
   arrow?: boolean;
   className?: string;
   children: ReactNode;
+  /**
+   * Serializable analytics event to fire on click, via `trackEvent()`.
+   * Plain data (not a function), so Server Component callers can pass it
+   * across the RSC boundary — Button itself (already `"use client"`) owns
+   * the `onClick` that calls `trackEvent()`. If a caller also passes a
+   * native `onClick`, both fire.
+   */
+  track?: AnalyticsEvent;
 };
 
 type AnchorProps = CommonProps &
@@ -69,6 +78,7 @@ export function Button(props: AnchorProps | NativeButtonProps) {
     arrow = false,
     className,
     children,
+    track,
     ...rest
   } = props;
 
@@ -102,25 +112,43 @@ export function Button(props: AnchorProps | NativeButtonProps) {
   );
 
   if (rest.href !== undefined) {
-    const { href, ...anchorRest } = rest as Omit<AnchorProps, keyof CommonProps>;
+    const { href, onClick, ...anchorRest } = rest as Omit<
+      AnchorProps,
+      keyof CommonProps
+    >;
     const usePlainAnchor = /^(https?:|#|mailto:|tel:)/.test(href);
+    const handleClick = track
+      ? (event: MouseEvent<HTMLAnchorElement>) => {
+          onClick?.(event);
+          trackEvent(track);
+        }
+      : onClick;
     if (usePlainAnchor) {
       return (
-        <a className={cls} href={href} {...anchorRest}>
+        <a className={cls} href={href} onClick={handleClick} {...anchorRest}>
           {content}
         </a>
       );
     }
     return (
-      <Link className={cls} href={href} {...anchorRest}>
+      <Link className={cls} href={href} onClick={handleClick} {...anchorRest}>
         {content}
       </Link>
     );
   }
 
-  const buttonRest = rest as Omit<NativeButtonProps, keyof CommonProps>;
+  const { onClick: buttonOnClick, ...buttonRest } = rest as Omit<
+    NativeButtonProps,
+    keyof CommonProps
+  >;
+  const handleButtonClick = track
+    ? (event: MouseEvent<HTMLButtonElement>) => {
+        buttonOnClick?.(event);
+        trackEvent(track);
+      }
+    : buttonOnClick;
   return (
-    <button className={cls} {...buttonRest}>
+    <button className={cls} onClick={handleButtonClick} {...buttonRest}>
       {content}
     </button>
   );

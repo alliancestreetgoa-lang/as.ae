@@ -145,7 +145,14 @@ export default function BookkeepingAccountingPage() {
               ))}
             </ul>
             <Reveal as="div" y={16} delay={0.5} className="mt-10 w-fit">
-              <Button href="/contact-us" variant="primary">
+              <Button
+                href="/contact-us"
+                variant="primary"
+                track={{
+                  name: "consultation_cta_click",
+                  params: { cta_label: "Get in Touch", location: "bookkeeping_accounting_hero" },
+                }}
+              >
                 Get in Touch
               </Button>
             </Reveal>

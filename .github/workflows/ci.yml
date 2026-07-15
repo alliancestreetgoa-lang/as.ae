@@ -32,6 +32,9 @@ jobs:
       - name: Type check
         run: npm run typecheck
 
+      - name: Analytics sanitization tests
+        run: npm run verify:analytics
+
       - name: Build
         run: npm run build
         env:

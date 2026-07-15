@@ -102,7 +102,15 @@ export function Publications() {
             Read about us in renowned publications, each underlining our
             dedication to excellence and innovation.
           </p>
-          <Button href="#collaborate" variant="primary" className="mt-8">
+          <Button
+            href="#collaborate"
+            variant="primary"
+            className="mt-8"
+            track={{
+              name: "consultation_cta_click",
+              params: { cta_label: "Let's talk", location: "publications" },
+            }}
+          >
             Let&apos;s talk
           </Button>
           {/* Progress rail (lg motion only) */}

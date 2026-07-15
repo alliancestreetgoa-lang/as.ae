@@ -85,7 +85,15 @@ export function Collaborate() {
           text="Go where you're treated best."
           className="font-display mt-6 max-w-2xl text-[40px] leading-[1.05] tracking-[-0.03em] text-as-ink sm:text-[56px] lg:text-[64px]"
         />
-        <Button href="/contact-us" variant="primary" className="mt-10">
+        <Button
+          href="/contact-us"
+          variant="primary"
+          className="mt-10"
+          track={{
+            name: "consultation_cta_click",
+            params: { cta_label: "Get in Touch", location: "collaborate" },
+          }}
+        >
           Get in Touch
         </Button>
       </Reveal>

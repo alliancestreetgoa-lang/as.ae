@@ -1,6 +1,7 @@
 import { Button } from "@/components/primitives/Button";
 import { Reveal } from "@/components/motion/Reveal";
 import { SplitReveal } from "@/components/motion/SplitReveal";
+import type { AnalyticsEvent } from "@/lib/analytics";
 
 /**
  * GradientHero — centered hero over the black -> red -> white brand gradient
@@ -17,12 +18,20 @@ export function GradientHero({
   subtitle,
   cta = "Let's talk",
   ctaHref = "/contact-us",
+  ctaTrack,
 }: {
   title: string;
   subtitle: string;
   cta?: string;
   ctaHref?: string;
+  /** Overrides the default `consultation_cta_click` event fired by this
+   *  hero's CTA. Optional — most callers can rely on the default below. */
+  ctaTrack?: AnalyticsEvent;
 }) {
+  const track: AnalyticsEvent = ctaTrack ?? {
+    name: "consultation_cta_click",
+    params: { cta_label: cta, location: "gradient_hero" },
+  };
   return (
     <section className="bg-as-canvas pt-[82px]">
       <div className="as-container flex min-h-[78vh] flex-col items-center justify-center py-24 text-center">
@@ -41,7 +50,7 @@ export function GradientHero({
           {subtitle}
         </Reveal>
         <Reveal as="div" y={18} delay={0.2} className="mt-10">
-          <Button href={ctaHref} variant="ink">
+          <Button href={ctaHref} variant="ink" track={track}>
             {cta}
           </Button>
         </Reveal>
