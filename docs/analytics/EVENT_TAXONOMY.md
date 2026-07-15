@@ -163,9 +163,10 @@ this on):
   stored value's `captured_at` timestamp is older than 90 days, the next
   `captureAttribution()` call treats it as stale and overwrites it with a
   fresh capture from the current page. This is a business-logic assumption
-  (a reasonably generous B2B sales-cycle window) rather than a technical
-  constraint — see `task-b-report.md` for the reasoning and the flag that
-  it may need tuning against real conversion-lag data.
+  (a reasonably generous B2B sales-cycle window for company formation /
+  banking / advisory services) rather than a technical constraint — it may
+  need tuning if real conversion-lag data shows leads regularly convert
+  later than this and lose their original attribution as a result.
 - **Attaching to `lead_submitted`**: when the lead-intake form submission
   succeeds, `ChatWidget.tsx` calls `getStoredAttribution()` and copies only
   the 4 allowlisted fields (`utm_source`, `utm_medium`, `utm_campaign`,

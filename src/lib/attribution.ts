@@ -15,7 +15,12 @@
 
 const ATTRIBUTION_STORAGE_KEY = "as_attribution_v1";
 
-/** 90 days — see task report for the reasoning behind this window. */
+/**
+ * 90 days — a reasonably generous B2B sales-cycle window for this business
+ * (company formation / banking / advisory), not a technical constraint. May
+ * need tuning if real conversion-lag data shows leads regularly convert
+ * later than this and lose their original attribution as a result.
+ */
 const ATTRIBUTION_MAX_AGE_MS = 90 * 24 * 60 * 60 * 1000;
 
 export interface Attribution {
