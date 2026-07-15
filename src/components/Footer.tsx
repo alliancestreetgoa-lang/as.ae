@@ -29,8 +29,11 @@ const LINK_CLASS =
  * white-opacity text scale, and `as-red` hover/label accents; and swapped
  * its raw `<a>` internal links for `next/link` where `FOOTER_COLUMNS`
  * hrefs are internal routes (matching the convention already used in
- * `Navbar.tsx`), keeping plain `<a>` only for the `#`-anchor placeholders.
- * No framer-motion in the source, so nothing needed converting there.
+ * `Navbar.tsx`). The raw-`<a>` branch (`isInternal` false) is defensive
+ * future-proofing for any non-internal link — external URL or `#`-anchor —
+ * that might be added later; every `FOOTER_COLUMNS` href today starts with
+ * `/`, so that branch is currently unused. No framer-motion in the source,
+ * so nothing needed converting there.
  *
  * The "Get in Touch" CTA and its `#collaborate` target are unchanged from
  * the pre-redesign footer (that anchor is `Collaborate.tsx`'s `Section

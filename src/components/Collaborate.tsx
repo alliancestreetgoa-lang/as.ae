@@ -103,7 +103,7 @@ export function Collaborate() {
 
         {/* outer ring: orbit-1, orbit-3, orbit-5 */}
         <div className="absolute inset-0 animate-[as-orbit_70s_linear_infinite] motion-reduce:[animation:none]">
-          {OUTER_RING.map((avatar, idx) => (
+          {OUTER_RING.map((avatar) => (
             <div
               key={avatar.src}
               className="absolute h-16 w-16 -translate-x-1/2 -translate-y-1/2 sm:h-20 sm:w-20"
@@ -112,7 +112,7 @@ export function Collaborate() {
               <div className="h-full w-full animate-[as-orbit-reverse_70s_linear_infinite] overflow-hidden rounded-full shadow-lg ring-1 ring-black/5 motion-reduce:[animation:none]">
                 <Image
                   src={avatar.src}
-                  alt={`Collaborator ${idx * 2 + 1}`}
+                  alt=""
                   width={80}
                   height={80}
                   className="h-full w-full object-cover"
@@ -124,7 +124,7 @@ export function Collaborate() {
 
         {/* inner ring: orbit-2, orbit-4, orbit-6, opposite direction */}
         <div className="absolute inset-[18%] animate-[as-orbit-reverse_55s_linear_infinite] motion-reduce:[animation:none]">
-          {INNER_RING.map((avatar, idx) => (
+          {INNER_RING.map((avatar) => (
             <div
               key={avatar.src}
               className="absolute h-14 w-14 -translate-x-1/2 -translate-y-1/2 sm:h-16 sm:w-16"
@@ -133,7 +133,7 @@ export function Collaborate() {
               <div className="h-full w-full animate-[as-orbit_55s_linear_infinite] overflow-hidden rounded-full shadow-lg ring-1 ring-black/5 motion-reduce:[animation:none]">
                 <Image
                   src={avatar.src}
-                  alt={`Collaborator ${idx * 2 + 2}`}
+                  alt=""
                   width={64}
                   height={64}
                   className="h-full w-full object-cover"
