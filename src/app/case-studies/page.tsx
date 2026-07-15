@@ -368,12 +368,19 @@ export default function CaseStudiesPage() {
               >
                 Banking Solutions
               </Link>
-              , and{" "}
+              ,{" "}
               <Link
                 href="/bookkeeping-accounting"
                 className="text-as-red underline-offset-4 hover:underline"
               >
                 Accounting Service
+              </Link>
+              , and{" "}
+              <Link
+                href="/real-estate"
+                className="text-as-red underline-offset-4 hover:underline"
+              >
+                Real Estate
               </Link>
               .
             </p>
