@@ -44,10 +44,21 @@ export type AnalyticsEvent =
   | { name: "chat_first_question"; params: Record<string, never> }
   | { name: "form_start"; params: { form_name: string } }
   | { name: "form_submit"; params: { form_name: string } }
-  // Deliberately empty: every field on the site's one lead form
-  // (ChatWidget's LEAD_FIELDS) is free text, so this conversion event
-  // carries no field values, just the fact that a lead was submitted.
-  | { name: "lead_submitted"; params: Record<string, never> }
+  // Every field on the site's one lead form (ChatWidget's LEAD_FIELDS) is
+  // free text and never sent here. The params below are the exception:
+  // campaign/attribution data is not user-entered PII — it's either a
+  // marketing-team-controlled campaign tag or an internal site path — so
+  // it's safe to attach for conversion attribution. Sourced from
+  // `getStoredAttribution()` in `src/lib/attribution.ts`.
+  | {
+      name: "lead_submitted";
+      params: {
+        utm_source?: string;
+        utm_medium?: string;
+        utm_campaign?: string;
+        landing_page?: string;
+      };
+    }
   | {
       name: "lead_qualified";
       params: {
@@ -81,7 +92,12 @@ const EVENT_PARAM_ALLOWLIST: Record<AnalyticsEventName, readonly string[]> = {
   chat_first_question: [],
   form_start: ["form_name"],
   form_submit: ["form_name"],
-  lead_submitted: [],
+  lead_submitted: [
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "landing_page",
+  ],
   lead_qualified: ["qualification_result"],
   booking_started: ["booking_type"],
   booking_completed: ["booking_type"],

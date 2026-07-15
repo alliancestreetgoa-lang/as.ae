@@ -5,6 +5,7 @@ import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { ScrollProgress } from "@/components/motion/ScrollProgress";
 import { ChatWidget } from "@/components/ChatWidget";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
+import { AttributionCapture } from "@/components/analytics/AttributionCapture";
 import { organizationSchema, websiteSchema } from "@/lib/schema";
 import { SITE_URL, shouldIndex } from "@/lib/site-config";
 
@@ -66,6 +67,7 @@ export default function RootLayout({
         />
         <SmoothScroll />
         <ScrollProgress />
+        <AttributionCapture />
         <GoogleAnalytics />
         {children}
         <ChatWidget />
