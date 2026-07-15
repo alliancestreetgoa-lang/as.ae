@@ -14,6 +14,8 @@ import {
   CHAT_GREETING,
   CHAT_SUGGESTIONS,
 } from "@/lib/chat-config";
+import { trackEvent } from "@/lib/analytics";
+import { getStoredAttribution } from "@/lib/attribution";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -101,6 +103,9 @@ export function ChatWidget() {
   const [leadSubmitting, setLeadSubmitting] = useState(false);
   const [leadError, setLeadError] = useState<string | null>(null);
 
+  const hasFiredFirstQuestion = useRef(false);
+  const hasFiredFormStart = useRef(false);
+
   // Restore a previously-submitted lead so returning visitors aren't gated again.
   useEffect(() => {
     try {
@@ -119,6 +124,15 @@ export function ChatWidget() {
   // Focus the input when the panel opens.
   useEffect(() => {
     if (open) inputRef.current?.focus();
+  }, [open]);
+
+  // Fire chat_opened on every closed→open transition (both the launcher
+  // button and the header toggle funnel through the same `open` state, so
+  // watching the state here uniformly covers both without needing to
+  // determine per-click whether it opened or closed the panel). Skipped on
+  // mount because `open` starts `false`, and not fired on open→false.
+  useEffect(() => {
+    if (open) trackEvent({ name: "chat_opened", params: {} });
   }, [open]);
 
   // Esc closes the panel.
@@ -154,6 +168,7 @@ export function ChatWidget() {
 
     setLeadSubmitting(true);
     setLeadError(null);
+    trackEvent({ name: "form_submit", params: { form_name: "lead_intake" } });
     try {
       const res = await fetch(`${CHAT_ENDPOINT}/lead`, {
         method: "POST",
@@ -167,6 +182,18 @@ export function ChatWidget() {
 
       setLead(leadForm);
       setQualified(Boolean(data.qualified));
+      const attribution = getStoredAttribution();
+      trackEvent({
+        name: "lead_submitted",
+        params: attribution
+          ? {
+              utm_source: attribution.utm_source,
+              utm_medium: attribution.utm_medium,
+              utm_campaign: attribution.utm_campaign,
+              landing_page: attribution.landing_page,
+            }
+          : {},
+      });
       try {
         localStorage.setItem(
           LEAD_STORAGE_KEY,
@@ -182,9 +209,20 @@ export function ChatWidget() {
     }
   }
 
+  function handleLeadFieldFocus() {
+    if (hasFiredFormStart.current) return;
+    hasFiredFormStart.current = true;
+    trackEvent({ name: "form_start", params: { form_name: "lead_intake" } });
+  }
+
   async function send(text: string) {
     const trimmed = text.trim();
     if (!trimmed || loading) return;
+
+    if (!hasFiredFirstQuestion.current) {
+      hasFiredFirstQuestion.current = true;
+      trackEvent({ name: "chat_first_question", params: {} });
+    }
 
     const next: Msg[] = [...messages, { role: "user", content: trimmed }];
     setMessages(next);
@@ -322,6 +360,7 @@ export function ChatWidget() {
                   onChange={(e) =>
                     setLeadForm((f) => ({ ...f, [key]: e.target.value }))
                   }
+                  onFocus={handleLeadFieldFocus}
                   placeholder={placeholder}
                   className="mt-1 w-full rounded-lg border border-as-line bg-white px-3 py-2 text-[14px] text-as-ink outline-none transition-colors placeholder:text-as-muted/70 focus:border-as-red/50"
                 />
