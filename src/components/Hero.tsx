@@ -140,7 +140,14 @@ export function Hero() {
           </p>
 
           <div ref={ctaRef} className="mt-8 flex flex-wrap items-center gap-6">
-            <Button href="#collaborate" variant="primary">
+            <Button
+              href="#collaborate"
+              variant="primary"
+              track={{
+                name: "consultation_cta_click",
+                params: { cta_label: "Let's talk", location: "hero" },
+              }}
+            >
               Let&apos;s talk
             </Button>
             <Button href="#solutions" variant="outline" arrow>

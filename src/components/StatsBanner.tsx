@@ -89,7 +89,15 @@ export function StatsBanner({
             {quote}
           </p>
           {showButton && (
-            <Button href="/contact-us" variant="primary" className="mt-8">
+            <Button
+              href="/contact-us"
+              variant="primary"
+              className="mt-8"
+              track={{
+                name: "consultation_cta_click",
+                params: { cta_label: "About Us", location: "stats_banner_light" },
+              }}
+            >
               About Us
             </Button>
           )}
@@ -123,7 +131,15 @@ export function StatsBanner({
             {quote}
           </p>
           {showButton && (
-            <Button href="/contact-us" variant="white" className="mt-8">
+            <Button
+              href="/contact-us"
+              variant="white"
+              className="mt-8"
+              track={{
+                name: "consultation_cta_click",
+                params: { cta_label: "About Us", location: "stats_banner_dark" },
+              }}
+            >
               About Us
             </Button>
           )}

@@ -4,6 +4,7 @@ import { Frame } from "@/components/primitives/Frame";
 import { Reveal } from "@/components/motion/Reveal";
 import { SplitReveal } from "@/components/motion/SplitReveal";
 import { Parallax } from "@/components/motion/Parallax";
+import type { AnalyticsEvent } from "@/lib/analytics";
 
 /**
  * ImageHero — full-bleed image hero with dark overlay and left-aligned title
@@ -18,13 +19,21 @@ export function ImageHero({
   image,
   cta = "Get started",
   ctaHref = "/contact-us",
+  ctaTrack,
 }: {
   title: string;
   subtitle: string;
   image: string;
   cta?: string;
   ctaHref?: string;
+  /** Overrides the default `consultation_cta_click` event fired by this
+   *  hero's CTA. Optional — most callers can rely on the default below. */
+  ctaTrack?: AnalyticsEvent;
 }) {
+  const track: AnalyticsEvent = ctaTrack ?? {
+    name: "consultation_cta_click",
+    params: { cta_label: cta, location: "image_hero" },
+  };
   return (
     <section className="relative isolate overflow-hidden bg-as-ink pt-[82px]">
       <Parallax className="absolute inset-0" amount={120}>
@@ -55,7 +64,7 @@ export function ImageHero({
             {subtitle}
           </Reveal>
           <Reveal as="div" y={18} delay={0.2} className="mt-10 w-fit">
-            <Button href={ctaHref} variant="primary">
+            <Button href={ctaHref} variant="primary" track={track}>
               {cta}
             </Button>
           </Reveal>

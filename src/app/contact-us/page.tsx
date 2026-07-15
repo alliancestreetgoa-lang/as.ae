@@ -10,6 +10,7 @@ import { Footer } from "@/components/Footer";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Section } from "@/components/primitives/Section";
 import { Reveal } from "@/components/motion/Reveal";
+import { TrackedLink } from "@/components/analytics/TrackedLink";
 import { FOUNDER, REGIONS } from "@/lib/content";
 
 export const metadata = pageMeta({
@@ -70,18 +71,20 @@ export default function ContactUsPage() {
                       <p className="text-[15px] leading-relaxed text-as-muted">
                         {o.address}
                       </p>
-                      <a
+                      <TrackedLink
                         href={`tel:${o.phone.replace(/\s/g, "")}`}
                         className="mt-2 block text-[15px] text-as-ink hover:text-as-red"
+                        track={{ name: "contact_click", params: { method: "phone" } }}
                       >
                         {o.phone}
-                      </a>
-                      <a
+                      </TrackedLink>
+                      <TrackedLink
                         href={`mailto:${o.email}`}
                         className="block text-[15px] text-as-red"
+                        track={{ name: "contact_click", params: { method: "email" } }}
                       >
                         {o.email}
-                      </a>
+                      </TrackedLink>
                     </Reveal>
                   ))}
                 </div>

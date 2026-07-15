@@ -60,7 +60,15 @@ export function Footer() {
             Compliant.
           </Reveal>
 
-          <Button href="#collaborate" variant="primary" className="mt-10">
+          <Button
+            href="#collaborate"
+            variant="primary"
+            className="mt-10"
+            track={{
+              name: "consultation_cta_click",
+              params: { cta_label: "Get in Touch", location: "footer" },
+            }}
+          >
             Get in Touch
           </Button>
         </div>

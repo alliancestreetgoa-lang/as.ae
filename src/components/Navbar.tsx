@@ -100,6 +100,10 @@ export function Navbar({
             variant="primary"
             size="sm"
             className="hidden shrink-0 sm:inline-flex"
+            track={{
+              name: "nav_cta_click",
+              params: { cta_label: "Get in Touch", location: "navbar_desktop" },
+            }}
           >
             Get in Touch
           </Button>
@@ -157,6 +161,10 @@ export function Navbar({
                 size="sm"
                 onClick={closeMobile}
                 className="w-full"
+                track={{
+                  name: "nav_cta_click",
+                  params: { cta_label: "Get in Touch", location: "navbar_mobile" },
+                }}
               >
                 Get in Touch
               </Button>

@@ -93,7 +93,15 @@ export default function RealEstatePage() {
                 Our Developer Connections can and will help you access deals no Agent in
                 Dubai can afford to offer:
               </p>
-              <Button href="/contact-us" variant="ink" className="mt-8">
+              <Button
+                href="/contact-us"
+                variant="ink"
+                className="mt-8"
+                track={{
+                  name: "consultation_cta_click",
+                  params: { cta_label: "Let's talk", location: "real_estate_hero" },
+                }}
+              >
                 Let&apos;s talk
               </Button>
               <p className="mt-4 text-sm text-as-muted">
@@ -188,7 +196,18 @@ export default function RealEstatePage() {
                 reputation for providing trusted, reliable advice that clients can count
                 on.
               </p>
-              <Button href="/contact-us" variant="white" className="mt-8">
+              <Button
+                href="/contact-us"
+                variant="white"
+                className="mt-8"
+                track={{
+                  name: "consultation_cta_click",
+                  params: {
+                    cta_label: "Tell us how we can help you",
+                    location: "real_estate_stats",
+                  },
+                }}
+              >
                 Tell us how we can help you
               </Button>
             </Reveal>

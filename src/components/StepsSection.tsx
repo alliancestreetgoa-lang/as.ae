@@ -91,7 +91,16 @@ export function StepsSection({
         <p className="mt-5 max-w-lg text-[15px] leading-relaxed text-as-muted">
           {step.body}
         </p>
-        <Button href="/contact-us" variant="ink" arrow className="mt-8 w-fit">
+        <Button
+          href="/contact-us"
+          variant="ink"
+          arrow
+          className="mt-8 w-fit"
+          track={{
+            name: "consultation_cta_click",
+            params: { cta_label: cta, location: "steps_section" },
+          }}
+        >
           {cta}
         </Button>
       </div>

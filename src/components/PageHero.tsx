@@ -2,6 +2,7 @@ import { Button } from "@/components/primitives/Button";
 import { Globe } from "@/components/Globe";
 import { Reveal } from "@/components/motion/Reveal";
 import { SplitReveal } from "@/components/motion/SplitReveal";
+import type { AnalyticsEvent } from "@/lib/analytics";
 
 /**
  * PageHero — centered light hero used across sub-pages ("Are you next?"
@@ -15,13 +16,21 @@ export function PageHero({
   cta = "Get in Touch",
   ctaHref = "/contact-us",
   globe = false,
+  ctaTrack,
 }: {
   title: string;
   subtitle: string;
   cta?: string;
   ctaHref?: string;
   globe?: boolean;
+  /** Overrides the default `consultation_cta_click` event fired by this
+   *  hero's CTA. Optional — most callers can rely on the default below. */
+  ctaTrack?: AnalyticsEvent;
 }) {
+  const track: AnalyticsEvent = ctaTrack ?? {
+    name: "consultation_cta_click",
+    params: { cta_label: cta, location: "page_hero" },
+  };
   return (
     <section className="relative isolate overflow-hidden bg-as-canvas pt-[82px]">
       {/* Decorative light WebGL globe rising from the bottom-centre. */}
@@ -57,7 +66,7 @@ export function PageHero({
           {subtitle}
         </Reveal>
         <Reveal as="div" y={18} delay={0.2} className="mt-10">
-          <Button href={ctaHref} variant="primary">
+          <Button href={ctaHref} variant="primary" track={track}>
             {cta}
           </Button>
         </Reveal>

@@ -107,7 +107,16 @@ export function Solutions() {
               <p className="mt-4 max-w-[26ch] text-[15px] leading-relaxed text-as-muted">
                 Tell us where you want to go — we&apos;ll design the UAE setup around it.
               </p>
-              <Button href="#collaborate" variant="primary" arrow className="mt-8 w-fit">
+              <Button
+                href="#collaborate"
+                variant="primary"
+                arrow
+                className="mt-8 w-fit"
+                track={{
+                  name: "consultation_cta_click",
+                  params: { cta_label: "Get in Touch", location: "solutions_primary_card" },
+                }}
+              >
                 Get in Touch
               </Button>
             </div>
@@ -147,7 +156,15 @@ export function Solutions() {
                 <p className="text-[15px] text-as-muted">businesses trust our services</p>
               </div>
             </div>
-            <Button href="#collaborate" variant="ink" arrow>
+            <Button
+              href="#collaborate"
+              variant="ink"
+              arrow
+              track={{
+                name: "consultation_cta_click",
+                params: { cta_label: "Get in Touch", location: "solutions_trust_strip" },
+              }}
+            >
               Get in Touch
             </Button>
           </div>
@@ -165,7 +182,15 @@ export function Solutions() {
           structures, we help you legally minimize your tax liability &amp; protect
           your wealth for generations to come.
         </p>
-        <Button href="#collaborate" variant="ink" className="shrink-0">
+        <Button
+          href="#collaborate"
+          variant="ink"
+          className="shrink-0"
+          track={{
+            name: "consultation_cta_click",
+            params: { cta_label: "Get in Touch", location: "solutions_closing" },
+          }}
+        >
           Get in Touch
         </Button>
       </Reveal>
