@@ -1,5 +1,6 @@
 import { pageMeta } from "@/lib/seo";
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/primitives/Button";
 import { SplitReveal } from "@/components/motion/SplitReveal";
 import { Navbar } from "@/components/Navbar";
@@ -95,6 +96,16 @@ export default function RealEstatePage() {
               <Button href="/contact-us" variant="ink" className="mt-8">
                 Let&apos;s talk
               </Button>
+              <p className="mt-4 text-sm text-as-muted">
+                Financing the purchase? See our{" "}
+                <Link
+                  href="/financial-services"
+                  className="text-as-red underline-offset-4 hover:underline"
+                >
+                  mortgage &amp; financing services
+                </Link>
+                .
+              </p>
             </Reveal>
           </div>
         </section>

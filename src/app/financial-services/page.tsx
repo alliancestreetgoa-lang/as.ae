@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { pageMeta } from "@/lib/seo";
 import { Navbar } from "@/components/Navbar";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -98,6 +99,16 @@ export default function FinancialServicesPage() {
           title="UAE Corporate Tax, Compliance & Financial Advisory Services"
           subtitle="Getting a mortgage doesn't have to be complicated. At Alliance Street, we cut the noise and deliver solutions banks can't."
         />
+        <p className="as-container pb-10 text-center text-sm text-as-muted">
+          Haven&apos;t found the right property yet? Browse our{" "}
+          <Link
+            href="/real-estate"
+            className="text-as-red underline-offset-4 hover:underline"
+          >
+            Dubai real estate listings
+          </Link>{" "}
+          before you finance.
+        </p>
         <FeatureGrid
           eyebrow="HERE'S WHY WE'RE YOUR GO-TO FOR FUNDING"
           title="First-time buyer? Refinancing? Doesn't matter—we've got you."
