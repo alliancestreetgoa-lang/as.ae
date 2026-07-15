@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Building2, Landmark, BarChart3, LineChart } from "lucide-react";
 import { Button } from "@/components/primitives/Button";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
@@ -39,10 +40,11 @@ function SolutionTile({
   const Icon = ICONS[item.icon];
   return (
     <Reveal as="div" y={24} scale={0.96} delay={delay} className={cn("h-full", className)}>
-      <div
+      <Link
+        href={item.href}
         className={cn(
           HOVER_LIFT,
-          "group rounded-[20px] border border-as-line bg-as-canvas p-8 hover:border-as-red/40"
+          "group block rounded-[20px] border border-as-line bg-as-canvas p-8 hover:border-as-red/40"
         )}
       >
         <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-as-red/50 text-as-red transition-transform duration-300 ease-out group-hover:-rotate-6 group-hover:scale-110 motion-reduce:transition-none motion-reduce:group-hover:rotate-0 motion-reduce:group-hover:scale-100">
@@ -52,7 +54,7 @@ function SolutionTile({
           {item.title}
         </h3>
         <p className="text-[15px] leading-relaxed text-as-muted">{item.description}</p>
-      </div>
+      </Link>
     </Reveal>
   );
 }

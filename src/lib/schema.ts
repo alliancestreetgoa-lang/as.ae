@@ -1,4 +1,4 @@
-import { PUBLICATIONS, REGIONS } from "@/lib/content";
+import { FOUNDER, PUBLICATIONS, REGIONS } from "@/lib/content";
 import { SITE_URL } from "@/lib/site-config";
 
 export const ORG_NAME = "Alliance Street Consultancy";
@@ -37,8 +37,8 @@ export function organizationSchema() {
     },
     founder: {
       "@type": "Person",
-      name: "Stallone Shaikh",
-      jobTitle: "Founder & CEO",
+      name: FOUNDER.name,
+      jobTitle: FOUNDER.jobTitle,
     },
     sameAs: [
       "https://ae.linkedin.com/company/alliancestreetconsultancy",
@@ -89,6 +89,47 @@ export function serviceSchema({
       name: ORG_NAME,
       url: `${SITE_URL}/`,
     },
+  };
+}
+
+/**
+ * Article/BlogPosting schema for future resources/blog/guides content.
+ * `path` is the route segment (e.g. "resources/some-guide") used to build
+ * the canonical page URL, matching `serviceSchema`'s URL construction.
+ * `author` defaults to the Organization (via `authorName`); `dateModified`
+ * defaults to `datePublished` when the page hasn't been updated since.
+ * `publisher` references the Organization by `@id`, mirroring how
+ * `websiteSchema`'s publisher references the org. Not yet called anywhere —
+ * ready for a future resources/blog feature to adopt.
+ */
+export function articleSchema({
+  headline,
+  description,
+  path,
+  datePublished,
+  dateModified,
+  authorName = ORG_NAME,
+}: {
+  headline: string;
+  description: string;
+  path: string;
+  datePublished: string;
+  dateModified?: string;
+  authorName?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline,
+    description,
+    url: `${SITE_URL}/${path}/`,
+    datePublished,
+    dateModified: dateModified ?? datePublished,
+    author:
+      authorName === ORG_NAME
+        ? { "@type": "Organization", name: ORG_NAME, url: `${SITE_URL}/` }
+        : { "@type": "Person", name: authorName },
+    publisher: { "@id": `${SITE_URL}/#organization` },
   };
 }
 

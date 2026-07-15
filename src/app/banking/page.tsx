@@ -1,5 +1,6 @@
 import { pageMeta } from "@/lib/seo";
 import { Navbar } from "@/components/Navbar";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { ImageHero } from "@/components/ImageHero";
 import { InfoBlocks, type InfoBlock } from "@/components/InfoBlocks";
 import { StepsSection, type Step } from "@/components/StepsSection";
@@ -76,6 +77,12 @@ export default function BankingPage() {
         }}
       />
       <Navbar alwaysSolid />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Banking", href: "/banking" },
+        ]}
+      />
       <main>
         <ImageHero
           title="UAE Business Bank Account Opening & Banking Support"

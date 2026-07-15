@@ -1,6 +1,7 @@
 import { pageMeta } from "@/lib/seo";
 import Image from "next/image";
 import { Navbar } from "@/components/Navbar";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { Button } from "@/components/primitives/Button";
 import { Frame } from "@/components/primitives/Frame";
 import { Parallax } from "@/components/motion/Parallax";
@@ -59,6 +60,12 @@ export default function BookkeepingAccountingPage() {
         }}
       />
       <Navbar overLight />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Bookkeeping & Accounting", href: "/bookkeeping-accounting" },
+        ]}
+      />
       <main>
         <GradientHero
           title="Bookkeeping, Accounting & VAT Services in Dubai"

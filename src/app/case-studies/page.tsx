@@ -1,6 +1,8 @@
+import Link from "next/link";
 import { pageMeta } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/schema";
 import { Navbar } from "@/components/Navbar";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { GradientHero } from "@/components/GradientHero";
 import { Section } from "@/components/primitives/Section";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
@@ -327,6 +329,12 @@ export default function CaseStudiesPage() {
         }}
       />
       <Navbar />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Case Studies", href: "/case-studies" },
+        ]}
+      />
       <main>
         <GradientHero
           title="Case Studies"
@@ -343,6 +351,38 @@ export default function CaseStudiesPage() {
               ranges to protect confidentiality. The situation, structure,
               and outcome are kept intact. Figures are illustrative and vary
               by individual circumstances.
+            </p>
+
+            <p className="mt-4 text-[14px] leading-relaxed text-as-muted">
+              Related services:{" "}
+              <Link
+                href="/dubai-business-setup"
+                className="text-as-red underline-offset-4 hover:underline"
+              >
+                Dubai Business Setup
+              </Link>
+              ,{" "}
+              <Link
+                href="/banking"
+                className="text-as-red underline-offset-4 hover:underline"
+              >
+                Banking Solutions
+              </Link>
+              ,{" "}
+              <Link
+                href="/bookkeeping-accounting"
+                className="text-as-red underline-offset-4 hover:underline"
+              >
+                Accounting Service
+              </Link>
+              , and{" "}
+              <Link
+                href="/real-estate"
+                className="text-as-red underline-offset-4 hover:underline"
+              >
+                Real Estate
+              </Link>
+              .
             </p>
 
             <div className="mt-10 divide-y divide-as-line border-t border-as-line">

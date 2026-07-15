@@ -38,6 +38,9 @@ jobs:
           NEXT_PUBLIC_SITE_URL: https://shaukinsv.com
           NEXT_PUBLIC_SITE_ENVIRONMENT: staging
 
+      - name: SEO validation
+        run: npm run verify:seo
+
   verify-domain-config:
     runs-on: ubuntu-latest
     timeout-minutes: 15

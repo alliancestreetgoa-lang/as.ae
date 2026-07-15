@@ -1,6 +1,8 @@
+import Link from "next/link";
 import { pageMeta } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/schema";
 import { Navbar } from "@/components/Navbar";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { GradientHero } from "@/components/GradientHero";
 import { Section } from "@/components/primitives/Section";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
@@ -16,7 +18,11 @@ export const metadata = pageMeta({
 });
 
 type FaqItem = { q: string; a: string };
-type FaqCategory = { category: string; items: FaqItem[] };
+type FaqCategory = {
+  category: string;
+  items: FaqItem[];
+  relatedService?: { label: string; href: string };
+};
 
 const FAQ: FaqCategory[] = [
   {
@@ -96,6 +102,7 @@ const FAQ: FaqCategory[] = [
   },
   {
     category: "Banking",
+    relatedService: { label: "Banking Solutions", href: "/banking" },
     items: [
       {
         q: "Will I have trouble opening a UAE bank account?",
@@ -167,6 +174,7 @@ const FAQ: FaqCategory[] = [
   },
   {
     category: "UAE Corporate Tax & Small Business Relief",
+    relatedService: { label: "Accounting Service", href: "/bookkeeping-accounting" },
     items: [
       {
         q: "How much can my UAE company earn before paying any tax?",
@@ -188,6 +196,7 @@ const FAQ: FaqCategory[] = [
   },
   {
     category: "Golden Visa & Investment Residency",
+    relatedService: { label: "Real Estate", href: "/real-estate" },
     items: [
       {
         q: "What do I need to qualify for a UAE Golden Visa?",
@@ -230,6 +239,7 @@ const FAQ: FaqCategory[] = [
   },
   {
     category: "VAT",
+    relatedService: { label: "Accounting Service", href: "/bookkeeping-accounting" },
     items: [
       {
         q: "Can moving my UK service business to a UAE entity reduce my VAT bill?",
@@ -273,6 +283,12 @@ export default function FaqPage() {
         }}
       />
       <Navbar />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "FAQ", href: "/faq" },
+        ]}
+      />
       <main>
         <GradientHero
           title="Frequently Asked Questions"
@@ -287,6 +303,14 @@ export default function FaqPage() {
                 <h2 className="font-display mt-4 text-[26px] leading-tight tracking-[-0.02em] text-as-ink sm:text-[32px]">
                   {cat.category}
                 </h2>
+                {cat.relatedService && (
+                  <Link
+                    href={cat.relatedService.href}
+                    className="mt-3 flex w-fit items-center gap-1.5 font-mono text-xs uppercase tracking-[0.15em] text-as-muted transition-colors hover:text-as-red"
+                  >
+                    Related: {cat.relatedService.label} →
+                  </Link>
+                )}
                 <div className="mt-6 divide-y divide-as-line border-t border-as-line">
                   {cat.items.map((item) => (
                     <details key={item.q} className="group py-5">

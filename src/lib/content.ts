@@ -9,6 +9,13 @@ import type {
   Region,
 } from "@/types";
 
+/**
+ * The company founder's name/title, centralized so every consumer (schema.ts
+ * structured data, page copy) references one source instead of duplicating
+ * the literal string.
+ */
+export const FOUNDER = { name: "Stallone Shaikh", jobTitle: "Founder & CEO" };
+
 export const NAV_ITEMS: NavItem[] = [
   { label: "Business Setup", href: "/dubai-business-setup" },
   { label: "Banking Solutions", href: "/banking" },
@@ -23,24 +30,28 @@ export const SOLUTIONS: SolutionCard[] = [
     description:
       "Our expert team of business strategists and international tax lawyers crafts tailored solutions to help businesses and their owners minimise tax liabilities, diversify assets and secure their wealth in the UAE.",
     icon: "setup",
+    href: "/dubai-business-setup",
   },
   {
     title: "Business/Private Banking",
     description:
       "Beyond business setup and expansion, leveraging our strong network connections we can guarantee bank account openings at prestigious banks and financial institutions of your choice - in a matter of hours or days.",
     icon: "banking",
+    href: "/banking",
   },
   {
     title: "Finance & Compliance",
     description:
       "To ensure accuracy and compliance, we provide comprehensive financial services, including bookkeeping, financial reporting, tax planning, auditing, and payroll management.",
     icon: "finance",
+    href: "/bookkeeping-accounting",
   },
   {
     title: "Strategic Investments",
     description:
       "Ultimately, we help clients strategically invest their new-won tax savings in a range of opportunities, such as prime real estate, offering exclusive deals inaccessible to the general public.",
     icon: "investment",
+    href: "/real-estate",
   },
 ];
 

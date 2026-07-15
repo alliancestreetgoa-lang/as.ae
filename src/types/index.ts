@@ -7,6 +7,7 @@ export interface SolutionCard {
   title: string;
   description: string;
   icon: "setup" | "banking" | "finance" | "investment";
+  href: string;
 }
 
 export interface ValueItem {

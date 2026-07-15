@@ -144,7 +144,7 @@ export function Publications() {
                   <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden rounded-t-[20px] bg-as-line/50">
                     <Image
                       src={pub.image}
-                      alt={pub.outlet}
+                      alt=""
                       fill
                       sizes="(min-width: 1024px) 400px, 85vw"
                       className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"

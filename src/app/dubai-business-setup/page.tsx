@@ -1,5 +1,6 @@
 import { pageMeta } from "@/lib/seo";
 import { Navbar } from "@/components/Navbar";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { PageHero } from "@/components/PageHero";
 import { Mission } from "@/components/Mission";
 import { Stats3 } from "@/components/Stats3";
@@ -90,6 +91,12 @@ export default function DubaiBusinessSetupPage() {
         }}
       />
       <Navbar overLight />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Dubai Business Setup", href: "/dubai-business-setup" },
+        ]}
+      />
       <main>
         <PageHero
           title="Are you next?"
