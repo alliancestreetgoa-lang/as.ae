@@ -36,6 +36,7 @@
     "verify:staging": "NEXT_PUBLIC_SITE_URL=https://shaukinsv.com NEXT_PUBLIC_SITE_ENVIRONMENT=staging next build && node scripts/verify-build.mjs staging",
     "verify:production": "NEXT_PUBLIC_SITE_URL=https://alliancestreet.ae NEXT_PUBLIC_SITE_ENVIRONMENT=production next build && node scripts/verify-build.mjs production",
     "verify:seo": "node scripts/verify-seo.mjs",
+    "verify:analytics": "node --no-warnings scripts/verify-analytics.mjs",
     "verify:all": "npm run verify:staging && npm run verify:production"
   },
   "dependencies": {
